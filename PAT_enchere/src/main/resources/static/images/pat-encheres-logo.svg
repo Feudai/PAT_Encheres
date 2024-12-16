@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 200">
+  <!-- Fond dégradé -->
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4A90E2;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#50C878;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Forme de base du logo -->
+  <rect width="300" height="200" rx="20" ry="20" fill="url(#bgGradient)"/>
+  
+  <!-- Marteau de commissaire-priseur stylisé -->
+  <path d="M150 60 L180 30 L220 70 L190 100 Z" fill="#FFFFFF"/>
+  <rect x="175" y="80" width="10" height="60" transform="rotate(45 180 110)" fill="#FFFFFF"/>
+  
+  <!-- Texte PAT Enchères -->
+  <text x="150" y="150" font-family="Arial, sans-serif" font-size="30" font-weight="bold" text-anchor="middle" fill="#FFFFFF">
+    PAT Enchères
+  </text>
+</svg>

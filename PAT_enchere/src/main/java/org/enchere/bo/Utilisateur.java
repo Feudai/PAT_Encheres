@@ -2,6 +2,8 @@ package org.enchere.bo;
 
 import java.util.List;
 
+import org.enchere.bll.UtilisateurService;
+
 public class Utilisateur {
 
 	private int noUtilisateur;
@@ -20,7 +22,7 @@ public class Utilisateur {
 	private List<Enchere> articlesAEncherir;
 	private List<ArticleVendu> articleAAcheter;
 	
-	
+		
 	public Utilisateur(int noUtilisateur, String pseudo, String nom, String prenom, String email, String telephone,
 			Adresse adresse, String motDePasse, float credit, boolean administrateur,
 			List<ArticleVendu> articlesAVendre, List<Enchere> articlesAEncherir, List<ArticleVendu> articleAAcheter) {

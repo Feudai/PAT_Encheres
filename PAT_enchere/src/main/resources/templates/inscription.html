@@ -8,7 +8,10 @@
 	<header>
 		<div th:replace="~{fragments/fragment-entete::entete}"></div>
 	</header>
-	<h1>PATé_enchères</h1>
+
+	<h1>PAT_Enchères</h1>
+
+
 
 	<form th:action="@{/profile}" method="post">
 
@@ -24,29 +27,8 @@
 					id="idTelephone" type="text" name="" /></li>
 				<li><label for="idCodePostal">Code Postal</label> <input
 					id="idCodePostal" type="text" name="" /></li>
-				<li><label for="idActuelMotDePasse">Mot de passe actuel</label><input
-					id="idActuelMotDePasse" type="text" name="" /></li>
-				<li><label for="idNouveauMotDePasse">Nouveau mot de
-						Passe</label><input id="idNouveauMotDePasse" type="text" name="" /></li>
-				<li><label for="credit">Crédit</label> <textarea
-						 id="" cols="10" rows="1"></textarea></li>
-
-				<li><label for="idPseudo">Pseudo</label>
-				<textarea rows="1" cols="1"></textarea></li>
-				<li><label for="idPrenom">Prénom</label>
-				<textarea rows="1" cols="1"></textarea></li>
-				<li><label for="idTelephone">Téléphone</label>
-				<textarea rows="1" cols="1"></textarea></li>
-				<li><label for="idCodePostal">Code Postal</label>
-				<textarea rows="1" cols="1"></textarea></li>
-				
-				<li><div sec:authorize="!isAuthenticated()"></div><label for="idMotDePasse">Mot de passe</label>
-				<textarea rows="1" cols="1"></textarea></li>
-				
-				<li><div sec:authorize="isAuthenticated()">
-						<label for="idMotDePasse">Mot de passe</label><input
-							id="idMotDePasse" type="text" name="" />
-					</div></li>
+				<li><label for="idMotDePasse">Mot de passe</label><input
+					id="idMotDePasse" type="text" name="" /></li>
 			</ul>
 		</div>
 		<div>
@@ -59,18 +41,11 @@
 					type="text" name="" /></li>
 				<li><label for="idVille">Ville</label> <input id="idVille"
 					type="text" name="" /></li>
-				<li></li>
 				<li><label for="idConfirmation">Confirmation</label> <input
 					id="idConfirmation" type="text" /></li>
 			</ul>
 		</div>
-		<div>
-			<button type="submit">Enregistrer</button>
-		</div>
-		<div>
-			<button type="submit">Supprimer mon compte</button>
-		</div>
-
+		<div><button type="submit">Créer</button></div><div><button type="submit">Annuler</button></div>
 
 	</form>
 

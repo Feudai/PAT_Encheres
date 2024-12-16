@@ -25,7 +25,7 @@ public class LoginController {
 		
 		return "accueil";
 	}
-<<<<<<< HEAD
+
 	
 	@GetMapping("/nouvelleVente")
 	public String affichagePageVente () {
@@ -33,12 +33,11 @@ public class LoginController {
 		return "nouvelleVente";
 	}
 
-=======
+
 	@GetMapping("/inscription")
 	public String affichageInscription() {
 		
 		return "inscription";
 	}
-	
->>>>>>> da7419dff246e81f34f0e3eeeb53fcc6b386b7c0
+
 }

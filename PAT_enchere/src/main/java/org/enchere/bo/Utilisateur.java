@@ -4,9 +4,12 @@ import java.util.List;
 
 import org.enchere.bll.UtilisateurService;
 
+import jakarta.validation.constraints.Pattern;
+
 public class Utilisateur {
 
 	private int noUtilisateur;
+	@Pattern(regexp = "^[a-zA-Z0-9]+$\r\n",message = "Merci de n'entrer que des chiffres et des lettres")
 	private String pseudo;
 	private String nom;
 	private String prenom;

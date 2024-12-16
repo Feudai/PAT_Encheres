@@ -1,0 +1,58 @@
+@charset "UTF-8";
+
+form {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 700px;
+    gap: 10px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+.form-group-half {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+    width: 48%;
+}
+
+label {
+    font-weight: bold;
+}
+
+input, textarea, select, button {
+    padding: 8px;
+    font-size: 1em;
+}
+
+textarea {
+    resize: none;
+    height: 80px;
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    width: 100%;
+}
+
+.photo-upload {
+    display: flex;
+    flex-direction: column;
+}
+
+.photo-upload input {
+    margin-top: 5px;
+}
+
+.calendar-icon {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}

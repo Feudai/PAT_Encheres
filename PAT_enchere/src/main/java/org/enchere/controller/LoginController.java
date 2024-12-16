@@ -25,5 +25,11 @@ public class LoginController {
 		
 		return "accueil";
 	}
+	
+	@GetMapping("/nouvelleVente")
+	public String affichagePageVente () {
+		
+		return "nouvelleVente";
+	}
 
 }

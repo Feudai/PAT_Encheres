@@ -10,9 +10,8 @@ public class Utilisateur {
 	private String prenom;
 	private String email;
 	private String telephone;
-	private String rue;
-	private String codePostal;
-	private String ville;
+	private Adresse adresse;
+
 	private String motDePasse;
 	private float credit;
 	private boolean administrateur;
@@ -20,4 +19,28 @@ public class Utilisateur {
 	private List<ArticleVendu> articlesAVendre;
 	private List<Enchere> articlesAEncherir;
 	private List<ArticleVendu> articleAAcheter;
+	
+	
+	public Utilisateur(int noUtilisateur, String pseudo, String nom, String prenom, String email, String telephone,
+			Adresse adresse, String motDePasse, float credit, boolean administrateur,
+			List<ArticleVendu> articlesAVendre, List<Enchere> articlesAEncherir, List<ArticleVendu> articleAAcheter) {
+		super();
+		this.noUtilisateur = noUtilisateur;
+		this.pseudo = pseudo;
+		this.nom = nom;
+		this.prenom = prenom;
+		this.email = email;
+		this.telephone = telephone;
+		this.adresse = adresse;
+		this.motDePasse = motDePasse;
+		this.credit = credit;
+		this.administrateur = administrateur;
+		this.articlesAVendre = articlesAVendre;
+		this.articlesAEncherir = articlesAEncherir;
+		this.articleAAcheter = articleAAcheter;
+	}
+
+	public Utilisateur() {
+	
+}
 }

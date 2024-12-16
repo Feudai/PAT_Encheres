@@ -38,4 +38,102 @@ public class ArticleVendu {
 	
 	public ArticleVendu() {}
 	
+	
+	
+	
+	
+	
+	
+	
+
+	public int getNoArticle() {
+		return noArticle;
+	}
+
+	public void setNoArticle(int noArticle) {
+		this.noArticle = noArticle;
+	}
+
+	public String getNomArticle() {
+		return nomArticle;
+	}
+
+	public void setNomArticle(String nomArticle) {
+		this.nomArticle = nomArticle;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public LocalDateTime getDateDebutEncheres() {
+		return dateDebutEncheres;
+	}
+
+	public void setDateDebutEncheres(LocalDateTime dateDebutEncheres) {
+		this.dateDebutEncheres = dateDebutEncheres;
+	}
+
+	public LocalDateTime getDateFinEncheres() {
+		return dateFinEncheres;
+	}
+
+	public void setDateFinEncheres(LocalDateTime dateFinEncheres) {
+		this.dateFinEncheres = dateFinEncheres;
+	}
+
+	public float getMiseAPrix() {
+		return miseAPrix;
+	}
+
+	public void setMiseAPrix(float miseAPrix) {
+		this.miseAPrix = miseAPrix;
+	}
+
+	public float getPrixVente() {
+		return prixVente;
+	}
+
+	public void setPrixVente(float prixVente) {
+		this.prixVente = prixVente;
+	}
+
+	public boolean isEtatVente() {
+		return etatVente;
+	}
+
+	public void setEtatVente(boolean etatVente) {
+		this.etatVente = etatVente;
+	}
+
+	public List<Enchere> getListeEncheres() {
+		return listeEncheres;
+	}
+
+	public void setListeEncheres(List<Enchere> listeEncheres) {
+		this.listeEncheres = listeEncheres;
+	}
+
+	public Retrait getLieuRetrait() {
+		return lieuRetrait;
+	}
+
+	public void setLieuRetrait(Retrait lieuRetrait) {
+		this.lieuRetrait = lieuRetrait;
+	}
+
+	public Categorie getCategorieArticle() {
+		return categorieArticle;
+	}
+
+	public void setCategorieArticle(Categorie categorieArticle) {
+		this.categorieArticle = categorieArticle;
+	}
+	
+	
+	
 }

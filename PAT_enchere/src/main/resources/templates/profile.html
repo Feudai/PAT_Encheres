@@ -9,7 +9,11 @@
 		<div th:replace="~{fragments/fragment-entete::entete}"></div>
 	</header>
 
+<<<<<<< HEAD
 	<h1>PAT_Enchères</h1>
+=======
+	<h1>PATé_enchères</h1>
+>>>>>>> 7a9f35a588d93efe3957756064e24482c126f4db
 
 
 
@@ -19,6 +23,7 @@
 
 		<div>
 			<ul>
+<<<<<<< HEAD
 				<li><label for="idPseudo">Pseudo</label> <input id="idPseudo"
 					type="text" name="" /></li>
 				<li><label for="idPrenom">Prénom</label> <input id="idPrenom"
@@ -34,6 +39,24 @@
 				<li><label for="credit">Crédit</label> <textarea
 						 id="" cols="10" rows="1"></textarea></li>
 
+=======
+				<li><label for="idPseudo">Pseudo</label>
+				<textarea rows="1" cols="1"></textarea></li>
+				<li><label for="idPrenom">Prénom</label>
+				<textarea rows="1" cols="1"></textarea></li>
+				<li><label for="idTelephone">Téléphone</label>
+				<textarea rows="1" cols="1"></textarea></li>
+				<li><label for="idCodePostal">Code Postal</label>
+				<textarea rows="1" cols="1"></textarea></li>
+				
+				<li><div sec:authorize="!isAuthenticated()"></div><label for="idMotDePasse">Mot de passe</label>
+				<textarea rows="1" cols="1"></textarea></li>
+				
+				<li><div sec:authorize="isAuthenticated()">
+						<label for="idMotDePasse">Mot de passe</label><input
+							id="idMotDePasse" type="text" name="" />
+					</div></li>
+>>>>>>> 7a9f35a588d93efe3957756064e24482c126f4db
 			</ul>
 		</div>
 		<div>

@@ -1,0 +1,17 @@
+package org.enchere.bll;
+
+import org.enchere.dal.UtilisateurDAO;
+import org.springframework.stereotype.Service;
+
+@Service
+public class UtilisateurServiceImpl implements UtilisateurService {
+
+	
+	private UtilisateurDAO utilisateurDao;
+
+	public UtilisateurServiceImpl(UtilisateurDAO utilisateurDao) {
+		this.utilisateurDao = utilisateurDao;
+	}
+	
+	
+}

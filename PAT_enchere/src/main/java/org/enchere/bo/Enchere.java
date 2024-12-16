@@ -6,5 +6,6 @@ public class Enchere {
 
 		private LocalDate dateEnchere;
 		private float montant_enchere;
-		private Utilisateur createur;
+		private Utilisateur encherit;
+		private ArticleVendu concerne;
 }

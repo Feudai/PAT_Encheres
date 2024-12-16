@@ -1,22 +1,21 @@
 package org.enchere.bo;
 
+import java.time.LocalDate;
+import java.util.List;
+
 public class ArticleVendu {
 	
-	private int noUtilisateur;
-	private String pseudo;
-	private String nom;
-	private String prenom;
-	private String email;
-	private String telephone;
-	private String rue;
-	private String codePostal;
-	private String ville;
-	private String motDePasse;
-	private float credit;
-	private boolean administrateur;
+	private int noArticle;
+	private String nomArticle;
+	private String description;
+	private LocalDate dateDebutEncheres;
+	private LocalDate dateFinEncheres;
+	private float miseAPrix;
+	private float prixVente;
+	private boolean etatVente;
 	
-	private ArticleVendu articleAVendre;
-	private Enchere articleAEncherir;
-	private ArticleVendu articleAAcheter;
+	private List<Enchere> listeEncheres;
+	private Retrait lieuRetrait;
+	private Categorie categorieArticle;
 	
 }

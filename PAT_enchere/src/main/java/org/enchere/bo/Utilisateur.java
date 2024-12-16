@@ -17,7 +17,7 @@ public class Utilisateur {
 	private float credit;
 	private boolean administrateur;
 	
-	private ArticleVendu articleAVendre;
+	private List<ArticleVendu> articlesAVendre;
 	private List<Enchere> articlesAEncherir;
-	private ArticleVendu articleAAcheter;
+	private List<ArticleVendu> articleAAcheter;
 }

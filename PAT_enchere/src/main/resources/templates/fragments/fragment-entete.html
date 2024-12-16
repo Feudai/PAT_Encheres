@@ -3,10 +3,6 @@
 	<img src="/images/pat-encheres-logo.svg" alt="" />
 	<h1>PAT_Enchère</h1>
 	<div>
-		<a sec:authorize="isAuthenticated()" href="/">Accueil</a> <a
-			sec:authorize="isAuthenticated()" th:href="@{/films}">Films</a> <a
-			sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/films/creer}">Création
-			films</a> <a sec:authorize="!isAuthenticated()" th:href="@{/login}">Connexion</a>
-		<a sec:authorize="isAuthenticated()" th:href="@{/logout}">Déconnexion</a>
+		
 	</div>
 </nav>

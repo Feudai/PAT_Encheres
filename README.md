@@ -11,3 +11,5 @@ Une fois qu'on est sûrs que les commit de tout le monde sont faits :
 
 git checkout master *Pour changer de branche*
 git merge *branche de l'autre*
+
+git config --add push.autoSetupRemote true

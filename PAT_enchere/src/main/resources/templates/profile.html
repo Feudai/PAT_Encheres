@@ -5,21 +5,77 @@
 <title>Profile</title>
 </head>
 <body>
-<header>	<div th:replace="~{fragments/fragment-entete::entete}"></div></header>
+	<header>
+		<div th:replace="~{fragments/fragment-entete::entete}"></div>
+	</header>
 
-<h1>PAT_Enchères</h1>
-
-<h2>Mon profil</h2>
-
-
+	<h1>PAT_Enchères</h1>
 
 
 
+	<form th:action="@{/profil}" method="post">
+
+		<h2>Mon profil</h2>
+
+		<div>
+			<ul>
+				<li><label for="idPseudo">Pseudo</label>
+				<textarea rows="1" cols="1"></textarea></li>
+				<li><label for="idPrenom">Prénom</label>
+				<textarea rows="1" cols="1"></textarea></li>
+				<li><label for="idTelephone">Téléphone</label>
+				<textarea rows="1" cols="1"></textarea></li>
+				<li><label for="idCodePostal">Code Postal</label>
+				<textarea rows="1" cols="1"></textarea></li>
+				
+				<li><div sec:authorize="!isAuthenticated()"></div><label for="idMotDePasse">Mot de passe</label>
+				<textarea rows="1" cols="1"></textarea></li>
+				
+				<li><div sec:authorize="isAuthenticated()">
+						<label for="idMotDePasse">Mot de passe</label><input
+							id="idMotDePasse" type="text" name="" />
+					</div></li>
+			</ul>
+		</div>
+		<div>
+			<ul>
+				<li><label for="idNom">Nom</label>
+				<textarea rows="1" cols="1"></textarea></li>
+				<li><label for="idEmail">Email</label>
+				<textarea rows="1" cols="1"></textarea></li>
+				<li><label for="idRue">Rue</label>
+				<textarea rows="1" cols="1"></textarea></li>
+				<li><label for="idVille">Ville</label>
+				<textarea rows="1" cols="1"></textarea></li>
+				<li><div sec:authorize="!isAuthenticated()"></div><label for="idConfirmation">Confirmation</label>
+				<textarea rows="1" cols="1"></textarea></li>
+				<li>
+					<div sec:authorize="isAuthenticated()">
+						<label for="idConfirmation">Confirmation</label> <input
+							id="idConfirmation" type="text" />
+					</div>
+				</li>
+			</ul>
+		</div>
 
 
 
 
-<div th:replace="~{fragments/fragment-piedpage::piedpage}"></div>
+
+
+
+
+
+	</form>
+
+
+
+
+
+
+
+
+	<div th:replace="~{fragments/fragment-piedpage::piedpage}"></div>
 </body>
 
 </html>

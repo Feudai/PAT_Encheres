@@ -14,9 +14,16 @@ public class LoginController {
 		
 		return "connexion";
 	}
+	@GetMapping("/profile")
+	public String affichageProfil() {
+		
+		return "profil";
+	}
+
 	@GetMapping("/accueil")
 	public String affichageAccueil() {
 		
 		return "accueil";
 	}
+
 }

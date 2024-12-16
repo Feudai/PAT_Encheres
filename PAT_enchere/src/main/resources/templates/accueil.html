@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Accueil</title>
+</head>
+<body>
+<div th:replace="~{fragments/fragment-entete::entete}"></div>
+	<h1>Liste des enchères</h1>
+	<form action="@{/search}" method="GET">
+		<h3>Filtres :</h3>
+		<label for="search">Rechercher :</label> <input type="search"
+			id="search" name="q" placeholder="Entrez votre recherche">
+		<button type="submit">Rechercher</button>
+	</form>
+	<form action="/submit-category" method="POST">
+		<label for="category">Choisissez une catégorie :</label> <select
+			id="category" name="category">
+			<option value="informatique">Informatique</option>
+			<option value="ameublement">Ameublement</option>
+			<option value="vetement">Vêtement</option>
+			<option value="sportLoisir">Sport&Loisirs</option>
+			<option value="other">Autre</option>
+		</select>
+		<button type="submit">Valider</button>
+	</form>
+	
+	<div class="exemple-vente">
+		<ul>
+		<li><img src="./images/placeholder.png" alt="" /></li>
+		<li>Titre de l'article</li>
+		<li>Prix : </li>
+		<li>Fin de l'enchère : </li>
+		<li>Vendeur : </li>
+		</ul>
+	</div>
+	<div class="exemple-vente">
+		<ul>
+		<li><img src="./images/placeholder.png" alt="" /></li>
+		<li>Titre de l'article</li>
+		<li>Prix : </li>
+		<li>Fin de l'enchère : </li>
+		<li>Vendeur : </li>
+		</ul>
+	</div>
+
+
+
+</body>
+</html>

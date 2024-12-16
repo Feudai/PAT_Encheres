@@ -17,7 +17,7 @@ public class LoginController {
 	@GetMapping("/profile")
 	public String affichageProfil() {
 		
-		return "profil";
+		return "profile";
 	}
 
 	@GetMapping("/accueil")
@@ -25,5 +25,10 @@ public class LoginController {
 		
 		return "accueil";
 	}
-
+	@GetMapping("/inscription")
+	public String affichageInscription() {
+		
+		return "inscription";
+	}
+	
 }

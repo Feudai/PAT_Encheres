@@ -15,4 +15,11 @@ public class LoginController {
 		return "connexion";
 	}
 	
+	
+	@GetMapping("/profile")
+	public String affichageProfil() {
+		
+		return "profil";
+	}
+	
 }

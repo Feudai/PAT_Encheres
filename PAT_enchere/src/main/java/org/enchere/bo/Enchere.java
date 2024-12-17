@@ -5,17 +5,17 @@ import java.time.LocalDateTime;
 public class Enchere {
 
 		private LocalDateTime dateEnchere;
-		private float montant_enchere;
-		private Utilisateur encherit;
-		private ArticleVendu concerne;
+		private int montantEnchere;
+		private Utilisateur createur;
+		private ArticleVendu article;
 		
 		
-		public Enchere(LocalDateTime dateEnchere, float montant_enchere, Utilisateur encherit, ArticleVendu concerne) {
+		public Enchere(LocalDateTime dateEnchere, int montantEnchere, Utilisateur createur, ArticleVendu article) {
 			super();
 			this.dateEnchere = dateEnchere;
-			this.montant_enchere = montant_enchere;
-			this.encherit = encherit;
-			this.concerne = concerne;
+			this.montantEnchere = montantEnchere;
+			this.createur = createur;
+			this.article = article;
 		}
 
 		
@@ -31,33 +31,33 @@ public class Enchere {
 		}
 
 
-		public float getMontant_enchere() {
-			return montant_enchere;
+		public int getMontant_enchere() {
+			return montantEnchere;
 		}
 
 
-		public void setMontant_enchere(float montant_enchere) {
-			this.montant_enchere = montant_enchere;
+		public void setMontant_enchere(int montantEnchere) {
+			this.montantEnchere = montantEnchere;
 		}
 
 
 		public Utilisateur getEncherit() {
-			return encherit;
+			return createur;
 		}
 
 
 		public void setEncherit(Utilisateur encherit) {
-			this.encherit = encherit;
+			this.createur = encherit;
 		}
 
 
 		public ArticleVendu getConcerne() {
-			return concerne;
+			return article;
 		}
 
 
 		public void setConcerne(ArticleVendu concerne) {
-			this.concerne = concerne;
+			this.article = concerne;
 		}
 		
 		

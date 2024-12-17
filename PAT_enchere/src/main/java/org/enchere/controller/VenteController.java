@@ -60,10 +60,11 @@ public class VenteController {
 	
 	
 	@GetMapping("/encheresEnCours")
-	public String afficherEncheres() {
-		
+	public String afficherEncheres(Model model) {
+		model.addAttribute("listeEncheres",this.enchereService.getListeEncheres());
 		return "encheres-en-cours";
 	}
+	
 	@PostMapping("/encheresEnCours")
 	public String filtrerEncheres() {
 		

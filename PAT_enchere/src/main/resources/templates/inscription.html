@@ -14,7 +14,7 @@
 
 
 
-	<form th:action="@{/profile}" th:object="${utilisateur}" method="post">
+	<form th:action="@{/createUser}" th:object="${utilisateur}" method="post">
 
 		<h2>Mon profil</h2>
 
@@ -43,7 +43,7 @@
 				<li><label for="idVille">Ville</label> <input id="idVille"
 					type="text" th:field="*{ville}" /></li>
 				<li><label for="idConfirmation">Confirmation</label> <input
-					id="idConfirmation" type="text" /></li>
+					id="idConfirmation" type="text"  /></li>
 			</ul>
 		</div>
 		<div><button type="submit">Créer</button></div><div><button type="submit">Annuler</button></div>

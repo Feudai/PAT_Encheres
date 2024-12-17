@@ -36,7 +36,7 @@ public class VenteController {
 		
 		model.addAttribute("ArticleVendu",new ArticleVendu());
 
-		return "nouvelleVente";
+		return "nouvelle-vente";
 	}
 	
 	@PostMapping("/nouvelleVente")
@@ -45,7 +45,31 @@ public class VenteController {
 		//ici un th:object, donc besoin que des infos sur le vendeur,
 		//le reste sera automatiquement relié aux fields de l'article vendu
 		
-		return "redirect:/accueil";
+		//. html mettre aussi un selecteur multiple avec les categories
+		
+		return "redirect:/encheres";
 	}
 	
+	@GetMapping("/encheresEnCours")
+	public String afficherEncheres() {
+		
+		return "encheres-en-cours";
+	}
+	@GetMapping("/encheresEnCours")
+	public String filtrerEncheres() {
+		
+		return "redirect:/encheresEnCours";
+	}
+	
+	@GetMapping("/encheresDetails")
+	public String afficherEncheresDetails() {
+		
+		return "encheres-details:";
+	}
+	
+	@PostMapping("/encheresDetails")
+	public String proposerPrixEnchere() {
+		
+		return "redirect:/encheres-gestion";
+	}
 }

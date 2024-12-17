@@ -27,18 +27,12 @@ public class Utilisateur {
 	private List<Enchere> articlesAEncherir;
 	private List<ArticleVendu> articleAAcheter;
 
-<<<<<<< HEAD
 
-	public Utilisateur(int noUtilisateur,
-			@Pattern(regexp = "^[a-zA-Z0-9]+$\r\n", message = "Merci de n'entrer que des chiffres et des lettres") String pseudo,
-			String nom, String prenom, String email, String telephone, String rue, String codePostal, String ville,
-			String motDePasse, int credit, boolean administrateur, List<ArticleVendu> articlesAVendre,
-			List<Enchere> articlesAEncherir, List<ArticleVendu> articleAAcheter) {
-=======
+
 	public Utilisateur(int noUtilisateur, String pseudo, String nom, String prenom, String email, String telephone,
-			String rue, String codePostal, String ville, String motDePasse, float credit, boolean administrateur,
+			String rue, String codePostal, String ville, String motDePasse, int credit, boolean administrateur,
 			List<ArticleVendu> articlesAVendre, List<Enchere> articlesAEncherir, List<ArticleVendu> articleAAcheter) {
->>>>>>> cc3005f92a7c20cd4c037d6a5ecbb0efc106a25e
+
 		this.noUtilisateur = noUtilisateur;
 		this.pseudo = pseudo;
 		this.nom = nom;
@@ -67,7 +61,7 @@ public class Utilisateur {
 	public Utilisateur(int noUtilisateur,
 			@Pattern(regexp = "^[a-zA-Z0-9]+$\r\n", message = "Merci de n'entrer que des chiffres et des lettres") String pseudo,
 			String nom, String prenom, String email, String telephone, String rue, String codePostal, String ville,
-			String motDePasse, float credit, boolean administrateur) {
+			String motDePasse, int credit, boolean administrateur) {
 		super();
 		this.noUtilisateur = noUtilisateur;
 		this.pseudo = pseudo;

@@ -10,12 +10,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestAttribute;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import jakarta.validation.Valid;
 
 @Controller
+
 public class LoginController {
 
 	private UtilisateurService utilisateurService;
@@ -30,21 +29,20 @@ public class LoginController {
 		return "login";
 	}
 
-	@GetMapping("/profile")
-	public String affichageProfil(@RequestParam("noUtilisateur")int noUtilisateur, Model model) {
-		
-		Utilisateur u = this.utilisateurService.consulterUtilisateurParId(noUtilisateur);
-		
-		model.addAttribute("utilisateur", u);
-		
-		
-		return "profile";
+	@GetMapping("/utilisateur")
+	public String affichageProfil(@ModelAttribute int noUtilisateur, Model model) {
+
+		Utilisateur utilisateur = this.utilisateurService.consulterUtilisateurParId(noUtilisateur);
+
+		model.addAttribute("utilisateur", utilisateur);
+
+		return "utilisateur";
 	}
 
-	@PostMapping("/profile")
+	@GetMapping("/profile")
 	public String modifierProfil() {
 
-		return "redirect:/profile";
+		return "profile";
 
 	}
 
@@ -67,12 +65,6 @@ public class LoginController {
 		return "inscription";
 	}
 
-	@GetMapping("/utilisateur")
-	public String affichageUtilisateur() {
-
-		return "utilisateur";
-	}
-
 	@PostMapping("/createUser")
 	public String createUser(@Valid @ModelAttribute Utilisateur utilisateur, BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
@@ -81,6 +73,7 @@ public class LoginController {
 			this.utilisateurService.createUser(utilisateur);
 			return "redirect:/profile";
 		}
+
 	}
 
 }

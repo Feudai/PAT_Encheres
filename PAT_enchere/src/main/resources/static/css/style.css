@@ -1,13 +1,67 @@
 @charset "UTF-8";
 
+/* Style global du corps */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+/* En-tête (Nav) */
+#naventete {
+    background-color: #0056b3;
+    color: white;
+    padding: 20px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+#naventete .logo {
+    width: 150px;
+    height: 150px;
+    object-fit: contain;
+}
+
+#naventete h1 {
+    margin: 0;
+    font-size: 2em;
+    color: white;
+}
+
+#naventete div {
+    display: flex;
+    gap: 15px;
+}
+
+#naventete a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.2em;
+}
+
+#naventete a:hover {
+    text-decoration: underline;
+}
+
+/* Style général du formulaire */
 form {
     display: flex;
     flex-wrap: wrap;
     max-width: 700px;
     gap: 10px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-.form-group {
+/* Style des groupes de champs */
+.form-group, .form-group-half {
     display: flex;
     flex-direction: column;
     margin-bottom: 10px;
@@ -15,19 +69,27 @@ form {
 }
 
 .form-group-half {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 10px;
     width: 48%;
 }
 
 label {
     font-weight: bold;
+    margin-bottom: 5px;
+    color: #333;
 }
 
 input, textarea, select, button {
     padding: 8px;
     font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-top: 5px;
+    width: 100%;
+}
+
+/* Style des champs de texte */
+input[type="text"], input[type="email"], input[type="password"] {
+    height: 40px;
 }
 
 textarea {
@@ -35,12 +97,23 @@ textarea {
     height: 80px;
 }
 
-.logo {
-width : 150px;
-height : 150px;
+/* Style des boutons */
+button {
+    background-color: #0056b3;
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding: 10px 15px;
+    font-size: 1em;
+    border-radius: 4px;
+    width: 48%; /* Pour que les boutons prennent 48% de la largeur */
 }
 
+button:hover {
+    background-color: #004085;
+}
 
+/* Conteneur des boutons (Créer, Annuler) */
 .buttons {
     display: flex;
     justify-content: space-between;
@@ -48,6 +121,14 @@ height : 150px;
     width: 100%;
 }
 
+/* Gestion des erreurs */
+.error-message {
+    color: red;
+    font-size: 0.9em;
+    margin-top: 5px;
+}
+
+/* Photo Upload (si nécessaire) */
 .photo-upload {
     display: flex;
     flex-direction: column;
@@ -57,8 +138,35 @@ height : 150px;
     margin-top: 5px;
 }
 
+/* Alignement pour les icônes de calendrier (si nécessaire) */
 .calendar-icon {
     display: flex;
     align-items: center;
     gap: 10px;
+}
+
+/* Couleur du titre */
+h1 {
+    text-align: center;
+    color: #0056b3;
+    margin-bottom: 20px;
+}
+
+h2 {
+    color: #333;
+    margin-top: 20px;
+    font-size: 1.2em;
+}
+
+/* Amélioration du style des liens de navigation */
+#naventete a {
+    font-size: 1.1em;
+    padding: 10px;
+    text-decoration: none;
+    color: white;
+}
+
+#naventete a:hover {
+    background-color: #004085;
+    border-radius: 5px;
 }

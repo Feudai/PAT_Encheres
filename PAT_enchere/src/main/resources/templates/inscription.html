@@ -1,91 +1,92 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Profile</title>
-<link rel="stylesheet" href="./css/style.css">
+    <meta charset="UTF-8">
+    <title>Profile</title>
+    <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
-	<header>
-		<div th:replace="~{fragments/fragment-entete::entete}"></div>
-	</header>
+    <header>
+        <div th:replace="~{fragments/fragment-entete::entete}"></div>
+    </header>
 
-	<h1>PAT_Enchères</h1>
+    <h1>PAT_Enchères</h1>
 
+    <form th:action="@{/createUser}" th:object="${utilisateur}" method="post">
+        <div th:if="${#fields.hasErrors('*')}">
+            <h2>Veuillez vérifier vos données</h2>
+            <ul th:if="${#fields.hasGlobalErrors()}">
+                <li th:each="e : ${#fields.globalErrors()}" th:text="${e}"></li>
+            </ul>
+        </div>
 
+        <h2>Mon profil</h2>
 
-	<form th:action="@{/createUser}" th:object="${utilisateur}"
-		method="post">
-		<div th:if="${#fields.hasErrors('*')}">
-			<h2>Veuillez vérifier vos données</h2>
-			<ul th:if="${#fields.hasGlobalErrors()}">
-				<li th:each="e : ${#fields.globalErrors()}" th:text="${e}"></li>
-			</ul>
-		</div>
+        <div class="form-group-half">
+            <label for="pseudo">Pseudo</label>
+            <input id="pseudo" th:field="*{pseudo}" type="text" required />
+            <div th:replace="~{fragments/fragment-error :: frag-error('pseudo')}"></div>
+        </div>
 
-		<h2>Mon profil</h2>
+        <div class="form-group-half">
+            <label for="prenom">Prénom</label>
+            <input id="prenom" type="text" th:field="*{prenom}" />
+            <div th:replace="~{fragments/fragment-error :: frag-error('prenom')}"></div>
+        </div>
 
-		<div>
-			<ul>
-				<li><label for="pseudo">Pseudo</label> <input id="pseudo"
-					th:field="*{pseudo}" type="text" required />
-					<div
-						th:replace="~{fragments/fragment-error :: frag-error('pseudo')}"></div></li>
-						
-				<li><label for="prenom">Prénom</label> <input id="prenom"
-					type="text" th:field="*{prenom}" />
-					<div
-						th:replace="~{fragments/fragment-error :: frag-error('prenom')}"></div></li>
-						
-				<li><label for="telephone">Téléphone</label> <input
-					id="telephone" type="text" th:field="*{telephone}" />
-					<div
-						th:replace="~{fragments/fragment-error :: frag-error('telephone')}"></div></li>
-						
-				<li><label for="codePostal">Code Postal</label> <input
-					id="codePostal" type="text" th:field="*{codePostal}" />
-					<div
-						th:replace="~{fragments/fragment-error :: frag-error('codePostal')}"></div></li>
-						
-				<li><label for="motDePasse">Mot de passe</label><input
-					id="motDePasse" type="text" th:field="*{motDePasse}" />
-					<div
-						th:replace="~{fragments/fragment-error :: frag-error('motDePasse')}"></div></li>
-			</ul>
-		</div>
-		<div>
-			<ul>
-				<li><label for="nom">Nom</label> <input id="nom"
-					type="text" th:field="*{nom}" />
-					<div
-						th:replace="~{fragments/fragment-error :: frag-error('nom')}"></div></li>
-				<li><label for="email">Email</label> <input id="email"
-					type="text" th:field="*{email}" />
-					<div
-						th:replace="~{fragments/fragment-error :: frag-error('rue')}"></div></li>
-				<li><label for="rue">Rue</label> <input id="rue"
-					type="text" th:field="*{rue}" />
-					<div
-						th:replace="~{fragments/fragment-error :: frag-error('rue')}"></div></li>
-				<li><label for="ville">Ville</label> <input id="ville"
-					type="text" th:field="*{ville}" />
-					<div
-						th:replace="~{fragments/fragment-error :: frag-error('ville')}"></div></li>
-				<li><label for="idConfirmation">Confirmation</label> <input
-					id="idConfirmation" type="text" /></li>
-			</ul>
-		</div>
-		<div>
-			<button type="submit">Créer</button>
-		</div>
-		<div>
-			<button type="submit">Annuler</button>
-		</div>
+        <div class="form-group-half">
+            <label for="telephone">Téléphone</label>
+            <input id="telephone" type="text" th:field="*{telephone}" />
+            <div th:replace="~{fragments/fragment-error :: frag-error('telephone')}"></div>
+        </div>
 
-	</form>
+        <div class="form-group-half">
+            <label for="codePostal">Code Postal</label>
+            <input id="codePostal" type="text" th:field="*{codePostal}" />
+            <div th:replace="~{fragments/fragment-error :: frag-error('codePostal')}"></div>
+        </div>
 
+        <div class="form-group">
+            <label for="motDePasse">Mot de passe</label>
+            <input id="motDePasse" type="password" th:field="*{motDePasse}" />
+            <div th:replace="~{fragments/fragment-error :: frag-error('motDePasse')}"></div>
+        </div>
 
-	<div th:replace="~{fragments/fragment-piedpage::piedpage}"></div>
+        <div class="form-group-half">
+            <label for="nom">Nom</label>
+            <input id="nom" type="text" th:field="*{nom}" />
+            <div th:replace="~{fragments/fragment-error :: frag-error('nom')}"></div>
+        </div>
+
+        <div class="form-group-half">
+            <label for="email">Email</label>
+            <input id="email" type="email" th:field="*{email}" />
+            <div th:replace="~{fragments/fragment-error :: frag-error('email')}"></div>
+        </div>
+
+        <div class="form-group-half">
+            <label for="rue">Rue</label>
+            <input id="rue" type="text" th:field="*{rue}" />
+            <div th:replace="~{fragments/fragment-error :: frag-error('rue')}"></div>
+        </div>
+
+        <div class="form-group-half">
+            <label for="ville">Ville</label>
+            <input id="ville" type="text" th:field="*{ville}" />
+            <div th:replace="~{fragments/fragment-error :: frag-error('ville')}"></div>
+        </div>
+
+        <div class="form-group">
+            <label for="idConfirmation">Confirmation</label>
+            <input id="idConfirmation" type="password" />
+        </div>
+
+        <div class="buttons">
+            <button type="submit">Créer</button>
+            <button type="button">Annuler</button>
+        </div>
+    </form>
+
+    <div th:replace="~{fragments/fragment-piedpage::piedpage}"></div>
 </body>
-
 </html>

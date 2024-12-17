@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulaire de Vente</title>
+    <link rel="stylesheet" href="./CSS/style.css">
+</head>
+<body>
+<div th:replace="~{fragments/fragment-entete::entete}"></div>
+    <h1>Formulaire de mise en vente</h1>
+    <form action="/submit" method="POST" enctype="multipart/form-data">
+       
+        <div class="form-group">
+            <label for="article">Article :</label>
+            <input type="text" id="article" name="article" placeholder="Nom de l'article" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="description">Description :</label>
+            <textarea id="description" name="description" placeholder="Décrivez votre article"></textarea>
+        </div>
+        
+        <div class="form-group">
+            <label for="categorie">Catégorie :</label>
+            <select id="categorie" name="categorie">
+                <option value="">-- Choisissez une catégorie --</option>
+                <option value="electronique">Électronique</option>
+                <option value="vetement">Vêtements</option>
+                <option value="loisir">Loisir</option>
+            </select>
+        </div>
+        
+      
+        <div class="form-group photo-upload">
+            <label for="photo">Photo de l'article :</label>
+            <input type="file" id="photo" name="photo" accept="image/*" required>
+        </div>
+        
+        <div class="form-group-half">
+            <label for="miseAPrix">Mise à prix :</label>
+            <input type="number" id="miseAPrix" name="miseAPrix" placeholder="150" min="0" required>
+        </div>
+        
+ 
+        <div class="form-group-half calendar-icon">
+            <label for="debutEnchere">Début de l'enchère :</label>
+            <input type="date" id="debutEnchere" name="debutEnchere" required>
+        </div>
+        
+        <div class="form-group-half calendar-icon">
+            <label for="finEnchere">Fin de l'enchère :</label>
+            <input type="date" id="finEnchere" name="finEnchere" required>
+        </div>
+        
+     
+        <fieldset class="form-group">
+            <legend>Retrait</legend>
+            <div class="form-group-half">
+                <label for="rue">Rue :</label>
+                <input type="text" id="rue" name="rue" placeholder="Rue des mouettes" required>
+            </div>
+            <div class="form-group-half">
+                <label for="codePostal">Code postal :</label>
+                <input type="text" id="codePostal" name="codePostal" placeholder="44800" required>
+            </div>
+            <div class="form-group-half">
+                <label for="ville">Ville :</label>
+                <input type="text" id="ville" name="ville" placeholder="Saint Herblain" required>
+            </div>
+        </fieldset>
+ 
+        <div class="buttons">
+            <button type="submit">Enregistrer</button>
+            <button type="reset">Annuler</button>
+        </div>
+    </form>
+</body>
+</html>

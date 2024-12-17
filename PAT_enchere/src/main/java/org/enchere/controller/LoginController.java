@@ -29,6 +29,14 @@ public class LoginController {
 		
 		return "profile";
 	}
+	
+	@PostMapping("/profile")
+	public String modifierProfil() {
+		
+		
+		return "redirect:/profile";
+		
+	}
 
 	@GetMapping("/accueil")
 	public String affichageAccueil() {

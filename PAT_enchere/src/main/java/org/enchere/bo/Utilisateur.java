@@ -7,6 +7,8 @@ import jakarta.validation.constraints.Pattern;
 public class Utilisateur {
 
 	private int noUtilisateur;
+	
+	@Pattern(regexp = "^[a-zA-Z0-9]+$", message = "Seuls les caractères alphanumériques sont autorisés")
 	private String pseudo;
 	private String nom;
 	private String prenom;

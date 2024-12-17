@@ -11,6 +11,9 @@ public interface UtilisateurDAO {
 	Utilisateur read (int noUtilisateur);
 	
 	List<Utilisateur>findAll();
+	List<Utilisateur>findUtilisateur(int noUtilisateur);
+	
+	
 	
 	
 

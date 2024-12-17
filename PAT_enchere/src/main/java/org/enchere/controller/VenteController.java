@@ -34,17 +34,21 @@ public class VenteController {
 
 	@GetMapping("/nouvelleVente")
 	public String afficherCreationArticle(Model model) {
-		for(int a=0;a<10000;a++)
-		System.out.println("oui");
 		model.addAttribute("article",new ArticleVendu());
-
+		
 		return "nouvelle-vente";
 	}
 	
 	@PostMapping("/nouvelleVente")
-	public String vendreUnArticle(@Valid @ModelAttribute ArticleVendu article, BindingResult bindingResult) {
-		System.out.println(article.getCategorieArticle());
-		//this.articleVenduService.ajouterArticle(article);
+	public String vendreUnArticle(Model model, @Valid @ModelAttribute("article") ArticleVendu article, BindingResult br) {
+		if(br.hasErrors()) {
+			//debug
+			model.addAttribute("article", article);
+			return "redirect:nouvelleVente";
+		}
+		
+		this.articleVenduService.ajouterArticle(article);
+
 		//ici un th:object, donc besoin que des infos sur le vendeur,
 		//le reste sera automatiquement relié aux fields de l'article vendu
 		
@@ -52,6 +56,8 @@ public class VenteController {
 		
 		return "redirect:/encheres-gestion";
 	}
+	
+	
 	
 	@GetMapping("/encheresEnCours")
 	public String afficherEncheres() {

@@ -40,7 +40,7 @@ public class SecurityConfig {
 				.requestMatchers("/createUser").permitAll()
 				.requestMatchers("/enchere-en-cours").permitAll()
 				.requestMatchers("/enchere-details").permitAll()
-				.requestMatchers("/nouvelle-vente").permitAll()
+				.requestMatchers("/nouvelleVente").permitAll()
 				.requestMatchers("/profile").permitAll()
 				.requestMatchers("/utilisateur").permitAll()
 				.requestMatchers("/").permitAll()

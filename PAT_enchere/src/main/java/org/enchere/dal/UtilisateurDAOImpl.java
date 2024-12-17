@@ -99,4 +99,10 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 		return jdbcTemplate.query(FIND_ALL, new UtilisateurRowMapper());
 	}
 
+	@Override
+	public List<Utilisateur> findUtilisateur(int noUtilisateur) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

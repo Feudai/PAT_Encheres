@@ -6,7 +6,7 @@
 <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
-<div th:replace="~{fragments/fragment-entete::entete}"></div>
+	<div th:replace="~{fragments/fragment-entete::entete}"></div>
 	<h1>Liste des enchères</h1>
 	<form action="@{/search}" method="GET">
 		<h3>Filtres :</h3>
@@ -25,24 +25,43 @@
 		</select>
 		<button type="submit">Valider</button>
 	</form>
-	
+
 	<div class="exemple-vente">
 		<ul>
-		<li><img src="./images/placeholder.png" alt="" /></li>
-		<li>Titre de l'article</li>
-		<li>Prix : </li>
-		<li>Fin de l'enchère : </li>
-		<li>Vendeur : </li>
+			<li><img src="./images/placeholder.png" alt="" /></li>
+			<li>Titre de l'article</li>
+			<li>Prix :</li>
+			<li>Fin de l'enchère :</li>
+			<li>Vendeur :</li>
 		</ul>
 	</div>
 	<div class="exemple-vente">
 		<ul>
-		<li><img src="./images/placeholder.png" alt="" /></li>
-		<li>Titre de l'article</li>
-		<li>Prix : </li>
-		<li>Fin de l'enchère : </li>
-		<li th:href="@{/profile}">Vendeur : </li>
+			<li><img src="./images/placeholder.png" alt="" /></li>
+			<li>Titre de l'article</li>
+			<li>Prix :</li>
+			<li>Fin de l'enchère :</li>
+
 		</ul>
+		<table>
+			<thead>
+				<tr>
+					<th>Pseudo</th>
+					<th>Action</th>
+				</tr>
+
+			</thead>
+			<tbody  th:each="u : ${utilisateurs}">
+				<tr>
+					<td th:text="${u.pseudo}"></td>
+					<td><a
+						th:href="@{/profile(noUtilisateur=${u.noUtilisateur})}">Détail</a></td>
+
+				</tr>
+			</tbody>
+
+		</table>
+
 	</div>
 
 

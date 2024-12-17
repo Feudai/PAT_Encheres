@@ -16,20 +16,6 @@
 
 		<div>
 			<ul>
-				<li><label for="idPseudo">Pseudo</label> <input id="idPseudo"
-					type="text" name="" /></li>
-				<li><label for="idPrenom">Prénom</label> <input id="idPrenom"
-					type="text" name="" /></li>
-				<li><label for="idTelephone">Téléphone</label> <input
-					id="idTelephone" type="text" name="" /></li>
-				<li><label for="idCodePostal">Code Postal</label> <input
-					id="idCodePostal" type="text" name="" /></li>
-				<li><label for="idActuelMotDePasse">Mot de passe actuel</label><input
-					id="idActuelMotDePasse" type="text" name="" /></li>
-				<li><label for="idNouveauMotDePasse">Nouveau mot de
-						Passe</label><input id="idNouveauMotDePasse" type="text" name="" /></li>
-				<li><label for="credit">Crédit</label> <textarea
-						 id="" cols="10" rows="1"></textarea></li>
 
 				<li><label for="idPseudo">Pseudo</label>
 				<textarea rows="1" cols="1"></textarea></li>
@@ -40,13 +26,10 @@
 				<li><label for="idCodePostal">Code Postal</label>
 				<textarea rows="1" cols="1"></textarea></li>
 				
-				<li><div sec:authorize="!isAuthenticated()"></div><label for="idMotDePasse">Mot de passe</label>
-				<textarea rows="1" cols="1"></textarea></li>
-				
-				<li><div sec:authorize="isAuthenticated()">
+				<li>>
 						<label for="idMotDePasse">Mot de passe</label><input
 							id="idMotDePasse" type="text" name="" />
-					</div></li>
+					</li>
 			</ul>
 		</div>
 		<div>

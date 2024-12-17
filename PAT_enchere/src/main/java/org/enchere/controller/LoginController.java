@@ -30,5 +30,9 @@ public class LoginController {
 		
 		return "inscription";
 	}
-	
+	@GetMapping("/utilisateur")
+	public String affichageUtilisateur () {
+		
+		return "utilisateur";
+	}
 }

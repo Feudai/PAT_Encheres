@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Utilisateur</title>
+</head>
+<body>
+	<header>
+		<div th:replace="~{fragments/fragment-entete::entete}"></div>
+	</header>
+	<form th:action="@{/utilisateur}" method="get">
+<div>
+<ul>
+	<li><label for="idPseudo">Pseudo : </label></li>
+	<li><label for="idNom">Nom : </label></li>
+	<li><label for="idPrenom">Prénom : </label></li>
+	<li><label for="idEmail">Email : </label></li>
+	<li><label for="idTelephone">Téléphone : </label></li>
+	<li><label for="idRue">Rue : </label></li>
+	<li><label for="idCodePostal">Code Postal : </label></li>
+	<li><label for="idVille">Ville : </label></li>
+</ul>
+		<div>
+			<button type="submit">Modifier</button>
+		</div>
+</form>
+
+</div>
+	
+	
+	
+	
+	
+	
+	
+	<div th:replace="~{fragments/fragment-piedpage::piedpage}"></div>
+</body>
+</html>

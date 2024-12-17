@@ -1,7 +1,5 @@
 package org.enchere.bll;
 
-
-
 import org.enchere.dal.ArticleVenduDAO;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
@@ -15,5 +13,5 @@ public class ArticleVenduServiceImpl implements ArticleVenduService {
 	public ArticleVenduServiceImpl(ArticleVenduDAO articleVenduDAO) {
 		this.articleVenduDAO = articleVenduDAO;
 	}
-	
+
 }

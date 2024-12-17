@@ -1,5 +1,6 @@
 package org.enchere.controller;
 
+import org.enchere.bll.UtilisateurService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -7,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 public class LoginController {
 
-	
+	private UtilisateurService utilisateurService;
 	
 	@GetMapping("/connexion")
 	public String affichageConnexion () {
@@ -26,6 +27,7 @@ public class LoginController {
 		return "accueil";
 	}
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 	
 	@GetMapping("/nouvelleVente")
@@ -37,14 +39,20 @@ public class LoginController {
 
 =======
 >>>>>>> da7419dff246e81f34f0e3eeeb53fcc6b386b7c0
+=======
+>>>>>>> dee982cb3ee89f0ddb96166d81a72f026a7df6e6
 	@GetMapping("/inscription")
 	public String affichageInscription() {
 		
 		return "inscription";
 	}
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 	
 >>>>>>> da7419dff246e81f34f0e3eeeb53fcc6b386b7c0
+=======
+	
+>>>>>>> dee982cb3ee89f0ddb96166d81a72f026a7df6e6
 }

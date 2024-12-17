@@ -40,16 +40,11 @@ public class LoginController {
 		return "accueil";
 	}
 
-<<<<<<< HEAD
 	
-	@GetMapping("/nouvelleVente")
-	public String affichagePageVente () {
 		
-=======
 	@GetMapping("/nouvelle-vente")
 	public String affichagePageVente() {
 
->>>>>>> cc3005f92a7c20cd4c037d6a5ecbb0efc106a25e
 		return "nouvelle-vente";
 	}
 

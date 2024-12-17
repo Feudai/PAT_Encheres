@@ -7,5 +7,5 @@ import org.enchere.bo.ArticleVendu;
 public interface ArticleVenduService {
 
 	
-	List<ArticleVendu> ajouterArticle();
+	List<ArticleVendu> ajouterArticle(ArticleVendu article);
 }

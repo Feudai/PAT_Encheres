@@ -2,8 +2,6 @@ package org.enchere.bo;
 
 import java.util.List;
 
-import org.enchere.bll.UtilisateurService;
-
 import jakarta.validation.constraints.Pattern;
 
 public class Utilisateur {

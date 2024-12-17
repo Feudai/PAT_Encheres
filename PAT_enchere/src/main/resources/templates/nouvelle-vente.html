@@ -9,7 +9,7 @@
 <body>
 <div th:replace="~{fragments/fragment-entete::entete}"></div>
     <h1>Formulaire de mise en vente</h1>
-    <form action="/@nouvelleVente" method="post" enctype="multipart/form-data" th:object="${article}">
+    <form th:action="@{/nouvelleVente}" method="post" enctype="multipart/form-data" th:object="${article}">
        
         <div class="form-group">
             <label for="article">Article :</label>

@@ -1,14 +1,38 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Liste des Encheres</title>
-    <link rel="stylesheet" href="./css/style.css">
-</head>
-<body>
-<div th:replace="~{fragments/fragment-entete::entete}"></div>
-    <h1>Liste des Encheres en Cours</h1>
 
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Liste des Encheres</title>
+	<link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+	<div th:replace="~{fragments/fragment-entete::entete}"></div>
+	<h1>Liste des Encheres en Cours</h1>
+	<form th:action="@{/encheresEnCours}" method="get" th:each="e : ${encheres}">
+		<ul>
+			<li>
+				<textarea id="" cols="10" rows="1" th:text="${e.article.nomArticle}"></textarea>
+			</li>
+			<li>
+
+				<textarea id="" cols="10" rows="1" th:text="${e.montantEnchere}"></textarea>
+			</li>
+			<li>
+
+				<textarea id="" cols="10" rows="1" th:text="${e.dateEnchere}"></textarea>
+			</li>
+			<li>
+
+				<textarea id="" cols="10" rows="1" th:text="${e.createur.pseudo}"></textarea>
+			</li>
+		</ul>
+		<div>
+			<button type="submit">Filtrer les annonces</button>
+		</div>
+	</form>
 </body>
+
 </html>

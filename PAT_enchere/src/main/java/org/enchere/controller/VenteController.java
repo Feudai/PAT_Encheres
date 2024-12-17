@@ -6,8 +6,12 @@ import org.enchere.bll.ArticleVenduService;
 import org.enchere.bll.CategorieService;
 import org.enchere.bll.EnchereService;
 import org.enchere.bll.RetraitService;
+import org.enchere.bo.ArticleVendu;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class VenteController {
@@ -25,11 +29,21 @@ public class VenteController {
 		this.categorieService = categorieService;
 	}
 
-	@GetMapping
-	public String vendreUnArticle() {
+	@GetMapping("/nouvelleVente")
+	public String afficherCreationArticle(Model model) {
 		
+		model.addAttribute("ArticleVendu",new ArticleVendu());
+
+		return "nouvelleVente";
+	}
+	
+	@PostMapping("/nouvelleVente")
+	public String vendreUnArticle(@ModelAttribute ArticleVendu articleVendu) {
+		this.articleVenduService.ajouterArticle();
+		//ici un th:object, donc besoin que des infos sur le vendeur,
+		//le reste sera automatiquement relié aux fields de l'article vendu
 		
-		return "nouvelle-vente";
+		return "redirect:/accueil";
 	}
 	
 }

@@ -2,8 +2,10 @@ package org.enchere.bll;
 
 
 
-import org.enchere.dal.ArticleVenduDAO;
+import java.util.List;
 
+import org.enchere.bo.ArticleVendu;
+import org.enchere.dal.ArticleVenduDAO;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -15,4 +17,8 @@ public class ArticleVenduServiceImpl implements ArticleVenduService {
 		this.articleVenduDAO = articleVenduDAO;
 	}
 	
+	public List<ArticleVendu> ajouterArticle() {
+		
+		return this.articleVenduDAO.findAll();
+	}
 }

@@ -39,12 +39,6 @@ public class ArticleVendu {
 	public ArticleVendu() {}
 	
 	
-	
-	
-	
-	
-	
-	
 
 	public int getNoArticle() {
 		return noArticle;

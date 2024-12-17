@@ -14,28 +14,28 @@
 
 
 
-	<form th:action="@{/profile}" th:object="${Utilisateur}" method="post">
+	<form th:action="@{/profile}" th:object="${utilisateur}" method="post">
 
 		<h2>Mon profil</h2>
 
 		<div>
 			<ul>
-				<li><label for="idPseudo">Pseudo</label> <input id="idPseudo"
-					type="text" name="" /></li>
+				<li><label for="idPseudo">Pseudo</label> <input id ="pseudo" th:field="*{pseudo}"
+					type="text"  /></li>
 				<li><label for="idPrenom">Prénom</label> <input id="idPrenom"
-					type="text" name="" /></li>
+					type="text" th:field="*{prenom}" /></li>
 				<li><label for="idTelephone">Téléphone</label> <input
-					id="idTelephone" type="text" name="" /></li>
+					id="idTelephone" type="text" th:field="*{telephone}"/></li>
 				<li><label for="idCodePostal">Code Postal</label> <input
-					id="idCodePostal" type="text" name="" /></li>
+					id="idCodePostal" type="text" th:field="*{codePostal}" /></li>
 				<li><label for="idMotDePasse">Mot de passe</label><input
-					id="idMotDePasse" type="text" name="" /></li>
+					id="idMotDePasse" type="text" th:field="*{motDePasse}" /></li>
 			</ul>
 		</div>
 		<div>
 			<ul>
 				<li><label for="idNom">Nom</label> <input id="idNom"
-					type="text" name="" /></li>
+					type="text" th:field="*{nom}" /></li>
 				<li><label for="idEmail">Email</label> <input id="idEmail"
 					type="text" name="" /></li>
 				<li><label for="idRue">Rue</label> <input id="idRue"

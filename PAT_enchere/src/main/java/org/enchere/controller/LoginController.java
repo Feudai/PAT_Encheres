@@ -24,7 +24,7 @@ public class LoginController {
 	@GetMapping("/connexion")
 	public String affichageConnexion() {
 
-		return "connexion";
+		return "login";
 	}
 
 	@GetMapping("/profile")

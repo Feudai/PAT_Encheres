@@ -35,6 +35,12 @@ textarea {
     height: 80px;
 }
 
+.logo {
+width : 150px;
+height : 150px;
+}
+
+
 .buttons {
     display: flex;
     justify-content: space-between;

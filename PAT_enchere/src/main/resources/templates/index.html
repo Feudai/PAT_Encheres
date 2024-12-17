@@ -3,12 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Index</title>
+<link rel="stylesheet" href="./CSS/style.css">
 </head>
 <body>
-<ul>
-	<li><a th:href="@{/connexion}">Connexion</a></li>
-	<li><a th:href="@{/accueil}">Accueil</a></li>
-	<li><a th:href="@{/nouvelleVente}">Vendre un objet</a></li>
-</ul>
+<div th:replace="~{fragments/fragment-entete::entete}"></div>
 </body>
 </html>

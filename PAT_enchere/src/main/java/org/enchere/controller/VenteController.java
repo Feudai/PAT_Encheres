@@ -7,15 +7,16 @@ import org.enchere.bll.CategorieService;
 import org.enchere.bll.EnchereService;
 import org.enchere.bll.RetraitService;
 import org.enchere.bo.ArticleVendu;
-import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-@Controller
+import jakarta.validation.Valid;
 
+@Controller
 public class VenteController {
 
 	private ArticleVenduService articleVenduService;
@@ -33,15 +34,21 @@ public class VenteController {
 
 	@GetMapping("/nouvelleVente")
 	public String afficherCreationArticle(Model model) {
+		model.addAttribute("article",new ArticleVendu());
 		
-		model.addAttribute("ArticleVendu",new ArticleVendu());
-
 		return "nouvelle-vente";
 	}
 	
 	@PostMapping("/nouvelleVente")
-	public String vendreUnArticle(@ModelAttribute ArticleVendu articleVendu) {
-		this.articleVenduService.ajouterArticle();
+	public String vendreUnArticle(Model model, @Valid @ModelAttribute("article") ArticleVendu article, BindingResult br) {
+		if(br.hasErrors()) {
+			//debug
+			model.addAttribute("article", article);
+			return "redirect:nouvelleVente";
+		}
+		
+		this.articleVenduService.ajouterArticle(article);
+
 		//ici un th:object, donc besoin que des infos sur le vendeur,
 		//le reste sera automatiquement relié aux fields de l'article vendu
 		
@@ -49,6 +56,8 @@ public class VenteController {
 		
 		return "redirect:/encheres-gestion";
 	}
+	
+	
 	
 	@GetMapping("/encheresEnCours")
 	public String afficherEncheres() {

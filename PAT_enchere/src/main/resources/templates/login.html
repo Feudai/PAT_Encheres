@@ -3,15 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <title>Connexion</title>
-<link rel="stylesheet" href="./CSS/style.css">
+<link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
 <header>	<div th:replace="~{fragments/fragment-entete::entete}"></div></header>
 <h1>ENI-Enchères</h1>
-<form th:action="@{/connexion}" method="post" class="login-form">
+<form th:action="@{/login}" method="post" class="login-form" >
 <ul>
-	<li><label for="identifiant">Identifiant</label><input type="text" name="identifiant" id="identifiant" /></li>
-	<li><label for="password">Mot de passe</label><input type="password" name="password" id="password" /></li>
+	<li><label for="identifiant">Identifiant</label><input type="text" name="username" placeholder="Pseudo" required /></li>
+	<li><label for="password">Mot de passe</label><input type="password" name="password" placeholder="Mot de passe" required /></li>
 	<li><button type="submit">Connexion</button></li>
 	<a href="">Mot de passe oublié</a>
 </ul>

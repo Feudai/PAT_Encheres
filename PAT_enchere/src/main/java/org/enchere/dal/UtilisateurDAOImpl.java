@@ -4,26 +4,26 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-
 import org.enchere.bo.Utilisateur;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 @Repository
-
 public class UtilisateurDAOImpl implements UtilisateurDAO {
 
 	private static final String FIND_ALL = "SELECT no_utilisateur, pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur FROM UTILISATEURS";
 	private static final String FIND_BY_ID = "SELECT no_utilisateur, pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur FROM UTILISATEURS WHERE no_utilisateur =1";
-	private static final String CREATE_UTILISATEUR = "INSERT INTO UTILISATEURS (no_utilisateur, pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur) VALUES (1, 'jean_dupont', 'Dupont', 'Jean', 'jean@email.com', '0601020304', '12 rue des Lilas', '75001', 'Paris', 'motdepasse1', 500, 0)";
+	private static final String CREATE_UTILISATEUR = "INSERT INTO UTILISATEURS (pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe,administrateur,credit)VALUES (:pseudo,:nom,:prenom, :email, :telephone, :rue, :code_postal, :ville, :mot_de_passe,1,1)";
 	
 	
 	
 	private NamedParameterJdbcTemplate jdbcTemplate;
+	private final PasswordEncoder passwordEncoder;
 
 	class UtilisateurRowMapper implements org.springframework.jdbc.core.RowMapper<Utilisateur>{
 
@@ -50,15 +50,19 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 	}
 	
 	
-	public UtilisateurDAOImpl(NamedParameterJdbcTemplate jdbcTemplate) {
+	public UtilisateurDAOImpl(NamedParameterJdbcTemplate jdbcTemplate, PasswordEncoder passwordEncoder) {
 		super();
 		this.jdbcTemplate = jdbcTemplate;
+		this.passwordEncoder = passwordEncoder;
 	}
 
 	@Override
 	public void createUtilisateur(Utilisateur utilisateur) {
+	
 		KeyHolder keyHolder = new GeneratedKeyHolder();
 		MapSqlParameterSource map = new MapSqlParameterSource();
+		
+		String motDePasseEncode = passwordEncoder.encode(utilisateur.getMotDePasse());
 		
 		map.addValue("pseudo", utilisateur.getPseudo());
 		map.addValue("nom", utilisateur.getNom());
@@ -68,7 +72,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 		map.addValue("rue", utilisateur.getRue());
 		map.addValue("code_postal", utilisateur.getCodePostal());
 		map.addValue("ville", utilisateur.getVille());
-		map.addValue("mot_de_passe", utilisateur.getMotDePasse());
+		map.addValue("mot_de_passe", motDePasseEncode);
 	
 		
 		jdbcTemplate.update(CREATE_UTILISATEUR, map, keyHolder);

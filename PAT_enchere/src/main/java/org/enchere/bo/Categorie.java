@@ -10,7 +10,6 @@ public class Categorie {
 		
 		
 		public Categorie(int noCategorie, String libelle, List<ArticleVendu> articles) {
-			super();
 			this.noCategorie = noCategorie;
 			this.libelle = libelle;
 			this.articles = articles;

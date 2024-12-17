@@ -4,11 +4,9 @@ import java.util.List;
 
 import org.enchere.bo.Utilisateur;
 import org.enchere.dal.UtilisateurDAO;
-import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 @Service
-
 public class UtilisateurServiceImpl implements UtilisateurService {
 
 	

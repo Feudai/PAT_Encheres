@@ -2,8 +2,6 @@ package org.enchere.bo;
 
 import java.util.List;
 
-import org.enchere.bll.UtilisateurService;
-
 import jakarta.validation.constraints.Pattern;
 
 public class Utilisateur {
@@ -26,7 +24,6 @@ public class Utilisateur {
 	private List<ArticleVendu> articlesAVendre;
 	private List<Enchere> articlesAEncherir;
 	private List<ArticleVendu> articleAAcheter;
-
 
 
 	public Utilisateur(int noUtilisateur,
@@ -56,6 +53,7 @@ public class Utilisateur {
 	public Utilisateur() {
 		super();
 	}
+
 
 
 
@@ -143,8 +141,8 @@ public class Utilisateur {
 		return credit;
 	}
 
-	public void setCredit(int credit) {
-		this.credit = credit;
+	public void setCredit(int f) {
+		this.credit = f;
 	}
 
 	public boolean isAdministrateur() {

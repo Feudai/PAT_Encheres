@@ -3,10 +3,7 @@ package org.enchere.controller;
 import java.util.List;
 
 import org.enchere.bll.UtilisateurService;
-
-
 import org.enchere.bo.Utilisateur;
-import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 
 @Controller
-
 public class LoginController {
 
 	private UtilisateurService utilisateurService;
@@ -26,10 +22,10 @@ public class LoginController {
 		this.utilisateurService = utilisateurService;
 	}
 
-	@GetMapping("/connexion")
+	@GetMapping("/login")
 	public String affichageConnexion() {
 
-		return "connexion";
+		return "login";
 	}
 
 	@GetMapping("/profile")
@@ -58,7 +54,6 @@ public class LoginController {
 		return "accueil";
 	}
 
-	
 		
 	@GetMapping("/nouvelle-vente")
 	public String affichagePageVente() {

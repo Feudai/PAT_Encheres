@@ -9,7 +9,7 @@
 <body>
 <div th:replace="~{fragments/fragment-entete::entete}"></div>
     <h1>Formulaire de mise en vente</h1>
-    <form action="/submit" method="POST" enctype="multipart/form-data">
+    <form th:action="@{/nouvelleVente}" method="POST" enctype="multipart/form-data">
        
         <div class="form-group">
             <label for="article">Article :</label>
@@ -34,7 +34,7 @@
       
         <div class="form-group photo-upload">
             <label for="photo">Photo de l'article :</label>
-            <input type="file" id="photo" name="photo" accept="image/*" required>
+            <input type="file" id="photo" name="photo" accept="image/*" >
         </div>
         
         <div class="form-group-half">

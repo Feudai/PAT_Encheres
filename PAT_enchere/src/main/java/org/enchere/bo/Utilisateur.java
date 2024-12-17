@@ -9,7 +9,6 @@ import jakarta.validation.constraints.Pattern;
 public class Utilisateur {
 
 	private int noUtilisateur;
-	@Pattern(regexp = "^[a-zA-Z0-9]+$\r\n",message = "Merci de n'entrer que des chiffres et des lettres")
 	private String pseudo;
 	private String nom;
 	private String prenom;
@@ -19,23 +18,22 @@ public class Utilisateur {
 	private String rue;
 	private String codePostal;
 	private String ville;
-	
+
 	private String motDePasse;
-	private float credit;
+	private int credit;
 	private boolean administrateur;
-	
+
 	private List<ArticleVendu> articlesAVendre;
 	private List<Enchere> articlesAEncherir;
 	private List<ArticleVendu> articleAAcheter;
-	
-		
+
 
 
 	public Utilisateur(int noUtilisateur,
 			@Pattern(regexp = "^[a-zA-Z0-9]+$\r\n", message = "Merci de n'entrer que des chiffres et des lettres") String pseudo,
 			String nom, String prenom, String email, String telephone, String rue, String codePostal, String ville,
-			String motDePasse, float credit, boolean administrateur, List<ArticleVendu> articlesAVendre,
-			List<Enchere> articlesAEncherir, List<ArticleVendu> articleAAcheter) {
+			String motDePasse, int credit, boolean administrateur) {
+
 		this.noUtilisateur = noUtilisateur;
 		this.pseudo = pseudo;
 		this.nom = nom;
@@ -53,13 +51,13 @@ public class Utilisateur {
 		this.articleAAcheter = articleAAcheter;
 	}
 
-
-
+	
+	
 	public Utilisateur() {
-	
-}
-	
-	
+		super();
+	}
+
+
 
 	public int getNoUtilisateur() {
 		return noUtilisateur;
@@ -145,7 +143,7 @@ public class Utilisateur {
 		return credit;
 	}
 
-	public void setCredit(float credit) {
+	public void setCredit(int credit) {
 		this.credit = credit;
 	}
 
@@ -180,7 +178,5 @@ public class Utilisateur {
 	public void setArticleAAcheter(List<ArticleVendu> articleAAcheter) {
 		this.articleAAcheter = articleAAcheter;
 	}
-	
-	
-	
+
 }

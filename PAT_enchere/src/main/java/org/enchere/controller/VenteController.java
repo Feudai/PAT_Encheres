@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
-@Profile("dev")
+
 public class VenteController {
 
 	private ArticleVenduService articleVenduService;
@@ -47,7 +47,7 @@ public class VenteController {
 		
 		//. html mettre aussi un selecteur multiple avec les categories
 		
-		return "redirect:/encheres";
+		return "redirect:/encheres-gestion";
 	}
 	
 	@GetMapping("/encheresEnCours")
@@ -55,7 +55,7 @@ public class VenteController {
 		
 		return "encheres-en-cours";
 	}
-	@GetMapping("/encheresEnCours")
+	@PostMapping("/encheresEnCours")
 	public String filtrerEncheres() {
 		
 		return "redirect:/encheresEnCours";
@@ -72,4 +72,7 @@ public class VenteController {
 		
 		return "redirect:/encheres-gestion";
 	}
+	
+	
+	
 }

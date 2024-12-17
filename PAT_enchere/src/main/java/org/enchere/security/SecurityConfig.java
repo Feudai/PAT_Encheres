@@ -28,34 +28,32 @@ public class SecurityConfig {
 	    return new BCryptPasswordEncoder();
 	}
 	
-	@Bean
-	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        ClearSiteDataHeaderWriter.Directive[] directives = { 
+            ClearSiteDataHeaderWriter.Directive.COOKIES,
+            ClearSiteDataHeaderWriter.Directive.CACHE,
+            ClearSiteDataHeaderWriter.Directive.STORAGE
+        };
+        
+        HeaderWriterLogoutHandler clearSiteData = new HeaderWriterLogoutHandler(new ClearSiteDataHeaderWriter(directives));
 
-		HeaderWriterLogoutHandler clearSiteData = new HeaderWriterLogoutHandler(
-				new ClearSiteDataHeaderWriter(Directive.ALL));
+        http
+            .csrf(csrf -> csrf.disable())
+            .authorizeHttpRequests(authorize -> authorize
+                .anyRequest().permitAll()
+            )
+            .formLogin(form -> form
+                .loginPage("/login")
+                .permitAll()
+            )
+            .logout(logout -> logout
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout", "GET"))
+                .addLogoutHandler(clearSiteData)
+            );
 
-		http.authorizeHttpRequests((authorize) -> authorize.requestMatchers("/login").permitAll()
-				.requestMatchers("/index").permitAll()
-				.requestMatchers("/inscription").permitAll()
-				.requestMatchers("/createUser").permitAll()
-				.requestMatchers("/enchere-en-cours").permitAll()
-				.requestMatchers("/enchere-details").permitAll()
-				.requestMatchers("/nouvelleVente").permitAll()
-				.requestMatchers("/profile").permitAll()
-				.requestMatchers("/utilisateur").permitAll()
-				.requestMatchers("/").permitAll()
-				.requestMatchers("/css/**").permitAll()
-				.requestMatchers("/images/**").permitAll()
-				.requestMatchers("/films/enchere-gestion").hasAnyAuthority("ROLE_ADMIN").anyRequest()
-				.authenticated())
-				.httpBasic(Customizer.withDefaults()).formLogin(form -> form.loginPage("/login").permitAll())
-				.logout(logout -> logout.logoutRequestMatcher(new AntPathRequestMatcher("/logout", "GET"))
-						.addLogoutHandler(clearSiteData) // nettoye
-
-				);
-
-		return http.build();
-	}
+        return http.build();
+    }
 
 
 	

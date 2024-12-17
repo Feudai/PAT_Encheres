@@ -10,9 +10,12 @@ import org.enchere.bo.ArticleVendu;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import jakarta.validation.Valid;
 
 @Controller
 
@@ -33,15 +36,17 @@ public class VenteController {
 
 	@GetMapping("/nouvelleVente")
 	public String afficherCreationArticle(Model model) {
-		
-		model.addAttribute("ArticleVendu",new ArticleVendu());
+		for(int a=0;a<10000;a++)
+		System.out.println("oui");
+		model.addAttribute("article",new ArticleVendu());
 
 		return "nouvelle-vente";
 	}
 	
 	@PostMapping("/nouvelleVente")
-	public String vendreUnArticle(@ModelAttribute ArticleVendu articleVendu) {
-		this.articleVenduService.ajouterArticle();
+	public String vendreUnArticle(@Valid @ModelAttribute ArticleVendu article, BindingResult bindingResult) {
+		System.out.println(article.getCategorieArticle());
+		//this.articleVenduService.ajouterArticle(article);
 		//ici un th:object, donc besoin que des infos sur le vendeur,
 		//le reste sera automatiquement relié aux fields de l'article vendu
 		

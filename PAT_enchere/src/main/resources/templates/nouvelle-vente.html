@@ -9,21 +9,21 @@
 <body>
 <div th:replace="~{fragments/fragment-entete::entete}"></div>
     <h1>Formulaire de mise en vente</h1>
-    <form th:action="@{/nouvelleVente}" method="POST" enctype="multipart/form-data">
+    <form th:action="@{/nouvelleVente}" method="post" enctype="multipart/form-data" th:object="${article}">
        
         <div class="form-group">
             <label for="article">Article :</label>
-            <input type="text" id="article" name="article" placeholder="Nom de l'article" required>
+            <input type="text" th:field="*{nomArticle}" placeholder="Nom de l'article" required>
         </div>
         
         <div class="form-group">
             <label for="description">Description :</label>
-            <textarea id="description" name="description" placeholder="Décrivez votre article"></textarea>
+            <textarea th:field="*{description}" placeholder="Décrivez votre article"></textarea>
         </div>
         
         <div class="form-group">
             <label for="categorie">Catégorie :</label>
-            <select id="categorie" name="categorie">
+            <select th:field="*{categorie.libelle}">
                 <option value="">-- Choisissez une catégorie --</option>
                 <option value="electronique">Électronique</option>
                 <option value="vetement">Vêtements</option>
@@ -39,18 +39,18 @@
         
         <div class="form-group-half">
             <label for="miseAPrix">Mise à prix :</label>
-            <input type="number" id="miseAPrix" name="miseAPrix" placeholder="150" min="0" required>
+            <input type="number" th:field="*{miseAPrix}" placeholder="150" min="0" required>
         </div>
         
  
         <div class="form-group-half calendar-icon">
             <label for="debutEnchere">Début de l'enchère :</label>
-            <input type="date" id="debutEnchere" name="debutEnchere" required>
+            <input type="date" th:field="*{miseAPrix}" required>
         </div>
         
         <div class="form-group-half calendar-icon">
             <label for="finEnchere">Fin de l'enchère :</label>
-            <input type="date" id="finEnchere" name="finEnchere" required>
+            <input type="date" th:field="*{miseAPrix}" required>
         </div>
         
      
@@ -58,15 +58,15 @@
             <legend>Retrait</legend>
             <div class="form-group-half">
                 <label for="rue">Rue :</label>
-                <input type="text" id="rue" name="rue" placeholder="Rue des mouettes" required>
+                <input type="text" th:field="*{retrait.rue}" placeholder="Rue des mouettes" required>
             </div>
             <div class="form-group-half">
                 <label for="codePostal">Code postal :</label>
-                <input type="text" id="codePostal" name="codePostal" placeholder="44800" required>
+                <input type="text" th:field="*{retrait.code_postal}" placeholder="44800" required>
             </div>
             <div class="form-group-half">
                 <label for="ville">Ville :</label>
-                <input type="text" id="ville" name="ville" placeholder="Saint Herblain" required>
+                <input type="text" th:field="*{retrait.ville}" placeholder="Saint Herblain" required>
             </div>
         </fieldset>
  

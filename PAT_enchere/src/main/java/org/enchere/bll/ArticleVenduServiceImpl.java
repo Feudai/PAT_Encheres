@@ -8,7 +8,6 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 @Service
-
 public class ArticleVenduServiceImpl implements ArticleVenduService {
 
 	private ArticleVenduDAO articleVenduDAO;
@@ -17,7 +16,7 @@ public class ArticleVenduServiceImpl implements ArticleVenduService {
 		this.articleVenduDAO = articleVenduDAO;
 	}
 
-	public List<ArticleVendu> ajouterArticle() {
+	public List<ArticleVendu> ajouterArticle(ArticleVendu article) {
 		
 		return this.articleVenduDAO.findAll();
 	}

@@ -7,7 +7,6 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 
 @Repository
-
 public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 
 	//Ici les requêtes

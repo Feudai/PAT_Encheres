@@ -10,6 +10,11 @@ public class LoginController {
 
 	private UtilisateurService utilisateurService;
 	
+	
+	public LoginController(UtilisateurService utilisateurService) {
+		this.utilisateurService = utilisateurService;
+	}
+	
 	@GetMapping("/connexion")
 	public String affichageConnexion () {
 		

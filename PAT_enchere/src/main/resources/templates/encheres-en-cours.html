@@ -29,6 +29,22 @@
 				<textarea id="" cols="10" rows="1" th:text="${e.createur.pseudo}"></textarea>
 			</li>
 		</ul>
+		<ul>
+			<li>
+
+				<label for="filtreCategorie">Catégorie :</label>
+				<select name="idCategorie" id="filtreCategorie">
+					<option th:each="c : ${listeEncheres}" th:value="${c.noCategorie}" th:text="${c.libelle}"></option>
+				</select>
+			</li>
+			<li>
+
+				<label for="filtreArticle">Nom de l'Article :</label>
+				<input name="nomArticle" id="filtreArticle" type="text">
+				</input>
+			</li>
+
+		</ul>
 		<div>
 			<button type="submit">Filtrer les annonces</button>
 		</div>

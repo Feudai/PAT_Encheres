@@ -28,33 +28,12 @@ public class Utilisateur {
 	private List<ArticleVendu> articleAAcheter;
 
 
-
-	public Utilisateur(int noUtilisateur, String pseudo, String nom, String prenom, String email, String telephone,
-			String rue, String codePostal, String ville, String motDePasse, int credit, boolean administrateur,
-			List<ArticleVendu> articlesAVendre, List<Enchere> articlesAEncherir, List<ArticleVendu> articleAAcheter) {
-
-		this.noUtilisateur = noUtilisateur;
-		this.pseudo = pseudo;
-		this.nom = nom;
-		this.prenom = prenom;
-		this.email = email;
-		this.telephone = telephone;
-		this.rue = rue;
-		this.codePostal = codePostal;
-		this.ville = ville;
-		this.motDePasse = motDePasse;
-		this.credit = credit;
-		this.administrateur = administrateur;
-		this.articlesAVendre = articlesAVendre;
-		this.articlesAEncherir = articlesAEncherir;
-		this.articleAAcheter = articleAAcheter;
-	}
-
 	
 	
 	public Utilisateur() {
 		super();
 	}
+
 
 
 
@@ -76,6 +55,7 @@ public class Utilisateur {
 		this.credit = credit;
 		this.administrateur = administrateur;
 	}
+
 
 	public int getNoUtilisateur() {
 		return noUtilisateur;

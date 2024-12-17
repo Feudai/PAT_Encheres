@@ -39,6 +39,7 @@ public class LoginController {
 		return "accueil";
 	}
 
+<<<<<<< HEAD
 
 		
 
@@ -46,6 +47,13 @@ public class LoginController {
 	public String affichagePageVente() {
 
 
+=======
+	
+		
+	@GetMapping("/nouvelle-vente")
+	public String affichagePageVente() {
+
+>>>>>>> b8b653a8a0a32018a24123194ce3f9e0fc408d4e
 		return "nouvelle-vente";
 	}
 

@@ -21,7 +21,7 @@ public class Utilisateur {
 	private String ville;
 	
 	private String motDePasse;
-	private float credit;
+	private int credit;
 	private boolean administrateur;
 	
 	private List<ArticleVendu> articlesAVendre;
@@ -34,7 +34,7 @@ public class Utilisateur {
 	public Utilisateur(int noUtilisateur,
 			@Pattern(regexp = "^[a-zA-Z0-9]+$\r\n", message = "Merci de n'entrer que des chiffres et des lettres") String pseudo,
 			String nom, String prenom, String email, String telephone, String rue, String codePostal, String ville,
-			String motDePasse, float credit, boolean administrateur, List<ArticleVendu> articlesAVendre,
+			String motDePasse, int credit, boolean administrateur, List<ArticleVendu> articlesAVendre,
 			List<Enchere> articlesAEncherir, List<ArticleVendu> articleAAcheter) {
 		this.noUtilisateur = noUtilisateur;
 		this.pseudo = pseudo;
@@ -145,7 +145,7 @@ public class Utilisateur {
 		return credit;
 	}
 
-	public void setCredit(float credit) {
+	public void setCredit(int credit) {
 		this.credit = credit;
 	}
 

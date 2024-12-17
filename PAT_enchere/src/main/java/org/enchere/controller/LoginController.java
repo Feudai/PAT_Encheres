@@ -40,7 +40,7 @@ public class LoginController {
 	@GetMapping("/nouvelleVente")
 	public String affichagePageVente () {
 		
-		return "nouvelleVente";
+		return "nouvelle-vente";
 	}
 
 

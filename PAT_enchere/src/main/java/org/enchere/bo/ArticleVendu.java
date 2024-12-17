@@ -10,8 +10,8 @@ public class ArticleVendu {
 	private String description;
 	private LocalDateTime dateDebutEncheres;
 	private LocalDateTime dateFinEncheres;
-	private float miseAPrix;
-	private float prixVente;
+	private int miseAPrix;
+	private int prixVente;
 	private boolean etatVente;
 	
 	private List<Enchere> listeEncheres;
@@ -20,7 +20,7 @@ public class ArticleVendu {
 	
 	
 	public ArticleVendu(int noArticle, String nomArticle, String description, LocalDateTime dateDebutEncheres,
-			LocalDateTime dateFinEncheres, float miseAPrix, float prixVente, boolean etatVente,
+			LocalDateTime dateFinEncheres, int miseAPrix, int prixVente, boolean etatVente,
 			List<Enchere> listeEncheres, Retrait lieuRetrait, Categorie categorieArticle) {
 		super();
 		this.noArticle = noArticle;
@@ -84,7 +84,7 @@ public class ArticleVendu {
 		return miseAPrix;
 	}
 
-	public void setMiseAPrix(float miseAPrix) {
+	public void setMiseAPrix(int miseAPrix) {
 		this.miseAPrix = miseAPrix;
 	}
 
@@ -92,7 +92,7 @@ public class ArticleVendu {
 		return prixVente;
 	}
 
-	public void setPrixVente(float prixVente) {
+	public void setPrixVente(int prixVente) {
 		this.prixVente = prixVente;
 	}
 

@@ -41,7 +41,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 			u.setCodePostal(rs.getString("code_postal"));
 			u.setVille(rs.getString("ville"));
 			u.setMotDePasse(rs.getString("mot_de_passe"));
-			u.setCredit(rs.getFloat("credit"));
+			u.setCredit(rs.getInt("credit"));
 			u.setAdministrateur(rs.getBoolean("administrateur"));
 					
 			return u;

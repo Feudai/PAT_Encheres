@@ -51,7 +51,6 @@ public class LoginController {
 	@GetMapping("/nouvelle-vente")
 	public String affichagePageVente() {
 
-
 		return "nouvelle-vente";
 	}
 

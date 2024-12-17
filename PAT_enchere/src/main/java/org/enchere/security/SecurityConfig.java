@@ -9,6 +9,8 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.logout.HeaderWriterLogoutHandler;
@@ -20,6 +22,12 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableWebSecurity
 public class SecurityConfig {
 
+	
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+	    return new BCryptPasswordEncoder();
+	}
+	
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
@@ -29,6 +37,7 @@ public class SecurityConfig {
 		http.authorizeHttpRequests((authorize) -> authorize.requestMatchers("/login").permitAll()
 				.requestMatchers("/index").permitAll()
 				.requestMatchers("/inscription").permitAll()
+				.requestMatchers("/createUser").permitAll()
 				.requestMatchers("/enchere-en-cours").permitAll()
 				.requestMatchers("/enchere-details").permitAll()
 				.requestMatchers("/nouvelle-vente").permitAll()
@@ -49,6 +58,7 @@ public class SecurityConfig {
 	}
 
 
+	
 	@Bean
 	public UserDetailsService userDetailsService(DataSource dataSource) {
 	    JdbcUserDetailsManager jdbcUserDetailsManager = new JdbcUserDetailsManager(dataSource);

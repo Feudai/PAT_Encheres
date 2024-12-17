@@ -10,6 +10,7 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -22,6 +23,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 	
 	
 	private NamedParameterJdbcTemplate jdbcTemplate;
+	private final PasswordEncoder passwordEncoder;
 
 	class UtilisateurRowMapper implements org.springframework.jdbc.core.RowMapper<Utilisateur>{
 
@@ -48,15 +50,19 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 	}
 	
 	
-	public UtilisateurDAOImpl(NamedParameterJdbcTemplate jdbcTemplate) {
+	public UtilisateurDAOImpl(NamedParameterJdbcTemplate jdbcTemplate, PasswordEncoder passwordEncoder) {
 		super();
 		this.jdbcTemplate = jdbcTemplate;
+		this.passwordEncoder = passwordEncoder;
 	}
 
 	@Override
 	public void createUtilisateur(Utilisateur utilisateur) {
+	
 		KeyHolder keyHolder = new GeneratedKeyHolder();
 		MapSqlParameterSource map = new MapSqlParameterSource();
+		
+		String motDePasseEncode = passwordEncoder.encode(utilisateur.getMotDePasse());
 		
 		map.addValue("pseudo", utilisateur.getPseudo());
 		map.addValue("nom", utilisateur.getNom());
@@ -66,7 +72,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 		map.addValue("rue", utilisateur.getRue());
 		map.addValue("code_postal", utilisateur.getCodePostal());
 		map.addValue("ville", utilisateur.getVille());
-		map.addValue("mot_de_passe", utilisateur.getMotDePasse());
+		map.addValue("mot_de_passe", motDePasseEncode);
 	
 		
 		jdbcTemplate.update(CREATE_UTILISATEUR, map, keyHolder);

@@ -5,10 +5,9 @@ public class Retrait {
 	private Adresse adresse;
 	private ArticleVendu article;
 	
-	public Retrait(Adresse adresse, ArticleVendu article) {
+	public Retrait(Adresse adresse) {
 		super();
 		this.adresse = adresse;
-		this.article = article;
 	}
 	
 	

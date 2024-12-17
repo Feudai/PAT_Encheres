@@ -28,7 +28,6 @@ public class Utilisateur {
 	private List<ArticleVendu> articleAAcheter;
 
 
-
 	public Utilisateur(int noUtilisateur,
 			@Pattern(regexp = "^[a-zA-Z0-9]+$\r\n", message = "Merci de n'entrer que des chiffres et des lettres") String pseudo,
 			String nom, String prenom, String email, String telephone, String rue, String codePostal, String ville,
@@ -56,6 +55,7 @@ public class Utilisateur {
 	public Utilisateur() {
 		super();
 	}
+
 
 
 
@@ -143,8 +143,8 @@ public class Utilisateur {
 		return credit;
 	}
 
-	public void setCredit(int credit) {
-		this.credit = credit;
+	public void setCredit(int f) {
+		this.credit = f;
 	}
 
 	public boolean isAdministrateur() {

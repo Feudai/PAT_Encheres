@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import jakarta.validation.Valid;
 
 @Controller
-
 public class VenteController {
 
 	private ArticleVenduService articleVenduService;

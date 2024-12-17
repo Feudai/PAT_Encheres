@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 
 @Controller
-
 public class LoginController {
 
 	private UtilisateurService utilisateurService;
@@ -25,13 +24,21 @@ public class LoginController {
 	@GetMapping("/connexion")
 	public String affichageConnexion() {
 
-		return "connexion";
+		return "login";
 	}
 
 	@GetMapping("/profile")
 	public String affichageProfil() {
 
 		return "profile";
+	}
+	
+	@PostMapping("/profile")
+	public String modifierProfil() {
+		
+		
+		return "redirect:/profile";
+		
 	}
 
 	@GetMapping("/accueil")
@@ -40,7 +47,6 @@ public class LoginController {
 		return "accueil";
 	}
 
-	
 		
 	@GetMapping("/nouvelle-vente")
 	public String affichagePageVente() {

@@ -7,6 +7,7 @@ import org.enchere.bll.CategorieService;
 import org.enchere.bll.EnchereService;
 import org.enchere.bll.RetraitService;
 import org.enchere.bo.ArticleVendu;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
+@Profile("dev")
 public class VenteController {
 
 	private ArticleVenduService articleVenduService;

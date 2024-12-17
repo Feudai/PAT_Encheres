@@ -1,11 +1,15 @@
 package org.enchere.controller;
 
 import org.enchere.bll.UtilisateurService;
+import org.enchere.bo.Utilisateur;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
-
+@Profile("dev")
 public class LoginController {
 
 	private UtilisateurService utilisateurService;
@@ -51,6 +55,13 @@ public class LoginController {
 	public String affichageUtilisateur () {
 		
 		return "utilisateur";
+	}
+	
+	@PostMapping("/createUser")
+	public String CreationUtlisateur (@ModelAttribute Utilisateur utilisateur) {
+		
+		this.utilisateurService.createUser(utilisateur);
+		return "redirect:/profile";
 	}
 
 }

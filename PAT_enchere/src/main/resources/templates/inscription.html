@@ -14,7 +14,7 @@
 
 
 
-	<form th:action="@{/profile}" method="post">
+	<form th:action="@{/profile}" th:object="${Utilisateur}" method="post">
 
 		<h2>Mon profil</h2>
 

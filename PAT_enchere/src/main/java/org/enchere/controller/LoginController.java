@@ -1,5 +1,7 @@
 package org.enchere.controller;
 
+import java.util.List;
+
 import org.enchere.bll.UtilisateurService;
 
 
@@ -10,6 +12,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestAttribute;
+import org.springframework.web.bind.annotation.RequestParam;
 
 
 @Controller
@@ -29,8 +33,13 @@ public class LoginController {
 	}
 
 	@GetMapping("/profile")
-	public String affichageProfil() {
-
+	public String affichageProfil(@RequestParam("noUtilisateur")int noUtilisateur, Model model) {
+		
+		Utilisateur u = this.utilisateurService.consulterUtilisateurParId(noUtilisateur);
+		
+		model.addAttribute("utilisateur", u);
+		
+		
 		return "profile";
 	}
 	
@@ -43,8 +52,9 @@ public class LoginController {
 	}
 
 	@GetMapping("/accueil")
-	public String affichageAccueil() {
-
+	public String affichageTousUtilisateurs(Model model) {
+		List<Utilisateur> utilisateurs = this.utilisateurService.consulterUtilisateurs();
+		model.addAttribute("utilisateurs", utilisateurs);
 		return "accueil";
 	}
 

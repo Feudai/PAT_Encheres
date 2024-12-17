@@ -6,7 +6,6 @@ import java.util.List;
 
 
 import org.enchere.bo.Utilisateur;
-import org.springframework.context.annotation.Profile;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -42,7 +41,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 			u.setCodePostal(rs.getString("code_postal"));
 			u.setVille(rs.getString("ville"));
 			u.setMotDePasse(rs.getString("mot_de_passe"));
-			u.setCredit(rs.getFloat("credit"));
+			u.setCredit(rs.getInt("credit"));
 			u.setAdministrateur(rs.getBoolean("administrateur"));
 					
 			return u;
@@ -93,6 +92,12 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 	public List<Utilisateur> findAll() {
 	
 		return jdbcTemplate.query(FIND_ALL, new UtilisateurRowMapper());
+	}
+
+	@Override
+	public List<Utilisateur> findUtilisateur(int noUtilisateur) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

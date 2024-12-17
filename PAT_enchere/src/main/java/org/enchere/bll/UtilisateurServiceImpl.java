@@ -1,5 +1,7 @@
 package org.enchere.bll;
 
+import java.util.List;
+
 import org.enchere.bo.Utilisateur;
 import org.enchere.dal.UtilisateurDAO;
 import org.springframework.context.annotation.Profile;
@@ -20,6 +22,20 @@ public class UtilisateurServiceImpl implements UtilisateurService {
 	public void createUser(Utilisateur utilisateur) {
 		utilisateurDao.createUtilisateur(utilisateur);
 		
+	}
+
+	@Override
+	public Utilisateur consulterUtilisateurParId(int noUtilisateur) {
+		Utilisateur u = this.utilisateurDao.read(noUtilisateur);
+
+		
+		return u;
+	}
+
+	@Override
+	public List<Utilisateur> consulterUtilisateurs() {
+		System.out.println(this.utilisateurDao.findAll());
+		return this.utilisateurDao.findAll();
 	}
 	
 	

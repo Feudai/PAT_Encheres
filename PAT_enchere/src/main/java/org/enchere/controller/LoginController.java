@@ -21,7 +21,7 @@ public class LoginController {
 		this.utilisateurService = utilisateurService;
 	}
 
-	@GetMapping("/connexion")
+	@GetMapping("/login")
 	public String affichageConnexion() {
 
 		return "login";

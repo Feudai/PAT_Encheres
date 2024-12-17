@@ -7,7 +7,6 @@ import org.enchere.bll.CategorieService;
 import org.enchere.bll.EnchereService;
 import org.enchere.bll.RetraitService;
 import org.enchere.bo.ArticleVendu;
-import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;

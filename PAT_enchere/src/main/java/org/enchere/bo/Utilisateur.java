@@ -27,21 +27,11 @@ public class Utilisateur {
 	private List<Enchere> articlesAEncherir;
 	private List<ArticleVendu> articleAAcheter;
 
-
-	
-	
-	public Utilisateur() {
-		super();
-	}
-
-
-
-
 	public Utilisateur(int noUtilisateur,
 			@Pattern(regexp = "^[a-zA-Z0-9]+$\r\n", message = "Merci de n'entrer que des chiffres et des lettres") String pseudo,
 			String nom, String prenom, String email, String telephone, String rue, String codePostal, String ville,
 			String motDePasse, int credit, boolean administrateur) {
-		super();
+
 		this.noUtilisateur = noUtilisateur;
 		this.pseudo = pseudo;
 		this.nom = nom;
@@ -54,8 +44,14 @@ public class Utilisateur {
 		this.motDePasse = motDePasse;
 		this.credit = credit;
 		this.administrateur = administrateur;
+		this.articlesAVendre = articlesAVendre;
+		this.articlesAEncherir = articlesAEncherir;
+		this.articleAAcheter = articleAAcheter;
 	}
 
+	public Utilisateur() {
+		super();
+	}
 
 	public int getNoUtilisateur() {
 		return noUtilisateur;

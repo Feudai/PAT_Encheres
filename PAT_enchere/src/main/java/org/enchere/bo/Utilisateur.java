@@ -15,8 +15,11 @@ public class Utilisateur {
 	private String prenom;
 	private String email;
 	private String telephone;
-	private Adresse adresse;
 
+	private String rue;
+	private String codePostal;
+	private String ville;
+	
 	private String motDePasse;
 	private float credit;
 	private boolean administrateur;
@@ -26,17 +29,22 @@ public class Utilisateur {
 	private List<ArticleVendu> articleAAcheter;
 	
 		
-	public Utilisateur(int noUtilisateur, String pseudo, String nom, String prenom, String email, String telephone,
-			Adresse adresse, String motDePasse, float credit, boolean administrateur,
-			List<ArticleVendu> articlesAVendre, List<Enchere> articlesAEncherir, List<ArticleVendu> articleAAcheter) {
-		super();
+
+
+	public Utilisateur(int noUtilisateur,
+			@Pattern(regexp = "^[a-zA-Z0-9]+$\r\n", message = "Merci de n'entrer que des chiffres et des lettres") String pseudo,
+			String nom, String prenom, String email, String telephone, String rue, String codePostal, String ville,
+			String motDePasse, float credit, boolean administrateur, List<ArticleVendu> articlesAVendre,
+			List<Enchere> articlesAEncherir, List<ArticleVendu> articleAAcheter) {
 		this.noUtilisateur = noUtilisateur;
 		this.pseudo = pseudo;
 		this.nom = nom;
 		this.prenom = prenom;
 		this.email = email;
 		this.telephone = telephone;
-		this.adresse = adresse;
+		this.rue = rue;
+		this.codePostal = codePostal;
+		this.ville = ville;
 		this.motDePasse = motDePasse;
 		this.credit = credit;
 		this.administrateur = administrateur;
@@ -44,6 +52,8 @@ public class Utilisateur {
 		this.articlesAEncherir = articlesAEncherir;
 		this.articleAAcheter = articleAAcheter;
 	}
+
+
 
 	public Utilisateur() {
 	
@@ -99,12 +109,28 @@ public class Utilisateur {
 		this.telephone = telephone;
 	}
 
-	public Adresse getAdresse() {
-		return adresse;
+	public String getRue() {
+		return rue;
 	}
 
-	public void setAdresse(Adresse adresse) {
-		this.adresse = adresse;
+	public void setRue(String rue) {
+		this.rue = rue;
+	}
+
+	public String getCodePostal() {
+		return codePostal;
+	}
+
+	public void setCodePostal(String codePostal) {
+		this.codePostal = codePostal;
+	}
+
+	public String getVille() {
+		return ville;
+	}
+
+	public void setVille(String ville) {
+		this.ville = ville;
 	}
 
 	public String getMotDePasse() {

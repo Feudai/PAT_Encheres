@@ -11,9 +11,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
+
 
 
 @Controller
+
 public class LoginController {
 
 	private UtilisateurService utilisateurService;
@@ -28,12 +31,12 @@ public class LoginController {
 		return "login";
 	}
 
-	@GetMapping("/profile")
-	public String affichageProfil(@RequestParam("noUtilisateur")int noUtilisateur, Model model) {
+	@PostMapping("/utilisateur")
+	public String affichageProfil(@ModelAttribute int noUtilisateur, Model model) {
 		
-		Utilisateur u = this.utilisateurService.consulterUtilisateurParId(noUtilisateur);
+		Utilisateur utilisateur = this.utilisateurService.consulterUtilisateurParId(noUtilisateur);
 		
-		model.addAttribute("utilisateur", u);
+		model.addAttribute("utilisateur", utilisateur);
 		
 		
 		return "profile";
@@ -77,7 +80,7 @@ public class LoginController {
 	public String createUser(@ModelAttribute Utilisateur utilisateur) {
 
 		this.utilisateurService.createUser(utilisateur);
-		return "redirect:/profile";
+		return "redirect:/accueil";
 	}
 
 }

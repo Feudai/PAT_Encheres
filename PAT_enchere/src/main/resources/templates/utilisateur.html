@@ -8,10 +8,10 @@
 	<header>
 		<div th:replace="~{fragments/fragment-entete::entete}"></div>
 	</header>
-	<form th:action="@{/utilisateur}" method="get">
+	<form th:action="@{/utilisateur}" method="post" th:object="${utilisateur}">
 
 <ul>
-	<li><label for="idPseudo">Pseudo : </label><textarea id="" cols="10" rows="1" th:text="${utilisateur.pseudo}">></textarea></li>
+	<li><label for="idPseudo">Pseudo : </label><textarea id="" cols="10" rows="1" th:text="${utilisateur.pseudo}"></textarea></li>
 	<li><label for="idNom">Nom : </label><textarea id="" cols="10" rows="1" th:text="${utilisateur.nom}"></textarea></li>
 	<li><label for="idPrenom">Prénom : </label><textarea id="" cols="10" rows="1" th:text="${utilisateur.prenom}"></textarea></li>
 	<li><label for="idEmail">Email : </label><textarea id="" cols="10" rows="1" th:text="${utilisateur.email}"></textarea></li>

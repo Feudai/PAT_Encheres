@@ -13,6 +13,8 @@ public interface UtilisateurDAO {
 	
 	List<Utilisateur>findAll();
 	List<Utilisateur>findUtilisateur(int noUtilisateur);
+
+	void update(Utilisateur utilisateur);
 	
 	
 	

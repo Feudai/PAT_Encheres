@@ -62,6 +62,17 @@ public class LoginController {
 	    return "profil";
 	}
 
+	@PostMapping("/profil")
+	public String mettreAJourUtilisateur(@ModelAttribute Utilisateur utilisateur) {
+		
+		
+		this.utilisateurService.update(utilisateur);
+		
+		return "redirect:/profil";
+	
+	}
+	
+	
 	@GetMapping("/accueil")
 	public String affichageTousUtilisateurs(Model model) {
 		List<Utilisateur> utilisateurs = this.utilisateurService.consulterUtilisateurs();

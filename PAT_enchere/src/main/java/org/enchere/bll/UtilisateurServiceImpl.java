@@ -42,6 +42,12 @@ public class UtilisateurServiceImpl implements UtilisateurService {
 		
 		return utilisateur;
 	}
+
+	@Override
+	public void update(Utilisateur utilisateur) {
+		utilisateurDao.update(utilisateur);
+		
+	}
 	
 	
 }

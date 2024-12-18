@@ -53,11 +53,7 @@ public class LoginController {
 		return "accueil";
 	}
 
-	@GetMapping("/nouvelle-vente")
-	public String affichagePageVente() {
 
-		return "nouvelle-vente";
-	}
 
 	@GetMapping("/inscription")
 	public String affichageInscription(Model model) {

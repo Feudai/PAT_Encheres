@@ -2,12 +2,14 @@ package org.enchere.dal;
 
 import java.util.List;
 
-import org.enchere.bo.Enchere;
+import org.enchere.bo.Categorie;
 
 public interface CategorieDAO {
 
 	
-	public List<Enchere> create(Enchere enchere);
+	 List<Categorie> create(Categorie categorie);
 
-		public List<Enchere> findAll();
+		 List<Categorie> findAll();
+		
+		 Categorie findById(int id);
 }

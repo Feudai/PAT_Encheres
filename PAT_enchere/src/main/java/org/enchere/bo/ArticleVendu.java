@@ -24,7 +24,6 @@ public class ArticleVendu {
 	public ArticleVendu(int noArticle, String nomArticle, String description, LocalDateTime dateDebutEncheres,
 			LocalDateTime dateFinEncheres, int miseAPrix, int prixVente, boolean etatVente,
 			List<Enchere> listeEncheres, Retrait lieuRetrait, Categorie categorieArticle) {
-		super();
 		this.noArticle = noArticle;
 		this.nomArticle = nomArticle;
 		this.description = description;
@@ -82,7 +81,7 @@ public class ArticleVendu {
 		this.dateFinEncheres = dateFinEncheres;
 	}
 
-	public float getMiseAPrix() {
+	public int getMiseAPrix() {
 		return miseAPrix;
 	}
 

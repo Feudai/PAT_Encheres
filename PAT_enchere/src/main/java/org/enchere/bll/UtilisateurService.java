@@ -17,6 +17,8 @@ public interface UtilisateurService {
 
 	void update(Utilisateur utilisateur);
 
+	void deleteUser(int noUtilisateur);
+
 
 
 }

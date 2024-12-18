@@ -1,6 +1,7 @@
 package org.enchere.controller;
 
 import java.security.Principal;
+
 import java.util.List;
 import java.util.Random;
 
@@ -97,6 +98,26 @@ public class LoginController {
 			return "redirect:/profil";
 		}
 
+	}
+
+	@GetMapping("profil/deleteUser")
+	public String deleteUser(@RequestParam(name = "noUtilisateur", required = true) Integer noUtilisateur,
+			Principal principal, Model model) {
+
+		String username = principal.getName();
+		Utilisateur authenticatedUser = utilisateurService.findByUsername(username);
+
+		if (noUtilisateur == null) {
+			noUtilisateur = authenticatedUser.getNoUtilisateur();
+		}
+
+		Utilisateur utilisateur = this.utilisateurService.consulterUtilisateurParId(noUtilisateur);
+		model.addAttribute("utilisateur", utilisateur);
+		this.utilisateurService.deleteUser(noUtilisateur);
+
+		model.addAttribute("utilisateur", noUtilisateur);
+
+		return "redirect:/login";
 	}
 
 }

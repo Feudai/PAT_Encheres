@@ -130,4 +130,14 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 		this.jdbcTemplate.update(UPDATE, map);
 	}
 
+	@Override
+	public void deleteUser(int noUtilisateur) {
+		MapSqlParameterSource map = new MapSqlParameterSource();
+		map.addValue("noUtilisateur", noUtilisateur);
+		this.jdbcTemplate.update(DELETE_UTILISATEUR, map);
+		
+	}
+
+
+
 }

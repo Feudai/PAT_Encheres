@@ -8,7 +8,10 @@ import org.enchere.bo.Enchere;
 public interface CategorieService {
 
 	
-public List<Enchere> ajouterCategorie(Categorie categorie);
+public List<Categorie> ajouterCategorie(Categorie categorie);
 
-public List<Enchere> getListeCategories();
+public List<Categorie> getListeCategories();
+
+public Categorie getCategorieById(int id);
+
 }

@@ -144,13 +144,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 	this.jdbcTemplate.update(UPDATE, map);
 	}
 
-<<<<<<< Updated upstream
-	@Override
-	public void deleteUser(int noUtilisateur) {
-		// TODO Auto-generated method stub
-		
-	}
-=======
+
 @Override
 public void deleteUser(int noUtilisateur) {
 	MapSqlParameterSource map = new MapSqlParameterSource();
@@ -160,6 +154,6 @@ public void deleteUser(int noUtilisateur) {
 }
 
 
->>>>>>> Stashed changes
+
 
 }

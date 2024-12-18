@@ -56,7 +56,10 @@
 
 	</form>
 
-
+<form action="/profil/deleteUser" method="get">
+    <input type="hidden" name="noUtilisateur" th:value="${utilisateur.noUtilisateur}" />
+    <button type="submit">Supprimer mon compte</button>
+</form>
 	<div th:replace="~{fragments/fragment-piedpage::piedpage}"></div>
 </body>
 

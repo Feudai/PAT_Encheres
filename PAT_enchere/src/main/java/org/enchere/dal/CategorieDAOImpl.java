@@ -30,4 +30,10 @@ public class CategorieDAOImpl implements CategorieDAO {
 
 			return exemple;
 		}
+
+		@Override
+		public Categorie findById(int id) {
+			// TODO Auto-generated method stub
+			return null;
+		}
 }

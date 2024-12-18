@@ -80,6 +80,12 @@ public class LoginController {
 
 		return "redirect:/accueil";
 	}
+	
+	@GetMapping("/")
+	public String acceuilDefaut() {
+		return "accueil";
+		
+	}
 
 	@GetMapping("/accueil")
 	public String affichageTousUtilisateurs(Model model) {

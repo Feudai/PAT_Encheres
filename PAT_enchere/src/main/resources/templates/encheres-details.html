@@ -8,7 +8,45 @@
 </head>
 <body>
 <div th:replace="~{fragments/fragment-entete::entete}"></div>
-    <h1>Liste des Encheres en Cours</h1>
+    <h1>Détails de la vente</h1>
+    <form action="@{/encheresDetails}" th:object="${article}" method="get">
+    
+    <div class="form-group">
+            <label for="idArticle">Article :</label>
+            <input type="text" id="idArticle" th:field="*{nomArticle}">
+        </div>
+        
+        <div class="form-group">
+            <label for="description">Description :</label>
+            <textarea id="description" th:field="*{description}"></textarea>
+        </div>
+            <div class="form-group">
+            <label for="description">Catégorie :</label>
+            <textarea id="description" th:field="*{categorieArticle}"></textarea>
+        </div>
+                <div class="form-group">
+            <label for="description">Meilleure offre :</label>
+            <textarea id="description" th:field="{enchere.montantEnchere}"></textarea>
+        </div>
+              
+                <div class="form-group">
+            <label for="description">Mise à prix :</label>
+            <textarea id="description" th:field="*{miseAPrix}"></textarea>
+        </div>
+                        <div class="form-group">
+            <label for="description">Fin de l'enchère :</label>
+            <textarea id="description" th:field="*{dateFinEncheres}"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="description">Retrait :</label>
+            <textarea id="description" th:field="*{lieuRetrait}"></textarea>
+        </div>
+                                <div class="form-group">
+            <label for="description">Vendeur :</label>
+            <textarea id="description" th:field="{enchere.createur}"></textarea>
+        </div>
+    
+    </form>
 
 </body>
 </html>

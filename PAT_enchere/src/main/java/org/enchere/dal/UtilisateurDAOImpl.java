@@ -22,12 +22,9 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 	private static final String FIND_BY_PSEUDO = "SELECT no_utilisateur, pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur FROM UTILISATEURS WHERE pseudo = :pseudo";
 	private static final String UPDATE = "UPDATE UTILISATEURS SET pseudo = :pseudo, nom = :nom, prenom = :prenom, email = :email, telephone = :telephone, rue = :rue, code_postal = :code_postal, ville = :ville, mot_de_passe = :mot_de_passe WHERE no_utilisateur = :no_utilisateur";
 	private static final String CREATE_UTILISATEUR = "INSERT INTO UTILISATEURS (pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe,administrateur,credit)VALUES (:pseudo,:nom,:prenom, :email, :telephone, :rue, :code_postal, :ville, :mot_de_passe,1,1)";
-<<<<<<< HEAD
 
 	private static final String DELETE_UTILISATEUR = "DELETE FROM ENCHERES WHERE no_utilisateur = no_utilisateur; DELETE FROM RETRAITS WHERE no_article IN (SELECT no_article FROM ARTICLES_VENDUS WHERE no_utilisateur = no_utilisateur);DELETE FROM ARTICLES_VENDUS WHERE no_utilisateur = :no_utilisateur; DELETE FROM UTILISATEURS WHERE no_utilisateur = :no_utilisateur";
 
-=======
->>>>>>> 86ff5cc22236183e1a9c91b252fd2fc95ca87710
 	private static final String RECUP_MDP = "SELECT mot_de_passe FROM UTILISATEURS WHERE no_utilisateur = :no_utilisateur";
 	
 	private NamedParameterJdbcTemplate jdbcTemplate;
@@ -118,21 +115,12 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 		return null;
 	}
 
-<<<<<<< HEAD
-
 	public void update(Utilisateur utilisateur) {	
 
     MapSqlParameterSource map = new MapSqlParameterSource("no_utilisateur", utilisateur.getNoUtilisateur());
     String motDePasseEncode = null;
 	if (utilisateur.getMotDePasse() == null && !utilisateur.getMotDePasse().isEmpty()) {
-=======
-	@Override
-	public void update(Utilisateur utilisateur) {	
 
-    MapSqlParameterSource map = new MapSqlParameterSource("no_utilisateur", utilisateur.getNoUtilisateur());
-    String motDePasseEncode = null;
-	if (utilisateur.getMotDePasse() != null && !utilisateur.getMotDePasse().isEmpty()) {
->>>>>>> 86ff5cc22236183e1a9c91b252fd2fc95ca87710
         motDePasseEncode = passwordEncoder.encode(utilisateur.getMotDePasse());
         map.addValue("mot_de_passe", motDePasseEncode);
     } else {
@@ -156,12 +144,12 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 	this.jdbcTemplate.update(UPDATE, map);
 	}
 
+	@Override
+	public void deleteUser(int noUtilisateur) {
+		// TODO Auto-generated method stub
+		
+	}
 
-
-<<<<<<< HEAD
-
-=======
->>>>>>> 86ff5cc22236183e1a9c91b252fd2fc95ca87710
 
 
 

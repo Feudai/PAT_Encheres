@@ -47,26 +47,15 @@ public class VenteController {
 	}
 	
 	@PostMapping("/nouvelleVente")
-	public String vendreUnArticle( @Valid @ModelAttribute ArticleVendu article/*, BindingResult br*/) {
-		/*if(br.hasErrors()) {
+	public String vendreUnArticle(@Valid @ModelAttribute ArticleVendu article, BindingResult br) {
+		if(br.hasErrors()) {
 //debug
 			return "nouvelle-vente";
-		}*/
-		
-//		//debug
-//		 if (article.getDateDebutEncheres() == null) {
-//		        article.setDateDebutEncheres(LocalDateTime.now());
-//		    }
-//		    if (article.getDateFinEncheres() == null) {
-//		        article.setDateFinEncheres(LocalDateTime.now().plusDays(7)); // Default 7 days auction
-//		    }
+		}
+
 		
 		this.articleVenduService.ajouterArticle(article);
 
-		//ici un th:object, donc besoin que des infos sur le vendeur,
-		//le reste sera automatiquement relié aux fields de l'article vendu
-		
-		//. html mettre aussi un selecteur multiple avec les categories
 		
 		return "redirect:/encheresEnCours";
 	}

@@ -7,7 +7,9 @@ import org.enchere.bo.Categorie;
 public interface CategorieDAO {
 
 	
-	public List<Categorie> create(Categorie categorie);
+	 List<Categorie> create(Categorie categorie);
 
-		public List<Categorie> findAll();
+		 List<Categorie> findAll();
+		
+		 Categorie findById(int id);
 }

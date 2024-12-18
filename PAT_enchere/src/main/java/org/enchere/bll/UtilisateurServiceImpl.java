@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class UtilisateurServiceImpl implements UtilisateurService {
 
-	
 	private UtilisateurDAO utilisateurDao;
 
 	public UtilisateurServiceImpl(UtilisateurDAO utilisateurDao) {
@@ -19,15 +18,14 @@ public class UtilisateurServiceImpl implements UtilisateurService {
 	@Override
 	public void createUser(Utilisateur utilisateur) {
 		utilisateurDao.createUtilisateur(utilisateur);
-		
+
 	}
 
 	@Override
 	public Utilisateur consulterUtilisateurParId(int noUtilisateur) {
-		Utilisateur u = this.utilisateurDao.read(noUtilisateur);
+		Utilisateur utilisateur = this.utilisateurDao.read(noUtilisateur);
 
-		
-		return u;
+		return utilisateur;
 	}
 
 	@Override
@@ -35,6 +33,24 @@ public class UtilisateurServiceImpl implements UtilisateurService {
 		System.out.println(this.utilisateurDao.findAll());
 		return this.utilisateurDao.findAll();
 	}
-	
-	
+
+	public Utilisateur findByUsername(String username) {
+		Utilisateur utilisateur = this.utilisateurDao.read(username);
+
+		return utilisateur;
+
+	}
+
+	@Override
+	public void update(Utilisateur utilisateur) {
+		utilisateurDao.update(utilisateur);
+
+	}
+
+	@Override
+	public void deleteUser(int noUtilisateur) {
+		utilisateurDao.deleteUser(noUtilisateur);
+		
+	}
+
 }

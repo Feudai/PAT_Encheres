@@ -11,4 +11,7 @@ public interface CategorieService {
 public List<Categorie> ajouterCategorie(Categorie categorie);
 
 public List<Categorie> getListeCategories();
+
+public Categorie getCategorieById(int id);
+
 }

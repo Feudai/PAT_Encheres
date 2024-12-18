@@ -11,7 +11,7 @@
 	</header>
 	<h1>PATé_enchères</h1>
 
-	<form th:action="@{/profile}" method="post">
+	<form th:action="@{/profil}" method="post" th:object="${utilisateur}">
 
 		<h2>Mon profil</h2>
 
@@ -19,41 +19,39 @@
 			<ul>
 
 				<li><label for="idPseudo">Pseudo</label>
-				<textarea  rows="1" cols="1"></textarea></li>
+				<input id="idPseudo" type="text" name="" th:field="${utilisateur.pseudo}"/></li>
 				<li><label for="idPrenom">Prénom</label>
-				<textarea rows="1" cols="1"></textarea></li>
+				<input id="idPrenom" type="text" name="" th:field="${utilisateur.prenom}"/></li>
 				<li><label for="idTelephone">Téléphone</label>
-				<textarea rows="1" cols="1"></textarea></li>
+				<input id="idTelephone" type="text" name="" th:field="${utilisateur.telephone}"/></li>
 				<li><label for="idCodePostal">Code Postal</label>
-				<textarea rows="1" cols="1"></textarea></li>
+				<input id="idCodePostal" type="text" name="" th:field="${utilisateur.codePostal}"/></li>
 				
 				<li>>
 						<label for="idMotDePasse">Mot de passe</label><input
-							id="idMotDePasse" type="text" name="" />
+							id="idMotDePasse" type="text" name="utilisateur.motDePasse" />
 					</li>
 			</ul>
 		</div>
 		<div>
 			<ul>
 				<li><label for="idNom">Nom</label> <input id="idNom"
-					type="text" name="" /></li>
+					type="text" name="" th:field="${utilisateur.nom}"/></li>
 				<li><label for="idEmail">Email</label> <input id="idEmail"
-					type="text" name="" /></li>
+					type="text" name="" th:field="${utilisateur.email}"/></li>
 				<li><label for="idRue">Rue</label> <input id="idRue"
-					type="text" name="" /></li>
+					type="text" name="" th:field="${utilisateur.rue}"/></li>
 				<li><label for="idVille">Ville</label> <input id="idVille"
-					type="text" name="" /></li>
+					type="text" name="" th:field="${utilisateur.ville}"/></li>
 				<li></li>
 				<li><label for="idConfirmation">Confirmation</label> <input
-					id="idConfirmation" type="text" /></li>
+					id="idConfirmation" type="text" placeholder="Confirmer votre Mot de passe"/></li>
 			</ul>
 		</div>
 		<div>
 			<button type="submit">Enregistrer</button>
 		</div>
-		<div>
-			<button type="submit">Supprimer mon compte</button>
-		</div>
+
 
 
 	</form>

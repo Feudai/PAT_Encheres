@@ -26,4 +26,10 @@ public List<Categorie> getListeCategories(){
 	
 	return this.categorieDao.findAll();
 }
+
+@Override
+public Categorie getCategorieById(int id) {
+	Categorie categorie = this.categorieDao.findById(id);
+	return categorie;
+}
 }

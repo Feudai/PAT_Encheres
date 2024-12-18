@@ -8,7 +8,7 @@ public interface EnchereDAO {
 
 public List<Enchere> create(Enchere enchere);
 
-		public List<Enchere> findAll();
+		 List<Enchere> findAll();
 	
 }
 

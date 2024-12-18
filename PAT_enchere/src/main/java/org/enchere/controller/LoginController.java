@@ -10,13 +10,22 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
 @Controller
 
 public class LoginController {
 
+    @ResponseBody
+    public String home(HttpSession session) {
+        Object authenticatedUser = session.getAttribute("authenticatedUser");
+        return "Authenticated User: " + authenticatedUser.toString();
+    }
 	private UtilisateurService utilisateurService;
 
 	public LoginController(UtilisateurService utilisateurService) {
@@ -26,24 +35,26 @@ public class LoginController {
 	@GetMapping("/login")
 	public String affichageConnexion() {
 
+
 		return "login";
 	}
 
-	@GetMapping("/utilisateur")
-	public String affichageProfil(@ModelAttribute int noUtilisateur, Model model) {
+
+	@GetMapping("/profile")
+	public String affichageProfil(@RequestParam(name= "noUtilisateur") int noUtilisateur, Model model) {
 
 		Utilisateur utilisateur = this.utilisateurService.consulterUtilisateurParId(noUtilisateur);
 
 		model.addAttribute("utilisateur", utilisateur);
 
-		return "utilisateur";
+		return "profile";
 	}
 
-	@GetMapping("/profile")
-	public String modifierProfil() {
-
-		return "profile";
-
+	@GetMapping("/profil-detail")
+	public String affichageUtilisateur(@RequestParam(name= "noUtilisateur") int noUtilisateur, Model model) {
+		Utilisateur utilisateur = this.utilisateurService.consulterUtilisateurParId(noUtilisateur);
+		model.addAttribute("utilisateur", utilisateur);
+		return "profil-detail";
 	}
 
 	@GetMapping("/accueil")
@@ -61,7 +72,12 @@ public class LoginController {
 		return "inscription";
 	}
 
+
+
+
+
 	@PostMapping("/createUser")
+
 	public String createUser(@Valid @ModelAttribute Utilisateur utilisateur, BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
 			return "/inscription";

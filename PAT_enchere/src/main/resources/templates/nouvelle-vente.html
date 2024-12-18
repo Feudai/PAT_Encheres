@@ -9,11 +9,11 @@
 <body>
 <div th:replace="~{fragments/fragment-entete::entete}"></div>
     <h1>Formulaire de mise en vente</h1>
-    <form th:action="@{/nouvelleVente}" method="post" enctype="multipart/form-data" th:object="${article}">
+    <form th:action="@{/nouvelleVente}" th:object="${article}" method="post" enctype="multipart/form-data" >
        
         <div class="form-group">
-            <label for="article">Article :</label>
-            <input type="text" id="article" th:field="*{nomArticle}" placeholder="Nom de l'article" required>
+            <label for="idArticle">Article :</label>
+            <input type="text" id="idArticle" th:field="*{nomArticle}" placeholder="Nom de l'article" required>
         </div>
         
         <div class="form-group">
@@ -22,12 +22,9 @@
         </div>
         
         <div class="form-group">
-            <label for="categorie">Catégorie :</label>
-            <select id="categorie" th:field="*{categorie.libelle}">
-                <option value="">-- Choisissez une catégorie --</option>
-                <option value="electronique">Électronique</option>
-                <option value="vetement">Vêtements</option>
-                <option value="loisir">Loisir</option>
+            <label for="categorieArticle">Catégorie :</label>
+            <select id="categorieArticle" th:field="*{categorieArticle}">
+                <option th:each="c : ${listeCategories}" th:value="${c.noCategorie}" th:text="${c.libelle}">-- Choisissez une catégorie --</option>
             </select>
         </div>
         

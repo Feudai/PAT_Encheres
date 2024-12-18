@@ -153,5 +153,4 @@ public void deleteUser(int noUtilisateur) {
 	
 }
 
-
 }

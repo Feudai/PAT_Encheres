@@ -33,7 +33,7 @@ public class CategorieDAOImpl implements CategorieDAO {
 
 		@Override
 		public Categorie findById(int id) {
-
-			return null;
+			Categorie categorie = this.findAll().stream().filter(c->c.getNoCategorie()==id).findFirst().orElse(null);
+			return categorie;
 		}
 }

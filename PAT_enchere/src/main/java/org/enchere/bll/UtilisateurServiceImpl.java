@@ -37,10 +37,22 @@ public class UtilisateurServiceImpl implements UtilisateurService {
 	}
 
 	@Override
+
+	public void deleteUser(int noUtilisateur) {
+		this.utilisateurDao.deleteUser(noUtilisateur);}
+	
+	
+	
+	
+	
+	
+	
+
 	public Utilisateur findByUsername(String username) {
 		Utilisateur utilisateur = this.utilisateurDao.read(username);
 		
 		return utilisateur;
+
 	}
 
 	@Override

@@ -5,7 +5,6 @@ package org.enchere.bll;
 import java.util.List;
 
 import org.enchere.bo.Categorie;
-import org.enchere.bo.Enchere;
 import org.enchere.dal.CategorieDAO;
 import org.springframework.stereotype.Service;
 
@@ -18,12 +17,12 @@ public class CategorieServiceImpl implements CategorieService {
 		this.categorieDao = categorieDao;
 	}
 	
-public List<Enchere> ajouterCategorie(Categorie categorie) {
+public List<Categorie> ajouterCategorie(Categorie categorie) {
 		
 		return this.categorieDao.findAll();
 	}
 
-public List<Enchere> getListeCategories(){
+public List<Categorie> getListeCategories(){
 	
 	return this.categorieDao.findAll();
 }

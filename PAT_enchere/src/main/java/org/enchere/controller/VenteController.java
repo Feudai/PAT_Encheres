@@ -39,8 +39,7 @@ public class VenteController {
 
 	@GetMapping("/nouvelleVente")
 	public String afficherCreationArticle(Model model) {
-		for(int a=0;a<1000;a++)
-		System.out.println("caca");
+
 		model.addAttribute("article",new ArticleVendu());
 		model.addAttribute("listeCategories",this.categorieService.getListeCategories());
 		
@@ -48,20 +47,19 @@ public class VenteController {
 	}
 	
 	@PostMapping("/nouvelleVente")
-	public String vendreUnArticle( @Valid @ModelAttribute ArticleVendu article, BindingResult br, Model model) {
-		if(br.hasErrors()) {
+	public String vendreUnArticle( @Valid @ModelAttribute ArticleVendu article/*, BindingResult br*/) {
+		/*if(br.hasErrors()) {
 //debug
-	        model.addAttribute("listeCategories", this.categorieService.getListeCategories());
 			return "nouvelle-vente";
-		}
+		}*/
 		
-		//debug
-		 if (article.getDateDebutEncheres() == null) {
-		        article.setDateDebutEncheres(LocalDateTime.now());
-		    }
-		    if (article.getDateFinEncheres() == null) {
-		        article.setDateFinEncheres(LocalDateTime.now().plusDays(7)); // Default 7 days auction
-		    }
+//		//debug
+//		 if (article.getDateDebutEncheres() == null) {
+//		        article.setDateDebutEncheres(LocalDateTime.now());
+//		    }
+//		    if (article.getDateFinEncheres() == null) {
+//		        article.setDateFinEncheres(LocalDateTime.now().plusDays(7)); // Default 7 days auction
+//		    }
 		
 		this.articleVenduService.ajouterArticle(article);
 
@@ -77,6 +75,7 @@ public class VenteController {
 	
 	@GetMapping("/encheresEnCours")
 	public String afficherEncheres(Model model) {
+		System.out.println(this.enchereService.getListeEncheres().toString());
 		model.addAttribute("listeEncheres",this.enchereService.getListeEncheres());
 		return "encheres-en-cours";
 	}

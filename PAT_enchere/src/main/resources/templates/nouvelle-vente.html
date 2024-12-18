@@ -31,7 +31,7 @@
       
         <div class="form-group photo-upload">
             <label for="photo">Photo de l'article :</label>
-            <input id="photo" type="file" id="photo" name="photo" accept="image/*" >
+            <input id="photo" type="file" name="photo" accept="image/*" >
         </div>
         
         <div class="form-group-half">
@@ -41,13 +41,13 @@
         
  
         <div class="form-group-half calendar-icon">
-            <label for="debutEnchere">Début de l'enchère :</label>
-            <input id="debutEnchere" type="date" th:field="*{dateDebutEnchere}" required>
+            <label for="debutEncheres">Début de l'enchère :</label>
+            <input id="debutEncheres" type="datetime-local" th:field="*{dateDebutEncheres}" required>
         </div>
         
         <div class="form-group-half calendar-icon">
-            <label for="finEnchere">Fin de l'enchère :</label>
-            <input id="finEnchere" type="date" th:field="*{dateFinEnchere}" required>
+            <label for="finEncheres">Fin de l'enchère :</label>
+            <input id="finEncheres" type="date" th:field="*{dateFinEncheres}" required>
         </div>
         
      
@@ -55,15 +55,15 @@
             <legend>Retrait</legend>
             <div class="form-group-half">
                 <label for="rue">Rue :</label>
-                <input id="rue" type="text" th:field="*{retrait.rue}" placeholder="Rue des mouettes" required>
+                <input id="rue" type="text" th:field="*{lieuRetrait.rue}" placeholder="Rue des mouettes" required>
             </div>
             <div class="form-group-half">
                 <label for="codePostal">Code postal :</label>
-                <input id="codePostal" type="text" th:field="*{retrait.code_postal}" placeholder="44800" required>
+                <input id="codePostal" type="text" th:field="*{lieuRetrait.codePostal}" placeholder="44800" required>
             </div>
             <div class="form-group-half">
                 <label for="ville">Ville :</label>
-                <input id="ville" type="text" th:field="*{retrait.ville}" placeholder="Saint Herblain" required>
+                <input id="ville" type="text" th:field="*{lieuRetrait.ville}" placeholder="Saint Herblain" required>
             </div>
         </fieldset>
  

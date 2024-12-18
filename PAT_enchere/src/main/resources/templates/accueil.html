@@ -1,39 +1,54 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta charset="UTF-8">
-<title>Accueil</title>
-<link rel="stylesheet" href="./css/style.css">
+	<meta charset="UTF-8">
+	<title>Accueil</title>
+	<link rel="stylesheet" href="./css/style.css">
 </head>
+
 <body>
 	<div th:replace="~{fragments/fragment-entete::entete}"></div>
 	<h1>Liste des enchères</h1>
-	<form action="@{/search}" method="GET">
-		<h3>Filtres :</h3>
-		<label for="search">Rechercher :</label> <input type="search"
-			id="search" name="q" placeholder="Entrez votre recherche">
-		<button type="submit">Rechercher</button>
-	</form>
-	<form action="/submit-category" method="POST">
-		<label for="category">Choisissez une catégorie :</label> <select
-			id="category" name="category">
-			<option value="informatique">Informatique</option>
-			<option value="ameublement">Ameublement</option>
-			<option value="vetement">Vêtement</option>
-			<option value="sportLoisir">Sport&Loisirs</option>
-			<option value="other">Autre</option>
-		</select>
+	<form action="@{/encheresEnCours}" method="POST">
+		<div>
+			<h3>Filtres :</h3>
+			</div>
+			<div>
+			<ul>
+
+			<label for="search">Rechercher :</label> <input type="search" id="search" name="q"
+				placeholder="Entrez votre recherche">
+		</ul>
+		<ul>
+			<label for="filtreCategorie">Catégorie :</label>
+			<select name="idCategorie" id="filtreCategorie">
+				<option th:each="c : ${listeEncheres}" th:value="${c.noCategorie}" th:text="${c.libelle}"></option>
+			</select>
+		</ul>
+		</div>
 		<button type="submit">Valider</button>
 	</form>
 
 	<div class="exemple-vente">
 		<ul>
 			<li><img src="./images/placeholder.png" alt="" /></li>
-			<li>Titre de l'article</li>
-			<li>Prix :</li>
-			<li>Fin de l'enchère :</li>
-			<li>Vendeur :</li>
-		</ul>
+						<li>
+							<textarea id="" cols="10" rows="1" th:text="${e?.article?.nomArticle}"></textarea>
+						</li>
+						<li>
+
+							<textarea id="" cols="10" rows="1" th:text="${e?.montantEnchere}"></textarea>
+						</li>
+						<li>
+
+							<textarea id="" cols="10" rows="1" th:text="${e?.dateEnchere}"></textarea>
+						</li>
+						<li>
+
+							<textarea id="" cols="10" rows="1" th:text="${e?.createur?.pseudo}"></textarea>
+						</li>
+					</ul>
 	</div>
 	<div class="exemple-vente">
 		<ul>
@@ -51,11 +66,10 @@
 				</tr>
 
 			</thead>
-			<tbody  th:each="u : ${utilisateurs}">
+			<tbody th:each="u : ${utilisateurs}">
 				<tr>
 					<td th:text="${u.pseudo}"></td>
-					<td><a
-						th:href="@{/profile(noUtilisateur=${u.noUtilisateur})}">Détail</a></td>
+					<td><a th:href="@{/profile(noUtilisateur=${u.noUtilisateur})}">Détail</a></td>
 
 				</tr>
 			</tbody>
@@ -67,4 +81,5 @@
 
 
 </body>
+
 </html>

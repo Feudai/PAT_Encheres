@@ -36,11 +36,7 @@ public class UtilisateurServiceImpl implements UtilisateurService {
 		return this.utilisateurDao.findAll();
 	}
 
-	@Override
 
-	public void deleteUser(int noUtilisateur) {
-		this.utilisateurDao.deleteUser(noUtilisateur);}
-	
 	
 	
 	

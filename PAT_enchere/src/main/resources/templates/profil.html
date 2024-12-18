@@ -19,30 +19,30 @@
 			<ul>
 
 				<li><label for="idPseudo">Pseudo</label>
-				<input id="idPseudo" type="text" name="" th:placeholder="${utilisateur.pseudo}" /></li>
+				<input id="idPseudo" type="text" name="" th:field="${utilisateur.pseudo}"/></li>
 				<li><label for="idPrenom">Prénom</label>
-				<input id="idPrenom" type="text" name="" th:placeholder="${utilisateur.prenom}"/></li>
+				<input id="idPrenom" type="text" name="" th:field="${utilisateur.prenom}"/></li>
 				<li><label for="idTelephone">Téléphone</label>
-				<input id="idTelephone" type="text" name="" th:placeholder="${utilisateur.telephone}"/></li>
+				<input id="idTelephone" type="text" name="" th:field="${utilisateur.telephone}"/></li>
 				<li><label for="idCodePostal">Code Postal</label>
-				<input id="idCodePostal" type="text" name="" th:placeholder="${utilisateur.codePostal}"/></li>
+				<input id="idCodePostal" type="text" name="" th:field="${utilisateur.codePostal}"/></li>
 				
 				<li>>
 						<label for="idMotDePasse">Mot de passe</label><input
-							id="idMotDePasse" type="text" name="" th:placeholder="${utilisateur.motDePasse}"/>
+							id="idMotDePasse" type="text" name="" th:field="${utilisateur.motDePasse}"/>
 					</li>
 			</ul>
 		</div>
 		<div>
 			<ul>
 				<li><label for="idNom">Nom</label> <input id="idNom"
-					type="text" name="" th:placeholder="${utilisateur.nom}"/></li>
+					type="text" name="" th:field="${utilisateur.nom}"/></li>
 				<li><label for="idEmail">Email</label> <input id="idEmail"
-					type="text" name="" th:placeholder="${utilisateur.email}"/></li>
+					type="text" name="" th:field="${utilisateur.email}"/></li>
 				<li><label for="idRue">Rue</label> <input id="idRue"
-					type="text" name="" th:placeholder="${utilisateur.rue}"/></li>
+					type="text" name="" th:field="${utilisateur.rue}"/></li>
 				<li><label for="idVille">Ville</label> <input id="idVille"
-					type="text" name="" th:placeholder="${utilisateur.ville}"/></li>
+					type="text" name="" th:field="${utilisateur.ville}"/></li>
 				<li></li>
 				<li><label for="idConfirmation">Confirmation</label> <input
 					id="idConfirmation" type="text" placeholder="Confirmer votre Mot de passe"/></li>

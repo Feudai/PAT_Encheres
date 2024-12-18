@@ -6,9 +6,11 @@ import java.util.List;
 
 import org.enchere.bll.UtilisateurService;
 import org.enchere.bo.Utilisateur;
+import org.enchere.exceptions.BusinessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -41,7 +43,6 @@ public class LoginController {
 		return "login";
 	}
 
-
 	@GetMapping("/profil-detail")
 	public String affichageUtilisateur(@RequestParam(name = "noUtilisateur") int noUtilisateur, Model model) {
 		Utilisateur utilisateur = this.utilisateurService.consulterUtilisateurParId(noUtilisateur);
@@ -68,19 +69,16 @@ public class LoginController {
 	}
 
 	@PostMapping("/profil")
-	public String mettreAJourUtilisateur(
-	    @ModelAttribute Utilisateur utilisateur, 
-	    Principal principal) {
+	public String mettreAJourUtilisateur(@ModelAttribute Utilisateur utilisateur, Principal principal) {
 
-	    String username = principal.getName();
-	    Utilisateur authenticatedUser = utilisateurService.findByUsername(username);
+		String username = principal.getName();
+		Utilisateur authenticatedUser = utilisateurService.findByUsername(username);
 
-	    utilisateur.setNoUtilisateur(authenticatedUser.getNoUtilisateur());
-	    
+		utilisateur.setNoUtilisateur(authenticatedUser.getNoUtilisateur());
 
-	    this.utilisateurService.update(utilisateur);
+		this.utilisateurService.update(utilisateur);
 
-	    return "redirect:/accueil";
+		return "redirect:/accueil";
 	}
 
 	@GetMapping("/accueil")
@@ -98,11 +96,25 @@ public class LoginController {
 
 	@PostMapping("/createUser")
 	public String createUser(@Valid @ModelAttribute Utilisateur utilisateur, BindingResult bindingResult) {
+		
 		if (bindingResult.hasErrors()) {
-			return "/inscription";
+			return "inscription";
 		} else {
-			this.utilisateurService.createUser(utilisateur);
-			return "redirect:/login";
+			try {
+				this.utilisateurService.createUser(utilisateur);
+				return "redirect:/login";
+			} catch (BusinessException e) {
+				// block executé lorsque la validation du formateur ne respecte pas toutes les
+				// règles
+				e.printStackTrace(); // affiche les erreurs dans la console
+				// boucle sur l'ensemble des erreurs de validation pour les transmettre à la vue
+				e.getListeMessage().forEach(m -> {
+					ObjectError error = new ObjectError("globalError", m);
+					bindingResult.addError(error);
+				});
+				return "inscription";
+			}
+
 		}
 
 	}
@@ -115,7 +127,6 @@ public class LoginController {
 		int idUtilisateur = utilisateur.getNoUtilisateur();
 		model.addAttribute("utilisateur", utilisateur);
 		this.utilisateurService.deleteUser(idUtilisateur);
-
 
 		return "redirect:/accueil";
 	}

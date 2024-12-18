@@ -35,6 +35,11 @@ public class UtilisateurServiceImpl implements UtilisateurService {
 		System.out.println(this.utilisateurDao.findAll());
 		return this.utilisateurDao.findAll();
 	}
+
+	@Override
+	public void deleteUser(int noUtilisateur) {
+		this.utilisateurDao.deleteUser(noUtilisateur);
+	}
 	
 	
 }

@@ -20,7 +20,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 	private static final String FIND_ALL = "SELECT no_utilisateur, pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur FROM UTILISATEURS";
 	private static final String FIND_BY_ID = "SELECT no_utilisateur, pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur FROM UTILISATEURS WHERE no_utilisateur = :no_utilisateur";
 	private static final String CREATE_UTILISATEUR = "INSERT INTO UTILISATEURS (pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe,administrateur,credit)VALUES (:pseudo,:nom,:prenom, :email, :telephone, :rue, :code_postal, :ville, :mot_de_passe,1,1)";
-	
+	private static final String DELETE_UTILISATEUR = "DELETE FROM users WHERE id = ?";
 	
 	
 	private NamedParameterJdbcTemplate jdbcTemplate;
@@ -103,6 +103,14 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 	public List<Utilisateur> findUtilisateur(int noUtilisateur) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void deleteUser(int noUtilisateur) {
+		MapSqlParameterSource map = new MapSqlParameterSource();
+		map.addValue("no_utilisateur", noUtilisateur);
+		jdbcTemplate.update(DELETE_UTILISATEUR, map);
+		
 	}
 
 }

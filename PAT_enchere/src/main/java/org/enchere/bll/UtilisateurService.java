@@ -13,4 +13,5 @@ public interface UtilisateurService {
 
 	List<Utilisateur> consulterUtilisateurs();
 	
+	void deleteUser (int noUtilisateur);
 }

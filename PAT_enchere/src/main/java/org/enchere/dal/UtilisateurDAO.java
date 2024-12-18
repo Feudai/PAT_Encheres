@@ -12,7 +12,7 @@ public interface UtilisateurDAO {
 	
 	List<Utilisateur>findAll();
 	List<Utilisateur>findUtilisateur(int noUtilisateur);
-	
+	void deleteUser (int noUtilisateur);
 	
 	
 	

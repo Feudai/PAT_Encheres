@@ -10,10 +10,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-<<<<<<< HEAD
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-=======
->>>>>>> d74599f96a09399e499c59192e742b0fa246978e
+
 
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
@@ -40,29 +39,23 @@ public class LoginController {
 		return "login";
 	}
 
-<<<<<<< HEAD
+
 	@GetMapping("/profile")
-=======
-	@GetMapping("/utilisateur")
->>>>>>> d74599f96a09399e499c59192e742b0fa246978e
-	public String affichageProfil(@ModelAttribute int noUtilisateur, Model model) {
+	public String affichageProfil(@RequestParam(name= "noUtilisateur") int noUtilisateur, Model model) {
 
 		Utilisateur utilisateur = this.utilisateurService.consulterUtilisateurParId(noUtilisateur);
 
 		model.addAttribute("utilisateur", utilisateur);
 
-		return "utilisateur";
-	}
-
-<<<<<<< HEAD
-=======
-	@GetMapping("/profile")
-	public String modifierProfil() {
-
 		return "profile";
-
 	}
->>>>>>> d74599f96a09399e499c59192e742b0fa246978e
+
+	@GetMapping("/profil-detail")
+	public String affichageUtilisateur(@RequestParam(name= "noUtilisateur") int noUtilisateur, Model model) {
+		Utilisateur utilisateur = this.utilisateurService.consulterUtilisateurParId(noUtilisateur);
+		model.addAttribute("utilisateur", utilisateur);
+		return "profil-detail";
+	}
 
 	@GetMapping("/accueil")
 	public String affichageTousUtilisateurs(Model model) {
@@ -83,18 +76,12 @@ public class LoginController {
 		return "inscription";
 	}
 
-<<<<<<< HEAD
-	@GetMapping("/profil-detail")
-	public String affichageUtilisateur() {
 
-		return "profil-detail";
-	}
+
+
 
 	@PostMapping("/createUser")
 
-=======
-	@PostMapping("/createUser")
->>>>>>> d74599f96a09399e499c59192e742b0fa246978e
 	public String createUser(@Valid @ModelAttribute Utilisateur utilisateur, BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
 			return "/inscription";

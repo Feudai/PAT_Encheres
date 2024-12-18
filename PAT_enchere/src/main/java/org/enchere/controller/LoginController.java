@@ -44,16 +44,6 @@ public class LoginController {
 	}
 
 
-	@GetMapping("/profile")
-	public String affichageProfil(@RequestParam(name = "noUtilisateur") int noUtilisateur, Model model) {
-
-		Utilisateur utilisateur = this.utilisateurService.consulterUtilisateurParId(noUtilisateur);
-
-		model.addAttribute("utilisateur", utilisateur);
-
-		return "profile";
-	}
-
 
 	@GetMapping("/profil-detail")
 	public String affichageUtilisateur(@RequestParam(name = "noUtilisateur") int noUtilisateur, Model model) {
@@ -117,15 +107,7 @@ public class LoginController {
 		
 	}
 	
-	@GetMapping("profile/deleteUser")
-	public String deleteUser(@RequestParam(name = "noUtilisateur", required = true) int noUtilisateur, Model model) {
-
-		this.utilisateurService.deleteUser(noUtilisateur);
-
-		model.addAttribute("utilisateur", noUtilisateur );
-
-		return "accueil";
-	}
+	
 
 
 }

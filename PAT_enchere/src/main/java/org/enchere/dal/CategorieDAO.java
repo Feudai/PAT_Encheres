@@ -10,4 +10,6 @@ public interface CategorieDAO {
 	public List<Categorie> create(Categorie categorie);
 
 		public List<Categorie> findAll();
+		
+		public Categorie findById(int id);
 }

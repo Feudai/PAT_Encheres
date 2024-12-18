@@ -21,7 +21,8 @@ public class UtilisateurServiceImpl implements UtilisateurService {
 		BusinessException be = new BusinessException();
 
 		boolean valide = validerEmailUnique(utilisateur.getEmail(), be);
-		if (valide) {
+		boolean validePseudo = validerPseudoUnique(utilisateur.getPseudo(), be);
+		if (valide && validePseudo) {
 			utilisateurDao.createUtilisateur(utilisateur);
 		} else {
 			throw be;
@@ -70,6 +71,17 @@ public class UtilisateurServiceImpl implements UtilisateurService {
 		}
 
 		return !emailExiste;
+	}
+	
+	private boolean validerPseudoUnique(String pseudo, BusinessException be) {
+
+		boolean pseudoExiste = utilisateurDao.validerPseudoUnique(pseudo);
+
+		if (pseudoExiste) {
+			be.addMessage("Vous ne pouvez pas créer un utilisateur avec un pseudo déjà existant");
+		}
+
+		return !pseudoExiste;
 	}
 
 }

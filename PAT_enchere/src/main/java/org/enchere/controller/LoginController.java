@@ -1,6 +1,7 @@
 package org.enchere.controller;
 
 import java.security.Principal;
+
 import java.util.List;
 
 import org.enchere.bll.UtilisateurService;
@@ -22,13 +23,11 @@ import jakarta.validation.Valid;
 
 public class LoginController {
 
-
 	@ResponseBody
 	public String home(HttpSession session) {
 		Object authenticatedUser = session.getAttribute("authenticatedUser");
 		return "Authenticated User: " + authenticatedUser.toString();
 	}
-
 
 	private UtilisateurService utilisateurService;
 
@@ -42,8 +41,14 @@ public class LoginController {
 		return "login";
 	}
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> 86ff5cc22236183e1a9c91b252fd2fc95ca87710
 
 
+>>>>>>> 6eb84023186edb6537516f76cd83a32f7b537616
 	@GetMapping("/profil-detail")
 	public String affichageUtilisateur(@RequestParam(name = "noUtilisateur") int noUtilisateur, Model model) {
 		Utilisateur utilisateur = this.utilisateurService.consulterUtilisateurParId(noUtilisateur);
@@ -52,26 +57,35 @@ public class LoginController {
 	}
 
 	@GetMapping("/profil")
-	public String affichageUtilisateur(
-	    @RequestParam(name = "noUtilisateur", required = false) Integer noUtilisateur,
-	    Principal principal,
-	    Model model) {
+	public String affichageUtilisateur(@RequestParam(name = "noUtilisateur", required = false) Integer noUtilisateur,
+			Principal principal, Model model) {
 
-	    // Récupérer l'utilisateur connecté via le Principal
-	    String username = principal.getName();
-	    Utilisateur authenticatedUser = utilisateurService.findByUsername(username);
+		// Récupérer l'utilisateur connecté via le Principal
+		String username = principal.getName();
+		Utilisateur authenticatedUser = utilisateurService.findByUsername(username);
 
-	    if (noUtilisateur == null) {
-	        noUtilisateur = authenticatedUser.getNoUtilisateur();
-	    }
+		if (noUtilisateur == null) {
+			noUtilisateur = authenticatedUser.getNoUtilisateur();
+		}
 
-	    Utilisateur utilisateur = this.utilisateurService.consulterUtilisateurParId(noUtilisateur);
-	    model.addAttribute("utilisateur", utilisateur);
+		Utilisateur utilisateur = this.utilisateurService.consulterUtilisateurParId(noUtilisateur);
+		model.addAttribute("utilisateur", utilisateur);
 
-	    return "profil";
+		return "profil";
 	}
 
 	@PostMapping("/profil")
+<<<<<<< HEAD
+<<<<<<< HEAD
+	public String mettreAJourUtilisateur(@ModelAttribute Utilisateur utilisateur) {
+
+		this.utilisateurService.update(utilisateur);
+
+		return "redirect:/profil";
+
+=======
+=======
+>>>>>>> 86ff5cc22236183e1a9c91b252fd2fc95ca87710
 	public String mettreAJourUtilisateur(
 	    @ModelAttribute Utilisateur utilisateur, 
 	    Principal principal) {
@@ -84,10 +98,17 @@ public class LoginController {
 
 	    this.utilisateurService.update(utilisateur);
 
+<<<<<<< HEAD
 	    return "redirect:/login";
+=======
+	    return "redirect:/profil";
+<<<<<<< HEAD
+>>>>>>> 6eb84023186edb6537516f76cd83a32f7b537616
+=======
+>>>>>>> 86ff5cc22236183e1a9c91b252fd2fc95ca87710
+>>>>>>> 32897647c54f8095414bde446d34b6c2e4f0cb95
 	}
-	
-	
+
 	@GetMapping("/accueil")
 	public String affichageTousUtilisateurs(Model model) {
 		List<Utilisateur> utilisateurs = this.utilisateurService.consulterUtilisateurs();
@@ -109,10 +130,31 @@ public class LoginController {
 			this.utilisateurService.createUser(utilisateur);
 			return "redirect:/login";
 		}
-		
+
 	}
+
+	@GetMapping("profil/deleteUser")
+	public String deleteUser(@RequestParam(name = "noUtilisateur", required = true) Integer noUtilisateur,
+			Principal principal, Model model) {
+
+
+		Utilisateur utilisateur = this.utilisateurService.consulterUtilisateurParId(noUtilisateur);
+		int idUtilisateur = utilisateur.getNoUtilisateur();
+		model.addAttribute("utilisateur", utilisateur);
+		this.utilisateurService.deleteUser(idUtilisateur);
+
 	
+<<<<<<< HEAD
+<<<<<<< HEAD
+
+		return "redirect:/login";
+	}
+=======
+	
+>>>>>>> 6eb84023186edb6537516f76cd83a32f7b537616
+=======
 	
 
+>>>>>>> 86ff5cc22236183e1a9c91b252fd2fc95ca87710
 
 }

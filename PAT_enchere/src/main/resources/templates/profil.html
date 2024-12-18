@@ -15,9 +15,28 @@
 
 		<h2>Mon profil</h2>
 
+
+
 		<div>
 			<ul>
 
+<<<<<<< HEAD
+				<li><label for="idPseudo">Pseudo</label> <input id="idPseudo"
+					type="text" name="" th:placeholder="${utilisateur.pseudo}" /></li>
+				<li><label for="idPrenom">Prénom</label> <input id="idPrenom"
+					type="text" name="" th:placeholder="${utilisateur.prenom}" /></li>
+				<li><label for="idTelephone">Téléphone</label> <input
+					id="idTelephone" type="text" name=""
+					th:placeholder="${utilisateur.telephone}" /></li>
+				<li><label for="idCodePostal">Code Postal</label> <input
+					id="idCodePostal" type="text" name=""
+					th:placeholder="${utilisateur.codePostal}" /></li>
+
+				<li>> <label for="idMotDePasse">Mot de passe</label><input
+					id="idMotDePasse" type="text" name=""
+					th:placeholder="${utilisateur.motDePasse}" />
+				</li>
+=======
 				<li><label for="idPseudo">Pseudo</label>
 				<input id="idPseudo" type="text" name="" th:field="${utilisateur.pseudo}"/></li>
 				<li><label for="idPrenom">Prénom</label>
@@ -29,13 +48,28 @@
 				
 				<li>>
 						<label for="idMotDePasse">Mot de passe</label><input
+<<<<<<< HEAD
+							id="idMotDePasse" type="text" name="" th:field="${utilisateur.motDePasse}"/>
+=======
 							id="idMotDePasse" type="text" name="utilisateur.motDePasse" />
+>>>>>>> 86ff5cc22236183e1a9c91b252fd2fc95ca87710
 					</li>
+>>>>>>> 6eb84023186edb6537516f76cd83a32f7b537616
 			</ul>
 		</div>
 		<div>
 			<ul>
 				<li><label for="idNom">Nom</label> <input id="idNom"
+<<<<<<< HEAD
+<<<<<<< HEAD
+					type="text" name="" th:placeholder="${utilisateur.nom}" /></li>
+				<li><label for="idEmail">Email</label> <input id="idEmail"
+					type="text" name="" th:placeholder="${utilisateur.email}" /></li>
+				<li><label for="idRue">Rue</label> <input id="idRue"
+					type="text" name="" th:placeholder="${utilisateur.rue}" /></li>
+				<li><label for="idVille">Ville</label> <input id="idVille"
+					type="text" name="" th:placeholder="${utilisateur.ville}" /></li>
+=======
 					type="text" name="" th:field="${utilisateur.nom}"/></li>
 				<li><label for="idEmail">Email</label> <input id="idEmail"
 					type="text" name="" th:field="${utilisateur.email}"/></li>
@@ -43,9 +77,20 @@
 					type="text" name="" th:field="${utilisateur.rue}"/></li>
 				<li><label for="idVille">Ville</label> <input id="idVille"
 					type="text" name="" th:field="${utilisateur.ville}"/></li>
+>>>>>>> 6eb84023186edb6537516f76cd83a32f7b537616
+=======
+					type="text" name="" th:field="${utilisateur.nom}"/></li>
+				<li><label for="idEmail">Email</label> <input id="idEmail"
+					type="text" name="" th:field="${utilisateur.email}"/></li>
+				<li><label for="idRue">Rue</label> <input id="idRue"
+					type="text" name="" th:field="${utilisateur.rue}"/></li>
+				<li><label for="idVille">Ville</label> <input id="idVille"
+					type="text" name="" th:field="${utilisateur.ville}"/></li>
+>>>>>>> 86ff5cc22236183e1a9c91b252fd2fc95ca87710
 				<li></li>
 				<li><label for="idConfirmation">Confirmation</label> <input
-					id="idConfirmation" type="text" placeholder="Confirmer votre Mot de passe"/></li>
+					id="idConfirmation" type="text"
+					placeholder="Confirmer votre Mot de passe" /></li>
 			</ul>
 		</div>
 		<div>
@@ -56,6 +101,16 @@
 
 	</form>
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+<form action="/profil/deleteUser" method="get">
+    <input type="hidden" name="noUtilisateur" th:value="${utilisateur.noUtilisateur}" />
+    <button type="submit">Supprimer mon compte</button>
+</form>
+=======
+>>>>>>> 6eb84023186edb6537516f76cd83a32f7b537616
+=======
+>>>>>>> 86ff5cc22236183e1a9c91b252fd2fc95ca87710
 
 	<div th:replace="~{fragments/fragment-piedpage::piedpage}"></div>
 </body>

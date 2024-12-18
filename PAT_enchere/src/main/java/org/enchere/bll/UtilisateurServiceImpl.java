@@ -35,6 +35,13 @@ public class UtilisateurServiceImpl implements UtilisateurService {
 		System.out.println(this.utilisateurDao.findAll());
 		return this.utilisateurDao.findAll();
 	}
+
+	@Override
+	public Utilisateur findByUsername(String username) {
+		Utilisateur utilisateur = this.utilisateurDao.read(username);
+		
+		return utilisateur;
+	}
 	
 	
 }

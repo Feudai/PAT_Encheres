@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.enchere.bo.Utilisateur;
 
-
 public interface UtilisateurService {
 
 	void createUser(Utilisateur utilisateur);
@@ -18,7 +17,5 @@ public interface UtilisateurService {
 	void update(Utilisateur utilisateur);
 
 	void deleteUser(int noUtilisateur);
-
-
 
 }

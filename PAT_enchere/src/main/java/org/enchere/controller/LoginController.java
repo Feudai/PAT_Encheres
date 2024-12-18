@@ -104,18 +104,13 @@ public class LoginController {
 	public String deleteUser(@RequestParam(name = "noUtilisateur", required = true) Integer noUtilisateur,
 			Principal principal, Model model) {
 
-		String username = principal.getName();
-		Utilisateur authenticatedUser = utilisateurService.findByUsername(username);
-
-		if (noUtilisateur == null) {
-			noUtilisateur = authenticatedUser.getNoUtilisateur();
-		}
 
 		Utilisateur utilisateur = this.utilisateurService.consulterUtilisateurParId(noUtilisateur);
+		int idUtilisateur = utilisateur.getNoUtilisateur();
 		model.addAttribute("utilisateur", utilisateur);
-		this.utilisateurService.deleteUser(noUtilisateur);
+		this.utilisateurService.deleteUser(idUtilisateur);
 
-		model.addAttribute("utilisateur", noUtilisateur);
+	
 
 		return "redirect:/login";
 	}

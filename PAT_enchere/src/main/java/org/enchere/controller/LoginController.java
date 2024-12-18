@@ -80,8 +80,7 @@ public class LoginController {
 
 	    this.utilisateurService.update(utilisateur);
 
-	    return "redirect:/profil";
-
+	    return "redirect:/login";
 	}
 
 	@GetMapping("/accueil")
@@ -111,7 +110,6 @@ public class LoginController {
 	@GetMapping("profil/deleteUser")
 	public String deleteUser(@RequestParam(name = "noUtilisateur", required = true) Integer noUtilisateur,
 			Principal principal, Model model) {
-
 
 		Utilisateur utilisateur = this.utilisateurService.consulterUtilisateurParId(noUtilisateur);
 		int idUtilisateur = utilisateur.getNoUtilisateur();

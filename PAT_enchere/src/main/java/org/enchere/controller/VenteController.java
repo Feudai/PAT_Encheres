@@ -2,6 +2,7 @@ package org.enchere.controller;
 
 
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.enchere.bll.ArticleVenduService;
@@ -38,17 +39,29 @@ public class VenteController {
 
 	@GetMapping("/nouvelleVente")
 	public String afficherCreationArticle(Model model) {
+		for(int a=0;a<1000;a++)
+		System.out.println("caca");
 		model.addAttribute("article",new ArticleVendu());
+		model.addAttribute("listeCategories",this.categorieService.getListeCategories());
 		
 		return "nouvelle-vente";
 	}
 	
 	@PostMapping("/nouvelleVente")
-	public String vendreUnArticle( @Valid @ModelAttribute("article") ArticleVendu article, BindingResult br) {
+	public String vendreUnArticle( @Valid @ModelAttribute ArticleVendu article, BindingResult br, Model model) {
 		if(br.hasErrors()) {
-			//debug
-			return "redirect:/nouvelleVente";
+//debug
+	        model.addAttribute("listeCategories", this.categorieService.getListeCategories());
+			return "nouvelle-vente";
 		}
+		
+		//debug
+		 if (article.getDateDebutEncheres() == null) {
+		        article.setDateDebutEncheres(LocalDateTime.now());
+		    }
+		    if (article.getDateFinEncheres() == null) {
+		        article.setDateFinEncheres(LocalDateTime.now().plusDays(7)); // Default 7 days auction
+		    }
 		
 		this.articleVenduService.ajouterArticle(article);
 
@@ -57,7 +70,7 @@ public class VenteController {
 		
 		//. html mettre aussi un selecteur multiple avec les categories
 		
-		return "redirect:/encheres-gestion";
+		return "redirect:/encheresEnCours";
 	}
 	
 	

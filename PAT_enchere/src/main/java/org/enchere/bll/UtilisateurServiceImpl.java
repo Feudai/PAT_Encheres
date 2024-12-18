@@ -35,6 +35,7 @@ public class UtilisateurServiceImpl implements UtilisateurService {
 	}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
 	
@@ -43,6 +44,8 @@ public class UtilisateurServiceImpl implements UtilisateurService {
 	
 	
 	
+=======
+>>>>>>> 86ff5cc22236183e1a9c91b252fd2fc95ca87710
 
 >>>>>>> 6eb84023186edb6537516f76cd83a32f7b537616
 	public Utilisateur findByUsername(String username) {

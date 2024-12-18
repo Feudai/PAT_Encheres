@@ -17,4 +17,8 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 	
 	return null;
 	}
+	
+	public List<ArticleVendu> create(ArticleVendu article) {
+		return null;
+	}
 }

@@ -12,6 +12,8 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class EnchereDAOImpl implements EnchereDAO {
+	
+	
 
 	public List<Enchere> create(Enchere enchere){
 		

@@ -18,8 +18,6 @@ public class Enchere {
 			this.article = article;
 		}
 
-		
-		
 
 		public LocalDateTime getDateEnchere() {
 			return dateEnchere;
@@ -31,34 +29,38 @@ public class Enchere {
 		}
 
 
-		public int getMontant_enchere() {
+		public int getMontantEnchere() {
 			return montantEnchere;
 		}
 
 
-		public void setMontant_enchere(int montantEnchere) {
+		public void setMontantEnchere(int montantEnchere) {
 			this.montantEnchere = montantEnchere;
 		}
 
 
-		public Utilisateur getEncherit() {
+		public Utilisateur getCreateur() {
 			return createur;
 		}
 
 
-		public void setEncherit(Utilisateur encherit) {
-			this.createur = encherit;
+		public void setCreateur(Utilisateur createur) {
+			this.createur = createur;
 		}
 
 
-		public ArticleVendu getConcerne() {
+		public ArticleVendu getArticle() {
 			return article;
 		}
 
 
-		public void setConcerne(ArticleVendu concerne) {
-			this.article = concerne;
+		public void setArticle(ArticleVendu article) {
+			this.article = article;
 		}
+
+		
+		
+
 		
 		
 }

@@ -10,6 +10,7 @@
 		<a th:href="@{/profile}">Profile</a>
 		<a th:href="@{/inscription}">Inscription</a>
 		<a th:href="@{/utilisateur}">Utilisateur</a>
+		<a th:href="@{/logout}" sec:authorize="isAuthenticated()">Se déconnecter</a>
 		
 	</div>
 </nav>

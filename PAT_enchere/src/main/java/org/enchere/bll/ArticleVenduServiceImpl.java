@@ -14,6 +14,7 @@ public class ArticleVenduServiceImpl implements ArticleVenduService {
 	public ArticleVenduServiceImpl(ArticleVenduDAO articleVenduDAO) {
 		this.articleVenduDAO = articleVenduDAO;
 	}
+	
 
 	public List<ArticleVendu> ajouterArticle(ArticleVendu article) {
 		this.articleVenduDAO.create(article);

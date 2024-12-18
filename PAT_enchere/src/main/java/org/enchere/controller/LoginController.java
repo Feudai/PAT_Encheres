@@ -41,6 +41,7 @@ public class LoginController {
 		return "login";
 	}
 
+
 	@GetMapping("/profil-detail")
 	public String affichageUtilisateur(@RequestParam(name = "noUtilisateur") int noUtilisateur, Model model) {
 		Utilisateur utilisateur = this.utilisateurService.consulterUtilisateurParId(noUtilisateur);
@@ -66,7 +67,7 @@ public class LoginController {
 		return "profil";
 	}
 
-		@PostMapping("/profil")
+	@PostMapping("/profil")
 	public String mettreAJourUtilisateur(
 	    @ModelAttribute Utilisateur utilisateur, 
 	    Principal principal) {
@@ -118,6 +119,5 @@ public class LoginController {
 
 		return "redirect:/login";
 	}
-
 
 }

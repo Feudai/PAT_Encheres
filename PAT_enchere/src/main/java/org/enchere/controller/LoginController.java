@@ -73,13 +73,19 @@ public class LoginController {
 	}
 
 	@PostMapping("/profil")
-	public String mettreAJourUtilisateur(@ModelAttribute Utilisateur utilisateur) {
-		
-		
-		this.utilisateurService.update(utilisateur);
-		
-		return "redirect:/profil";
-	
+	public String mettreAJourUtilisateur(
+	    @ModelAttribute Utilisateur utilisateur, 
+	    Principal principal) {
+
+	    String username = principal.getName();
+	    Utilisateur authenticatedUser = utilisateurService.findByUsername(username);
+
+	    utilisateur.setNoUtilisateur(authenticatedUser.getNoUtilisateur());
+	    
+
+	    this.utilisateurService.update(utilisateur);
+
+	    return "redirect:/profil";
 	}
 	
 	

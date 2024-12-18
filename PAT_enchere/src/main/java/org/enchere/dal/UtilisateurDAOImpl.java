@@ -23,17 +23,16 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 	private static final String UPDATE = "UPDATE UTILISATEURS SET pseudo = :pseudo, nom = :nom, prenom = :prenom, email = :email, telephone = :telephone, rue = :rue, code_postal = :code_postal, ville = :ville, mot_de_passe = :mot_de_passe WHERE no_utilisateur = :no_utilisateur";
 	private static final String CREATE_UTILISATEUR = "INSERT INTO UTILISATEURS (pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe,administrateur,credit)VALUES (:pseudo,:nom,:prenom, :email, :telephone, :rue, :code_postal, :ville, :mot_de_passe,1,1)";
 	private static final String DELETE_UTILISATEUR = "DELETE FROM users WHERE id = ?";
-	
-	
+
 	private NamedParameterJdbcTemplate jdbcTemplate;
 	private final PasswordEncoder passwordEncoder;
 
-	class UtilisateurRowMapper implements org.springframework.jdbc.core.RowMapper<Utilisateur>{
+	class UtilisateurRowMapper implements org.springframework.jdbc.core.RowMapper<Utilisateur> {
 
 		@Override
 		public Utilisateur mapRow(ResultSet rs, int rowNum) throws SQLException {
 			Utilisateur u = new Utilisateur();
-			
+
 			u.setNoUtilisateur(rs.getInt("no_utilisateur"));
 			u.setPseudo(rs.getString("pseudo"));
 			u.setNom(rs.getString("nom"));
@@ -46,13 +45,12 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 			u.setMotDePasse(rs.getString("mot_de_passe"));
 			u.setCredit(rs.getInt("credit"));
 			u.setAdministrateur(rs.getBoolean("administrateur"));
-					
+
 			return u;
 		}
-		
+
 	}
-	
-	
+
 	public UtilisateurDAOImpl(NamedParameterJdbcTemplate jdbcTemplate, PasswordEncoder passwordEncoder) {
 		super();
 		this.jdbcTemplate = jdbcTemplate;
@@ -61,12 +59,12 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 
 	@Override
 	public void createUtilisateur(Utilisateur utilisateur) {
-	
+
 		KeyHolder keyHolder = new GeneratedKeyHolder();
 		MapSqlParameterSource map = new MapSqlParameterSource();
-		
+
 		String motDePasseEncode = passwordEncoder.encode(utilisateur.getMotDePasse());
-		
+
 		map.addValue("pseudo", utilisateur.getPseudo());
 		map.addValue("nom", utilisateur.getNom());
 		map.addValue("prenom", utilisateur.getPrenom());
@@ -76,36 +74,35 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 		map.addValue("code_postal", utilisateur.getCodePostal());
 		map.addValue("ville", utilisateur.getVille());
 		map.addValue("mot_de_passe", motDePasseEncode);
-	
-		
+
 		jdbcTemplate.update(CREATE_UTILISATEUR, map, keyHolder);
-		
+
 		if (keyHolder != null && keyHolder.getKey() != null) {
-			utilisateur.setNoUtilisateur(keyHolder.getKey().intValue());;
+			utilisateur.setNoUtilisateur(keyHolder.getKey().intValue());
+			;
 		}
-		
+
 	}
 
 	@Override
 	public Utilisateur read(int noUtilisateur) {
 		MapSqlParameterSource map = new MapSqlParameterSource();
 		map.addValue("no_utilisateur", noUtilisateur);
-		
-		
+
 		return jdbcTemplate.queryForObject(FIND_BY_ID, map, new BeanPropertyRowMapper<>(Utilisateur.class));
 	}
-	
+
 	@Override
 	public Utilisateur read(String pseudo) {
 		MapSqlParameterSource map = new MapSqlParameterSource();
 		map.addValue("pseudo", pseudo);
-		
+
 		return jdbcTemplate.queryForObject(FIND_BY_PSEUDO, map, new BeanPropertyRowMapper<>(Utilisateur.class));
 	}
 
 	@Override
 	public List<Utilisateur> findAll() {
-	
+
 		return jdbcTemplate.query(FIND_ALL, new UtilisateurRowMapper());
 	}
 
@@ -117,26 +114,20 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 
 	@Override
 	public void update(Utilisateur utilisateur) {
-	MapSqlParameterSource map = new MapSqlParameterSource();
-	String motDePasseEncode = passwordEncoder.encode(utilisateur.getMotDePasse());
+		MapSqlParameterSource map = new MapSqlParameterSource();
+		String motDePasseEncode = passwordEncoder.encode(utilisateur.getMotDePasse());
 
-	map.addValue("pseudo", utilisateur.getPseudo());
-	map.addValue("nom", utilisateur.getNom());
-	map.addValue("prenom", utilisateur.getPrenom());
-	map.addValue("email", utilisateur.getEmail());
-	map.addValue("telephone", utilisateur.getTelephone());
-	map.addValue("rue", utilisateur.getRue());
-	map.addValue("code_postal", utilisateur.getCodePostal());
-	map.addValue("ville", utilisateur.getVille());
-	map.addValue("mot_de_passe", motDePasseEncode);
-		
-		
-	this.jdbcTemplate.update(UPDATE, map);
+		map.addValue("pseudo", utilisateur.getPseudo());
+		map.addValue("nom", utilisateur.getNom());
+		map.addValue("prenom", utilisateur.getPrenom());
+		map.addValue("email", utilisateur.getEmail());
+		map.addValue("telephone", utilisateur.getTelephone());
+		map.addValue("rue", utilisateur.getRue());
+		map.addValue("code_postal", utilisateur.getCodePostal());
+		map.addValue("ville", utilisateur.getVille());
+		map.addValue("mot_de_passe", motDePasseEncode);
+
+		this.jdbcTemplate.update(UPDATE, map);
 	}
-
-
-
-
-
 
 }

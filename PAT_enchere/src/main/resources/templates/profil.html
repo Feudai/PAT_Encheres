@@ -14,42 +14,43 @@
 	<form th:action="@{/profil}" method="post" th:object="${utilisateur}">
 
 		<h2>Mon profil</h2>
-		<div>
-			<a th:href="@{profil/deleteUser(no_utilisateur=${utilisateur.no_utilisateur})}">Supprimer mon compte</a>
-		</div>
+
 
 
 		<div>
 			<ul>
 
-				<li><label for="idPseudo">Pseudo</label>
-				<input id="idPseudo" type="text" name="" th:placeholder="${utilisateur.pseudo}" /></li>
-				<li><label for="idPrenom">Prénom</label>
-				<input id="idPrenom" type="text" name="" th:placeholder="${utilisateur.prenom}"/></li>
-				<li><label for="idTelephone">Téléphone</label>
-				<input id="idTelephone" type="text" name="" th:placeholder="${utilisateur.telephone}"/></li>
-				<li><label for="idCodePostal">Code Postal</label>
-				<input id="idCodePostal" type="text" name="" th:placeholder="${utilisateur.codePostal}"/></li>
-				
-				<li>>
-						<label for="idMotDePasse">Mot de passe</label><input
-							id="idMotDePasse" type="text" name="" th:placeholder="${utilisateur.motDePasse}"/>
-					</li>
+				<li><label for="idPseudo">Pseudo</label> <input id="idPseudo"
+					type="text" name="" th:placeholder="${utilisateur.pseudo}" /></li>
+				<li><label for="idPrenom">Prénom</label> <input id="idPrenom"
+					type="text" name="" th:placeholder="${utilisateur.prenom}" /></li>
+				<li><label for="idTelephone">Téléphone</label> <input
+					id="idTelephone" type="text" name=""
+					th:placeholder="${utilisateur.telephone}" /></li>
+				<li><label for="idCodePostal">Code Postal</label> <input
+					id="idCodePostal" type="text" name=""
+					th:placeholder="${utilisateur.codePostal}" /></li>
+
+				<li>> <label for="idMotDePasse">Mot de passe</label><input
+					id="idMotDePasse" type="text" name=""
+					th:placeholder="${utilisateur.motDePasse}" />
+				</li>
 			</ul>
 		</div>
 		<div>
 			<ul>
 				<li><label for="idNom">Nom</label> <input id="idNom"
-					type="text" name="" th:placeholder="${utilisateur.nom}"/></li>
+					type="text" name="" th:placeholder="${utilisateur.nom}" /></li>
 				<li><label for="idEmail">Email</label> <input id="idEmail"
-					type="text" name="" th:placeholder="${utilisateur.email}"/></li>
+					type="text" name="" th:placeholder="${utilisateur.email}" /></li>
 				<li><label for="idRue">Rue</label> <input id="idRue"
-					type="text" name="" th:placeholder="${utilisateur.rue}"/></li>
+					type="text" name="" th:placeholder="${utilisateur.rue}" /></li>
 				<li><label for="idVille">Ville</label> <input id="idVille"
-					type="text" name="" th:placeholder="${utilisateur.ville}"/></li>
+					type="text" name="" th:placeholder="${utilisateur.ville}" /></li>
 				<li></li>
 				<li><label for="idConfirmation">Confirmation</label> <input
-					id="idConfirmation" type="text" placeholder="Confirmer votre Mot de passe"/></li>
+					id="idConfirmation" type="text"
+					placeholder="Confirmer votre Mot de passe" /></li>
 			</ul>
 		</div>
 		<div>

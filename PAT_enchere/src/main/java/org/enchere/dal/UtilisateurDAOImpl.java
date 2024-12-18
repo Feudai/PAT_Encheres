@@ -119,7 +119,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 
     MapSqlParameterSource map = new MapSqlParameterSource("no_utilisateur", utilisateur.getNoUtilisateur());
     String motDePasseEncode = null;
-	if (utilisateur.getMotDePasse() == null && !utilisateur.getMotDePasse().isEmpty()) {
+	if (utilisateur.getMotDePasse() != null && !utilisateur.getMotDePasse().isEmpty()) {
         motDePasseEncode = passwordEncoder.encode(utilisateur.getMotDePasse());
         map.addValue("mot_de_passe", motDePasseEncode);
     } else {

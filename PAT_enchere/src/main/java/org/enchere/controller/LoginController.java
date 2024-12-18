@@ -2,7 +2,6 @@ package org.enchere.controller;
 
 import java.security.Principal;
 import java.util.List;
-import java.util.Random;
 
 import org.enchere.bll.UtilisateurService;
 import org.enchere.bo.Utilisateur;
@@ -108,7 +107,7 @@ public class LoginController {
 			return "/inscription";
 		} else {
 			this.utilisateurService.createUser(utilisateur);
-			return "redirect:/profil";
+			return "redirect:/login";
 		}
 		
 	}

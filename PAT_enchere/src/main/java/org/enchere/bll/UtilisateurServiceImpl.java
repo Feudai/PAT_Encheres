@@ -37,13 +37,6 @@ public class UtilisateurServiceImpl implements UtilisateurService {
 	}
 
 
-	
-	
-	
-	
-	
-	
-
 	public Utilisateur findByUsername(String username) {
 		Utilisateur utilisateur = this.utilisateurDao.read(username);
 		

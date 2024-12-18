@@ -59,7 +59,7 @@ public class LoginController {
 	    Utilisateur utilisateur = this.utilisateurService.consulterUtilisateurParId(noUtilisateur);
 	    model.addAttribute("utilisateur", utilisateur);
 
-	    return "profil-detail";
+	    return "profil";
 	}
 
 	@GetMapping("/accueil")
@@ -76,9 +76,6 @@ public class LoginController {
 		model.addAttribute("utilisateur", new Utilisateur());
 		return "inscription";
 	}
-
-
-
 
 
 	@PostMapping("/createUser")

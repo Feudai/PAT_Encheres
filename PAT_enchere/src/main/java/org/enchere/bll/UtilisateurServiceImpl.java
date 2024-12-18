@@ -24,10 +24,10 @@ public class UtilisateurServiceImpl implements UtilisateurService {
 
 	@Override
 	public Utilisateur consulterUtilisateurParId(int noUtilisateur) {
-		Utilisateur u = this.utilisateurDao.read(noUtilisateur);
+		Utilisateur utilisateur = this.utilisateurDao.read(noUtilisateur);
 
 		
-		return u;
+		return utilisateur;
 	}
 
 	@Override

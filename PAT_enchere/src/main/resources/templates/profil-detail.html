@@ -8,7 +8,7 @@
 	<header>
 		<div th:replace="~{fragments/fragment-entete::entete}"></div>
 	</header>
-	<form th:action="@{/utilisateur}" method="post" th:object="${utilisateur}">
+	<form th:action="@{/profil-detail}" method="post" th:object="${utilisateur}">
 
 <ul>
 	<li><label for="idPseudo">Pseudo : </label><textarea id="" cols="10" rows="1" th:text="${utilisateur.pseudo}"></textarea></li>

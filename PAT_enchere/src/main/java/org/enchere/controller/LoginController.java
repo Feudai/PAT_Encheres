@@ -10,17 +10,20 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestAttribute;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
 @Controller
 
 public class LoginController {
 
+    @ResponseBody
+    public String home(HttpSession session) {
+        Object authenticatedUser = session.getAttribute("authenticatedUser");
+        return "Authenticated User: " + authenticatedUser.toString();
+    }
 	private UtilisateurService utilisateurService;
 
 	public LoginController(UtilisateurService utilisateurService) {
@@ -30,10 +33,11 @@ public class LoginController {
 	@GetMapping("/login")
 	public String affichageConnexion() {
 
+
 		return "login";
 	}
 
-	@PostMapping("/utilisateur")
+	@GetMapping("/profile")
 	public String affichageProfil(@ModelAttribute int noUtilisateur, Model model) {
 		
 		Utilisateur utilisateur = this.utilisateurService.consulterUtilisateurParId(noUtilisateur);
@@ -44,12 +48,6 @@ public class LoginController {
 		return "profile";
 	}
 
-	@PostMapping("/profile")
-	public String modifierProfil() {
-
-		return "redirect:/profile";
-
-	}
 
 	@GetMapping("/accueil")
 	public String affichageTousUtilisateurs(Model model) {
@@ -70,19 +68,14 @@ public class LoginController {
 		return "inscription";
 	}
 
-	@GetMapping("/utilisateur")
+	@GetMapping("/profil-detail")
 	public String affichageUtilisateur() {
 
-		return "utilisateur";
+		return "profil-detail";
 	}
 
 	@PostMapping("/createUser")
-<<<<<<< HEAD
-	public String createUser(@ModelAttribute Utilisateur utilisateur) {
 
-		this.utilisateurService.createUser(utilisateur);
-		return "redirect:/accueil";
-=======
 	public String createUser(@Valid @ModelAttribute Utilisateur utilisateur, BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
 			return "/inscription";
@@ -90,7 +83,7 @@ public class LoginController {
 			this.utilisateurService.createUser(utilisateur);
 			return "redirect:/profile";
 		}
->>>>>>> aff8b61bcc7571d62e58237224fed88c60552b5a
+
 	}
 
 }

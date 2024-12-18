@@ -123,13 +123,12 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
         motDePasseEncode = passwordEncoder.encode(utilisateur.getMotDePasse());
         map.addValue("mot_de_passe", motDePasseEncode);
     } else {
-        // Conserver l'ancien mot de passe
-        map.addValue("mot_de_passe", 
-            jdbcTemplate.queryForObject(RECUP_MDP, map, String.class )
-        );
+       
+        motDePasseEncode = jdbcTemplate.queryForObject(RECUP_MDP, map, String.class);
+        map.addValue("mot_de_passe", motDePasseEncode);
     }
 	
-	map.addValue("mot_de_passe", motDePasseEncode);
+
 	map.addValue("pseudo", utilisateur.getPseudo());
 	map.addValue("nom", utilisateur.getNom());
 	map.addValue("prenom", utilisateur.getPrenom());

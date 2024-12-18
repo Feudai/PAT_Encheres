@@ -84,7 +84,7 @@ public class LoginController {
 
 	    this.utilisateurService.update(utilisateur);
 
-	    return "redirect:/profil";
+	    return "redirect:/login";
 	}
 	
 	

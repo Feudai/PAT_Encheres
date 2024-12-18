@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html lang="fr">
-
+<!-->ICI EXEMPLE VIEW, REMPLACEE PAR ACCUEIL</!-->
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Liste des Encheres</title>
+	<title>Liste des Enchères</title>
 	<link rel="stylesheet" href="./css/style.css">
 </head>
 
 <body>
 	<div th:replace="~{fragments/fragment-entete::entete}"></div>
-	<h1>Liste des Encheres en Cours</h1>
-	<form th:action="@{/encheresEnCours}" method="get" th:each="e : ${encheres}">
+	<h1>Liste des Enchères en Cours</h1>
+	<form th:action="@{/encheresEnCours}" method="post" th:each="e : ${encheres}">
 		<ul>
 			<li>
 				<textarea id="" cols="10" rows="1" th:text="${e.article.nomArticle}"></textarea>
@@ -32,10 +32,7 @@
 		<ul>
 			<li>
 
-				<label for="filtreCategorie">Catégorie :</label>
-				<select name="idCategorie" id="filtreCategorie">
-					<option th:each="c : ${listeEncheres}" th:value="${c.noCategorie}" th:text="${c.libelle}"></option>
-				</select>
+				
 			</li>
 			<li>
 

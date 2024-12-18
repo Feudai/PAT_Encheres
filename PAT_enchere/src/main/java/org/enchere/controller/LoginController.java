@@ -42,6 +42,11 @@ public class LoginController {
 		return "login";
 	}
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 6eb84023186edb6537516f76cd83a32f7b537616
 	@GetMapping("/profil-detail")
 	public String affichageUtilisateur(@RequestParam(name = "noUtilisateur") int noUtilisateur, Model model) {
 		Utilisateur utilisateur = this.utilisateurService.consulterUtilisateurParId(noUtilisateur);
@@ -68,12 +73,28 @@ public class LoginController {
 	}
 
 	@PostMapping("/profil")
+<<<<<<< HEAD
 	public String mettreAJourUtilisateur(@ModelAttribute Utilisateur utilisateur) {
 
 		this.utilisateurService.update(utilisateur);
 
 		return "redirect:/profil";
 
+=======
+	public String mettreAJourUtilisateur(
+	    @ModelAttribute Utilisateur utilisateur, 
+	    Principal principal) {
+
+	    String username = principal.getName();
+	    Utilisateur authenticatedUser = utilisateurService.findByUsername(username);
+
+	    utilisateur.setNoUtilisateur(authenticatedUser.getNoUtilisateur());
+	    
+
+	    this.utilisateurService.update(utilisateur);
+
+	    return "redirect:/profil";
+>>>>>>> 6eb84023186edb6537516f76cd83a32f7b537616
 	}
 
 	@GetMapping("/accueil")
@@ -111,8 +132,12 @@ public class LoginController {
 		this.utilisateurService.deleteUser(idUtilisateur);
 
 	
+<<<<<<< HEAD
 
 		return "redirect:/login";
 	}
+=======
+	
+>>>>>>> 6eb84023186edb6537516f76cd83a32f7b537616
 
 }

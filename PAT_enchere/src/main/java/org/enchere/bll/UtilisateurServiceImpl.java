@@ -34,6 +34,17 @@ public class UtilisateurServiceImpl implements UtilisateurService {
 		return this.utilisateurDao.findAll();
 	}
 
+<<<<<<< HEAD
+=======
+
+	
+	
+	
+	
+	
+	
+
+>>>>>>> 6eb84023186edb6537516f76cd83a32f7b537616
 	public Utilisateur findByUsername(String username) {
 		Utilisateur utilisateur = this.utilisateurDao.read(username);
 

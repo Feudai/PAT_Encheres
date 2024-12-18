@@ -15,6 +15,11 @@ public class Retrait {
 		this.ville = ville;
 		this.article = article;
 	}
+	
+
+	public Retrait() {
+	}
+
 
 	public String getRue() {
 		return rue;

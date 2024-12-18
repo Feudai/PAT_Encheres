@@ -22,8 +22,11 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 	private static final String FIND_BY_PSEUDO = "SELECT no_utilisateur, pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur FROM UTILISATEURS WHERE pseudo = :pseudo";
 	private static final String UPDATE = "UPDATE UTILISATEURS SET pseudo = :pseudo, nom = :nom, prenom = :prenom, email = :email, telephone = :telephone, rue = :rue, code_postal = :code_postal, ville = :ville, mot_de_passe = :mot_de_passe WHERE no_utilisateur = :no_utilisateur";
 	private static final String CREATE_UTILISATEUR = "INSERT INTO UTILISATEURS (pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe,administrateur,credit)VALUES (:pseudo,:nom,:prenom, :email, :telephone, :rue, :code_postal, :ville, :mot_de_passe,1,1)";
+
 	private static final String DELETE_UTILISATEUR = "DELETE FROM ENCHERES WHERE no_utilisateur = no_utilisateur; DELETE FROM RETRAITS WHERE no_article IN (SELECT no_article FROM ARTICLES_VENDUS WHERE no_utilisateur = no_utilisateur);DELETE FROM ARTICLES_VENDUS WHERE no_utilisateur = :no_utilisateur; DELETE FROM UTILISATEURS WHERE no_utilisateur = :no_utilisateur";
 
+	private static final String RECUP_MDP = "SELECT mot_de_passe FROM UTILISATEURS WHERE no_utilisateur = :no_utilisateur";
+	
 	private NamedParameterJdbcTemplate jdbcTemplate;
 	private final PasswordEncoder passwordEncoder;
 
@@ -112,31 +115,38 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 		return null;
 	}
 
-	@Override
-	public void update(Utilisateur utilisateur) {
-		MapSqlParameterSource map = new MapSqlParameterSource();
-		String motDePasseEncode = passwordEncoder.encode(utilisateur.getMotDePasse());
 
-		map.addValue("pseudo", utilisateur.getPseudo());
-		map.addValue("nom", utilisateur.getNom());
-		map.addValue("prenom", utilisateur.getPrenom());
-		map.addValue("email", utilisateur.getEmail());
-		map.addValue("telephone", utilisateur.getTelephone());
-		map.addValue("rue", utilisateur.getRue());
-		map.addValue("code_postal", utilisateur.getCodePostal());
-		map.addValue("ville", utilisateur.getVille());
-		map.addValue("mot_de_passe", motDePasseEncode);
+	public void update(Utilisateur utilisateur) {	
 
-		this.jdbcTemplate.update(UPDATE, map);
-	}
-
-	@Override
-	public void deleteUser(int noUtilisateur) {
-		MapSqlParameterSource map = new MapSqlParameterSource();
-		map.addValue("no_utilisateur", noUtilisateur);
-		this.jdbcTemplate.update(DELETE_UTILISATEUR, map);
+    MapSqlParameterSource map = new MapSqlParameterSource("no_utilisateur", utilisateur.getNoUtilisateur());
+    String motDePasseEncode = null;
+	if (utilisateur.getMotDePasse() == null && !utilisateur.getMotDePasse().isEmpty()) {
+        motDePasseEncode = passwordEncoder.encode(utilisateur.getMotDePasse());
+        map.addValue("mot_de_passe", motDePasseEncode);
+    } else {
+        // Conserver l'ancien mot de passe
+        map.addValue("mot_de_passe", 
+            jdbcTemplate.queryForObject(RECUP_MDP, map, String.class )
+        );
+    }
+	
+	map.addValue("mot_de_passe", motDePasseEncode);
+	map.addValue("pseudo", utilisateur.getPseudo());
+	map.addValue("nom", utilisateur.getNom());
+	map.addValue("prenom", utilisateur.getPrenom());
+	map.addValue("email", utilisateur.getEmail());
+	map.addValue("telephone", utilisateur.getTelephone());
+	map.addValue("rue", utilisateur.getRue());
+	map.addValue("code_postal", utilisateur.getCodePostal());
+	map.addValue("ville", utilisateur.getVille());
 		
+		
+	this.jdbcTemplate.update(UPDATE, map);
 	}
+
+
+
+
 
 
 

@@ -1,7 +1,9 @@
 package org.enchere.bo;
 
 import java.time.LocalDateTime;
+
 import java.util.List;
+
 
 public class ArticleVendu {
 	

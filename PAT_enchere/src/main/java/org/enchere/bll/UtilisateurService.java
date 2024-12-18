@@ -12,5 +12,11 @@ public interface UtilisateurService {
 	Utilisateur consulterUtilisateurParId(int noUtilisateur);
 
 	List<Utilisateur> consulterUtilisateurs();
-	
+
+	Utilisateur findByUsername(String username);
+
+	void update(Utilisateur utilisateur);
+
+
+
 }

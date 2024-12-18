@@ -6,18 +6,31 @@
 <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
-<header>	<div th:replace="~{fragments/fragment-entete::entete}"></div></header>
-<h1>ENI-Enchères</h1>
-<form th:action="@{/login}" method="post" class="login-form" >
-<ul>
-	<li><label for="identifiant">Identifiant</label><input type="text" name="username" placeholder="Pseudo" required /></li>
-	<li><label for="password">Mot de passe</label><input type="password" name="password" placeholder="Mot de passe" required /></li>
-	<li><button type="submit">Connexion</button></li>
-	<a href="">Mot de passe oublié</a>
+	<header>
+		<div th:replace="~{fragments/fragment-entete::entete}"></div>
+	</header>
+	<h1>ENI-Enchères</h1>
+	<form th:action="@{/login}" method="post" class="login-form">
+<ul th:if="${param.error}" class="error-message">
+	<li>Veuillez renseignez un login / mot de passe correct</li>
 </ul>
-	<li><button type="submit">Créer un compte</button></li>
+		<ul>
+			<li><label for="identifiant">Identifiant</label><input
+				type="text" name="username" placeholder="Pseudo" required /></li>
+			<li><label for="password">Mot de passe</label><input
+				type="password" name="password" placeholder="Mot de passe" required /></div>
+        </div></li>
+			<li><button type="submit">Connexion</button></li>
+			<a href="">Mot de passe oublié</a>
+		</ul>
 
-</form>
+
+	</form>
+<li>
+    <button th:onclick="|window.location.href='@{/inscription}'|" type="button">
+        Créer un compte
+    </button>
+</li>
 </body>
 </html>
 

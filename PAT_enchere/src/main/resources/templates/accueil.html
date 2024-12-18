@@ -69,7 +69,10 @@
 			<tbody th:each="u : ${utilisateurs}">
 				<tr>
 					<td th:text="${u.pseudo}"></td>
-					<td><a th:href="@{/profile(noUtilisateur=${u.noUtilisateur})}">Détail</a></td>
+
+					<td><a
+						th:href="@{/profil-detail(noUtilisateur=${u.noUtilisateur})}">Détail</a></td>
+
 
 				</tr>
 			</tbody>

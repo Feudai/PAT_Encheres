@@ -18,9 +18,9 @@ public class EnchereServiceImpl implements EnchereService {
 		this.enchereDao = enchereDao;
 	}
 	
-public List<Enchere> ajouterEnchere(Enchere enchere) {
+public void ajouterEnchere(Enchere enchere) {
 		
-		return this.enchereDao.findAll();
+		this.enchereDao.create(enchere);
 	}
 
 public List<Enchere> getListeEncheres(){

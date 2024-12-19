@@ -18,7 +18,7 @@ public class EnchereDAOImpl implements EnchereDAO {
 	
 	private static final String CREATE = "INSERT INTO ENCHERES (no_utilisateur, no_article, date_enchere, montant_enchere) VALUES (:no_utilisateur, :no_article, :date_enchere, :montant_enchere)";
 	private static final String FIND_BY_ID="SELECT e.no_utilisateur, e.no_article, e.date_enchere, e.montant_enchere, a.nom_article, a.description, a.date_debut_encheres, a.date_fin_encheres, a.prix_initial, a.prix_vente, no_categorie FROM ENCHERES e INNER JOIN ARTICLES_VENDUS a ON a.no_article = e.no_article WHERE e.id=:id";
-	private static final String FIND_ALL = "SELECT (no_utilisateur, no_article, date_enchere, montant_enchere) FROM ENCHERES";
+	private static final String FIND_ALL = "SELECT no_utilisateur, no_article, date_enchere, montant_enchere FROM ENCHERES";
 	
 	private NamedParameterJdbcTemplate jdbcTemplate;
 	

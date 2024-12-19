@@ -141,4 +141,25 @@ public class LoginController {
 		return "redirect:/logout";
 	}
 
+	@GetMapping("/listeUtilisateurs")
+	public String afficherListeUtilisateurModerateur(Model model) {
+		List<Utilisateur> utilisateurs = this.utilisateurService.consulterUtilisateurs();
+		model.addAttribute("utilisateurs", utilisateurs);
+		return "listeUtilisateurs";
+	}
+	
+	@GetMapping("listeUtilisateurs/deleteUser")
+	public String deleteUserAdmin(@RequestParam("noUtilisateur") Integer noUtilisateur, Model model) {
+
+		Utilisateur utilisateur = this.utilisateurService.consulterUtilisateurParId(noUtilisateur);
+		int idUtilisateur = utilisateur.getNoUtilisateur();
+		
+		model.addAttribute("utilisateur", utilisateur);
+		
+		this.utilisateurService.deleteUser(idUtilisateur);
+
+		return "redirect:/accueil";
+	}
+	
+	
 }

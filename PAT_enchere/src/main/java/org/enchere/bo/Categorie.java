@@ -15,7 +15,7 @@ public class Categorie {
 			this.articles = articles;
 		}
 
-		
+		public Categorie() {}
 		
 
 		public Categorie() {

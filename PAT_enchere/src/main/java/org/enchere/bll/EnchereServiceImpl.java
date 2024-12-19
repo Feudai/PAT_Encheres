@@ -23,6 +23,10 @@ public void ajouterEnchere(Enchere enchere) {
 		this.enchereDao.create(enchere);
 	}
 
+public Enchere getEnchereByIdArticle(int idArticle) {
+	return this.enchereDao.findByIdArticle(idArticle);
+}
+
 public List<Enchere> getListeEncheres(){
 	
 	return this.enchereDao.findAll();

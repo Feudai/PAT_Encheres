@@ -10,7 +10,7 @@
 <body>
 	<div th:replace="~{fragments/fragment-entete::entete}"></div>
 	<h1>Liste des enchères</h1>
-	<form th:action="@{/encheresEnCours(nomArticle=search)}" method="POST">
+	<form th:action="@{/accueil(nomArticle=search)}" method="POST">
 		<div>
 			<h3>Filtres :</h3>
 		</div>
@@ -53,8 +53,8 @@
 <!--	</div>-->
 	<div class="exemple-vente">
 
-		<div class="exemple-vente">
-			<a th:href="@{/encheresDetails(noArticle=${article?.noArticle})}">
+		<div class="exemple-vente" th:each="e : ${listeEncheres}">
+			<a th:href="@{/encheresDetails(noArticle=${e?.article?.noArticle})}">
 			<ul>
 				<li>
 					<textarea id="" cols="10" rows="1" th:text="${article?.noArticle}"></textarea>

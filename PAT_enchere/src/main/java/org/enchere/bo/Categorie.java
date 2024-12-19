@@ -18,12 +18,6 @@ public class Categorie {
 		public Categorie() {}
 		
 
-		public Categorie() {
-			super();
-		}
-
-
-
 
 		public int getNoCategorie() {
 			return noCategorie;

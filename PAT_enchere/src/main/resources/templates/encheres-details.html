@@ -24,9 +24,9 @@
             <label for="categorieArticle">Catégorie :</label>
             <textarea id="categorieArticle" th:text="${articleVendu.categorieArticle}"></textarea>
         </div>
-                <div class="form-group">
+                <div class="form-group" th:each="e:${articleVendu.ListeEncheres}">
             <label for="montantEnchere">Meilleure offre :</label>
-            <textarea id="montantEnchere" th:text="${articleVendu.enchere.montantEnchere}"></textarea>
+            <textarea id="montantEnchere" th:text="${e.montantEnchere}"></textarea>
         </div>
               
                 <div class="form-group">
@@ -40,11 +40,8 @@
         <div class="form-group">
             <label for="lieuRetrait">Retrait :</label>
             <textarea id="lieuRetrait" th:text="${articleVendu.lieuRetrait}"></textarea>
-        </div>
-                                <div class="form-group">
-            <label for="createur">Vendeur :</label>
-            <textarea id="createur" th:text="${articleVendu.enchere.createur}" th:href="@{/profil-detail(noUtilisateur=${u.noUtilisateur})}"></textarea>
-        </div>
+   </div>
+
     
     </form>
 

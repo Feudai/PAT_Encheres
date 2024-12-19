@@ -32,24 +32,23 @@ public class SecurityConfig {
 		// Configurer les directives de nettoyage du stockage local, des cookies, etc.
 		ClearSiteDataHeaderWriter.Directive[] directives = { ClearSiteDataHeaderWriter.Directive.COOKIES,
 				ClearSiteDataHeaderWriter.Directive.CACHE, ClearSiteDataHeaderWriter.Directive.STORAGE };
+		
 
 		HeaderWriterLogoutHandler clearSiteData = new HeaderWriterLogoutHandler(
 				new ClearSiteDataHeaderWriter(directives));
+		
 
 		http.csrf(csrf -> csrf.disable())
-				.authorizeHttpRequests(authorize -> authorize.requestMatchers("/profil/deleteUser").authenticated() // Accès
-																													// à
-																													// la
-																													// suppression
-																													// uniquement
-																													// pour
-																													// les
-																													// utilisateurs
-																													// authentifiés
+		
+				.authorizeHttpRequests(authorize -> authorize.requestMatchers("/profil/deleteUser").authenticated()
 						.anyRequest().permitAll() // Les autres pages restent publiques
-				).formLogin(form -> form.loginPage("/login").permitAll() // Page de connexion accessible à tous
-				).logout(logout -> logout.logoutRequestMatcher(new AntPathRequestMatcher("/logout", "GET"))
+				)
+				
+				.formLogin(form -> form.loginPage("/login").permitAll())
+				
+				.logout(logout -> logout.logoutRequestMatcher(new AntPathRequestMatcher("/logout", "GET"))
 						.addLogoutHandler(clearSiteData));
+
 
 		return http.build();
 	}

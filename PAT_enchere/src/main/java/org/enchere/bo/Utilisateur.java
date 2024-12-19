@@ -3,7 +3,7 @@ package org.enchere.bo;
 
 import java.util.List;
 
-import org.springframework.security.core.Transient;
+
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;

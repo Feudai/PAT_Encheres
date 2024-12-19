@@ -90,12 +90,6 @@ public class LoginController {
 		
 	}
 
-	@GetMapping("/accueil")
-	public String affichageTousUtilisateurs(Model model) {
-		List<Utilisateur> utilisateurs = this.utilisateurService.consulterUtilisateurs();
-		model.addAttribute("utilisateurs", utilisateurs);
-		return "accueil";
-	}
 
 	@GetMapping("/inscription")
 	public String affichageInscription(Model model) {

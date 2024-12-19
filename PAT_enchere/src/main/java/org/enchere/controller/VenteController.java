@@ -89,6 +89,7 @@ public class VenteController {
 		model.addAttribute("listeCategories", this.categorieService.getListeCategories());
 		model.addAttribute("article",this.articleVenduService.consulterArticleVenduParId(1));
 
+
 		return "accueil";
 	}
 	

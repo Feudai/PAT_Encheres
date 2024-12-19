@@ -54,10 +54,10 @@
 	<div class="exemple-vente">
 
 		<div class="exemple-vente">
-			<a th:href="@{/encheresDetails(noArticle=${article.noArticle})}">
+			<a th:href="@{/encheresDetails(noArticle=${article?.noArticle})}">
 			<ul>
 				<li>
-					<textarea id="" cols="10" rows="1" th:text="${article.noArticle}"></textarea>
+					<textarea id="" cols="10" rows="1" th:text="${article?.noArticle}"></textarea>
 				</li>
 			</ul>
 			</a>

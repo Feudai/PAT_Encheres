@@ -79,10 +79,10 @@ public class VenteController {
 		return "redirect:/accueil";
 	}
 	
-	
-	
-	@GetMapping("/encheresEnCours")
+	@GetMapping("/accueil")
 	public String afficherEncheres(Model model) {
+		List<Utilisateur> utilisateurs = this.utilisateurService.consulterUtilisateurs();
+		model.addAttribute("utilisateurs", utilisateurs);
 //		for(int a=0;a<1000;a++)
 //		System.out.println("caca");
 		model.addAttribute("listeEncheres",this.enchereService.getListeEncheres());
@@ -92,7 +92,7 @@ public class VenteController {
 		return "accueil";
 	}
 	
-	@PostMapping("/encheresEnCours")
+	@PostMapping("/accueil")
 	public String filtrerEncheres(Model model, @RequestParam(name="categorie", defaultValue="-1")int noCategorie,@RequestParam(name="nomArticle", defaultValue="")String nomArticle ) {
 		List<Enchere> listeEncheres=null;
 		//if(noCategorie!=-1)

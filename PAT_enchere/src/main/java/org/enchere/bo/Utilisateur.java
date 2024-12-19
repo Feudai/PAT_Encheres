@@ -6,8 +6,10 @@ import java.util.List;
 
 
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
 public class Utilisateur {
 
@@ -19,7 +21,7 @@ public class Utilisateur {
 	private String nom;
 	@NotEmpty
 	private String prenom;
-	@Email @NotEmpty
+	@Email @NotEmpty @Size(max = 100)
 	private String email;
 	@Pattern(regexp = "^(?:(?:\\+|00)33|0)\\s*[1-9](?:[\\s.-]*\\d{2}){4}$", message = "Format de téléphone invalide")
 	private String telephone;

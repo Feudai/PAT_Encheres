@@ -81,7 +81,7 @@ public class LoginController {
 
 		this.utilisateurService.update(utilisateur);
 
-		return "redirect:/accueil";
+		return "redirect:/logout";
 	}
 	
 	@GetMapping("/")
@@ -144,7 +144,7 @@ public class LoginController {
 		model.addAttribute("utilisateur", utilisateur);
 		this.utilisateurService.deleteUser(idUtilisateur);
 
-		return "redirect:/accueil";
+		return "redirect:/logout";
 	}
 
 }

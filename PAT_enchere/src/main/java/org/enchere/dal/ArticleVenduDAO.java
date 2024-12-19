@@ -10,4 +10,6 @@ public interface ArticleVenduDAO {
 	List<ArticleVendu> findAll();
 	
 	void create(ArticleVendu article, int noUtilisateur);
+
+	ArticleVendu findById(int noArticle);
 }

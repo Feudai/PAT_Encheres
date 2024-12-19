@@ -8,4 +8,6 @@ public interface ArticleVenduService {
 
 	
 	List<ArticleVendu> ajouterArticle(ArticleVendu article, int noUtilisateur);
+
+	ArticleVendu consulterArticleVenduParId(int noArticle);
 }

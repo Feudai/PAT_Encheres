@@ -102,7 +102,13 @@ public class VenteController {
 	}
 	
 	@GetMapping("/encheresDetails")
-	public String afficherEncheresDetails() {
+	public String afficherEncheresDetails(@RequestParam(name = "noArticle")int noArticle, Model model) {
+		
+		ArticleVendu  articleVendu = this.articleVenduService.consulterArticleVenduParId(noArticle);
+		model.addAttribute("articleVendu", articleVendu );
+		
+		
+		
 		
 		return "encheres-details:";
 	}

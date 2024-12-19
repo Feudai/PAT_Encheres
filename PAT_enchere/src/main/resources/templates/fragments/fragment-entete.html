@@ -5,7 +5,7 @@
 	<div>
 		<a href="/">Index</a>
 		<a th:href="@{/accueil}">Accueil</a>
-		<a th:href="@{/login}">Connexion</a>
+		<a th:href="@{/login}" sec:authorize="!isAuthenticated()">Connexion</a>
 		<a th:href="@{/nouvelleVente}" sec:authorize="isAuthenticated()">Vendre un objet</a>
 		<a th:href="@{/profil}" sec:authorize="isAuthenticated()">Profil</a>
 		<a th:href="@{/inscription}" sec:authorize="!isAuthenticated()">Inscription</a>

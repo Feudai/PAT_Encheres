@@ -3,6 +3,7 @@ package org.enchere.dal;
 import java.util.List;
 
 import org.enchere.bo.ArticleVendu;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -13,7 +14,10 @@ import org.springframework.stereotype.Repository;
 public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 	
 	private static final String CREATE = "INSERT INTO ARTICLES_VENDUS (nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie) VALUES (:nom_article, :description, :date_debut_encheres, :date_fin_encheres, :prix_initial, :prix_vente, :no_utilisateur, :no_categorie)";
-	private static final String FIND_ALL="SELECT * FROM ARTICLES";
+
+	private static final String FIND_BY_ID = "SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie FROM ARTICLES_VENDUS WHERE no_article = :no_article";
+	
+
 	
 	private NamedParameterJdbcTemplate jdbcTemplate;
 	
@@ -54,5 +58,13 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 		jdbcTemplate.update(CREATE, map, keyHolder);
 		
 		
+	}
+
+	@Override
+	public ArticleVendu findById(int noArticle) {
+		MapSqlParameterSource map = new MapSqlParameterSource();
+		map.addValue("no_article", noArticle);
+		
+		return jdbcTemplate.queryForObject(FIND_BY_ID, map, new BeanPropertyRowMapper<>(ArticleVendu.class));
 	}
 }

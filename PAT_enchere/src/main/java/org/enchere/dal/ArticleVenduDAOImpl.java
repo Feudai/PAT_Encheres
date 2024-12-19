@@ -25,9 +25,6 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 		this.jdbcTemplate = jdbcTemplate;
 	}
 
-	//Ici les requêtes
-	
-	//constructeur jdbc
 	
 	
 	public List<ArticleVendu> findAll(){

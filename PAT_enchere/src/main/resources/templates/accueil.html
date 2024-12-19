@@ -2,9 +2,9 @@
 <html>
 
 <head>
-	<meta charset="UTF-8">
-	<title>Accueil</title>
-	<link rel="stylesheet" href="./css/style.css">
+<meta charset="UTF-8">
+<title>Accueil</title>
+<link rel="stylesheet" href="./css/style.css">
 </head>
 
 <body>
@@ -17,14 +17,15 @@
 		<div>
 			<ul>
 
-				<label for="search">Rechercher :</label> <input type="search" id="search" name="search"
+				<label for="search">Rechercher :</label>
+				<input type="search" id="search" name="search"
 					placeholder="Entrez votre recherche">
 			</ul>
 			<ul>
 				<label for="filtreCategorie">Catégorie :</label>
 				<select name="idCategorie" id="filtreCategorie">
-					<option th:each="c : ${listeCategories}" th:value="${c.noCategorie}" th:text="${c.libelle}">
-					</option>
+					<option th:each="c : ${listeCategories}"
+						th:value="${c.noCategorie}" th:text="${c.libelle}"></option>
 				</select>
 			</ul>
 		</div>
@@ -63,36 +64,38 @@
 			</a>
 		</div>
 	</div>
-		<div class="exemple-vente">
 
-			<ul>
-				<li><img src="./images/placeholder.png" alt="" /></li>
-				<li>Titre de l'article</li>
-				<li>Prix :</li>
-				<li>Fin de l'enchère :</li>
+	<div class="exemple-vente">
 
-			</ul>
-			<table>
-				<thead>
-					<tr>
-						<th>Pseudo</th>
-						<th>Action</th>
-					</tr>
+		<ul>
+			<li><img src="./images/placeholder.png" alt="" /></li>
+			<li>Titre de l'article</li>
+			<li>Prix :</li>
+			<li>Fin de l'enchère :</li>
 
-				</thead>
-				<tbody th:each="u : ${utilisateurs}">
-					<tr>
-						<td th:text="${u.pseudo}"></td>
+		</ul>
+		<table>
+			<thead>
+				<tr>
+					<th>Pseudo</th>
+					<th>Action</th>
+				</tr>
 
-						<td><a th:href="@{/profil-detail(noUtilisateur=${u.noUtilisateur})}">Détail</a></td>
+			</thead>
+			<tbody th:each="u : ${utilisateurs}">
+				<tr>
+					<td th:text="${u.pseudo}"></td>
+
+					<td><a
+						th:href="@{/profil-detail(noUtilisateur=${u.noUtilisateur})}">Détail</a></td>
 
 
-					</tr>
-				</tbody>
+				</tr>
+			</tbody>
 
-			</table>
+		</table>
 
-		</div>
+	</div>
 
 
 </body>

@@ -111,11 +111,12 @@ public class VenteController {
 	public String afficherEncheresDetails(@RequestParam("noArticle")int noArticle, Model model) {
 		
 		ArticleVendu  articleVendu = this.articleVenduService.consulterArticleVenduParId(noArticle);
-	    Enchere enchere = enchereService.getEnchereById(id); 
+	    Enchere enchere = this.enchereService.getEnchereByIdArticle(noArticle); 
+	    
 	    if (enchere == null) {
 	        enchere = new Enchere();  
 	    }
-		model.addAttribute("articleVendu", articleVendu );
+		model.addAttribute("articleVendu", articleVendu);
 	
 	
 		return "encheres-details";

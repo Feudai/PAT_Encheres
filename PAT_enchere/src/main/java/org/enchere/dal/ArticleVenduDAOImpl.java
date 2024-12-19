@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
 public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 	
 	private static final String CREATE = "INSERT INTO ARTICLES_VENDUS (nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie) VALUES (:nom_article, :description, :date_debut_encheres, :date_fin_encheres, :prix_initial, :prix_vente, :no_utilisateur, :no_categorie)";
-	private static final String FIND_ALL="SELECT * FROM ARTICLES";
+	private static final String FIND_ALL="SELECT * FROM ARTICLES_VENDUS";
 	
 	private NamedParameterJdbcTemplate jdbcTemplate;
 	

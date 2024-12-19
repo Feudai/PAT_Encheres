@@ -83,5 +83,4 @@ public class UtilisateurServiceImpl implements UtilisateurService {
 
 		return !pseudoExiste;
 	}
-
 }

@@ -1,9 +1,15 @@
 package org.enchere.dal;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.enchere.bo.ArticleVendu;
+import org.enchere.bo.Categorie;
+import org.enchere.bo.Enchere;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -14,8 +20,7 @@ import org.springframework.stereotype.Repository;
 public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 	
 	private static final String CREATE = "INSERT INTO ARTICLES_VENDUS (nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie) VALUES (:nom_article, :description, :date_debut_encheres, :date_fin_encheres, :prix_initial, :prix_vente, :no_utilisateur, :no_categorie)";
-
-	private static final String FIND_BY_ID = "SELECT a.no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, a.no_utilisateur, no_categorie FROM ARTICLES_VENDUS a INNER JOIN ENCHERES e ON a.no_article = e.no_article WHERE a.no_article =:no_article";
+	private static final String FIND_BY_ID = "SELECT a.no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, a.no_utilisateur, a.no_categorie, c.libelle, e.montant_enchere  FROM ARTICLES_VENDUS a INNER JOIN ENCHERES e ON a.no_article = e.no_article INNER JOIN CATEGORIES c ON a.no_categorie = c.no_categorie WHERE a.no_article =:no_article";
 	
 
 	
@@ -31,6 +36,42 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 	
 	return null;
 	}
+	
+	class ArticleRowMapper implements RowMapper<ArticleVendu>{
+
+		@Override
+		public ArticleVendu mapRow(ResultSet rs, int rowNum) throws SQLException {
+			
+			ArticleVendu a = new ArticleVendu();
+			Enchere e = new Enchere();
+			Categorie c = new Categorie();
+			
+			List<Enchere> listeEncheres = new ArrayList<>();
+			
+			a.setNoArticle(rs.getInt("no_article"));
+			a.setNomArticle(rs.getString("nom_article"));
+			a.setDescription(rs.getString("description"));
+			a.setDateDebutEncheres(rs.getTimestamp("date_debut_encheres").toLocalDateTime());
+			a.setDateFinEncheres(rs.getTimestamp("date_fin_encheres").toLocalDateTime());
+			a.setMiseAPrix(rs.getInt("prix_initial"));
+			a.setPrixVente(rs.getInt("prix_vente"));
+			c.setLibelle(rs.getString("libelle"));
+			a.setCategorieArticle(c);
+			e.setMontantEnchere(rs.getInt("montant_enchere"));
+			
+			listeEncheres.add(e);
+			a.setListeEncheres(listeEncheres);
+			
+			
+			return a;
+		}
+		
+		
+		
+		
+	}
+	
+	
 	
 	public void create(ArticleVendu article, int noUtilisateur) {
 		
@@ -62,6 +103,6 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 		MapSqlParameterSource map = new MapSqlParameterSource();
 		map.addValue("no_article", noArticle);
 		
-		return jdbcTemplate.queryForObject(FIND_BY_ID, map, new BeanPropertyRowMapper<>(ArticleVendu.class));
+		return jdbcTemplate.queryForObject(FIND_BY_ID, map, new ArticleRowMapper());
 	}
 }

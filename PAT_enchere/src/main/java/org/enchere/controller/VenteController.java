@@ -108,15 +108,17 @@ public class VenteController {
 	}
 	
 	@GetMapping("/encheresDetails")
-	public String afficherEncheresDetails(@RequestParam(name = "noArticle")int noArticle, Model model) {
+	public String afficherEncheresDetails(@RequestParam("noArticle")int noArticle, Model model) {
 		
 		ArticleVendu  articleVendu = this.articleVenduService.consulterArticleVenduParId(noArticle);
+	    Enchere enchere = enchereService.getEnchereById(id); 
+	    if (enchere == null) {
+	        enchere = new Enchere();  
+	    }
 		model.addAttribute("articleVendu", articleVendu );
-		
-		
-		
-		
-		return "encheres-details:";
+	
+	
+		return "encheres-details";
 	}
 	
 	@PostMapping("/encheresDetails")

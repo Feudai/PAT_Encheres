@@ -18,6 +18,9 @@ public interface UtilisateurDAO {
 	void update(Utilisateur utilisateur);
 
 	void deleteUser(int noUtilisateur);
+
+	boolean validerEmailUnique(String email);
+	boolean validerPseudoUnique (String pseudo);
 	
 
 

@@ -16,8 +16,10 @@ public class ArticleVenduServiceImpl implements ArticleVenduService {
 	}
 	
 
-	public List<ArticleVendu> ajouterArticle(ArticleVendu article) {
-		this.articleVenduDAO.create(article);
+	public List<ArticleVendu> ajouterArticle(ArticleVendu article, int noUtilisateur) {
+		this.articleVenduDAO.create(article, noUtilisateur);
 		return this.articleVenduDAO.findAll();
 	}
+
+
 }

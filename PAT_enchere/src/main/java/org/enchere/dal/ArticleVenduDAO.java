@@ -9,5 +9,5 @@ public interface ArticleVenduDAO {
 	
 	List<ArticleVendu> findAll();
 	
-	List<ArticleVendu> create(ArticleVendu article);
+	void create(ArticleVendu article, int noUtilisateur);
 }

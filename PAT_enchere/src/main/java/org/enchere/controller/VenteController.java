@@ -2,15 +2,17 @@ package org.enchere.controller;
 
 
 
-import java.time.LocalDateTime;
+import java.security.Principal;
 import java.util.List;
 
 import org.enchere.bll.ArticleVenduService;
 import org.enchere.bll.CategorieService;
 import org.enchere.bll.EnchereService;
 import org.enchere.bll.RetraitService;
+import org.enchere.bll.UtilisateurService;
 import org.enchere.bo.ArticleVendu;
 import org.enchere.bo.Enchere;
+import org.enchere.bo.Utilisateur;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,7 +20,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
 @Controller
@@ -29,12 +33,23 @@ public class VenteController {
 	private RetraitService retraitService;
 	private CategorieService categorieService;
 	
+	private UtilisateurService utilisateurService;
+
+
+	@ResponseBody
+	public String home(HttpSession session) {
+		Object authenticatedUser = session.getAttribute("authenticatedUser");
+		return "Authenticated User: " + authenticatedUser.toString();
+	}
+	
 	public VenteController(ArticleVenduService articleVenduService, EnchereService enchereService,
-			RetraitService retraitService, CategorieService categorieService) {
+			RetraitService retraitService, CategorieService categorieService,UtilisateurService utilisateurService) {
 		this.articleVenduService = articleVenduService;
 		this.enchereService = enchereService;
 		this.retraitService = retraitService;
 		this.categorieService = categorieService;
+		this.utilisateurService = utilisateurService;
+
 	}
 
 	@GetMapping("/nouvelleVente")
@@ -47,17 +62,21 @@ public class VenteController {
 	}
 	
 	@PostMapping("/nouvelleVente")
-	public String vendreUnArticle(@Valid @ModelAttribute ArticleVendu article, BindingResult br) {
+	public String vendreUnArticle(@Valid @ModelAttribute ArticleVendu article,Principal principal, BindingResult br) {
 		if(br.hasErrors()) {
 //debug
 			return "nouvelle-vente";
 		}
+		
+		String username = principal.getName();
+		Utilisateur authenticatedUser = utilisateurService.findByUsername(username);
+
+		int noUtilisateur = authenticatedUser.getNoUtilisateur();
+		
+		this.articleVenduService.ajouterArticle(article,noUtilisateur);
 
 		
-		this.articleVenduService.ajouterArticle(article);
-
-		
-		return "redirect:/encheresEnCours";
+		return "redirect:/accueil";
 	}
 	
 	

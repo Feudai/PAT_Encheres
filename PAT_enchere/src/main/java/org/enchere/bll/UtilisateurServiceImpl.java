@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.enchere.bo.Utilisateur;
 import org.enchere.dal.UtilisateurDAO;
+import org.enchere.exceptions.BusinessException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -16,8 +17,16 @@ public class UtilisateurServiceImpl implements UtilisateurService {
 	}
 
 	@Override
-	public void createUser(Utilisateur utilisateur) {
-		utilisateurDao.createUtilisateur(utilisateur);
+	public void createUser(Utilisateur utilisateur) throws BusinessException {
+		BusinessException be = new BusinessException();
+
+		boolean valide = validerEmailUnique(utilisateur.getEmail(), be);
+		boolean validePseudo = validerPseudoUnique(utilisateur.getPseudo(), be);
+		if (valide && validePseudo) {
+			utilisateurDao.createUtilisateur(utilisateur);
+		} else {
+			throw be;
+		}
 
 	}
 
@@ -50,7 +59,29 @@ public class UtilisateurServiceImpl implements UtilisateurService {
 	@Override
 	public void deleteUser(int noUtilisateur) {
 		utilisateurDao.deleteUser(noUtilisateur);
-		
+
+	}
+
+	private boolean validerEmailUnique(String email, BusinessException be) {
+
+		boolean emailExiste = utilisateurDao.validerEmailUnique(email);
+
+		if (emailExiste) {
+			be.addMessage("Vous ne pouvez pas créer un utilisateur avec un email déjà existant");
+		}
+
+		return !emailExiste;
+	}
+	
+	private boolean validerPseudoUnique(String pseudo, BusinessException be) {
+
+		boolean pseudoExiste = utilisateurDao.validerPseudoUnique(pseudo);
+
+		if (pseudoExiste) {
+			be.addMessage("Vous ne pouvez pas créer un utilisateur avec un pseudo déjà existant");
+		}
+
+		return !pseudoExiste;
 	}
 
 }

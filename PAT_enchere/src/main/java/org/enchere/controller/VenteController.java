@@ -102,19 +102,21 @@ public class VenteController {
 		//listeEncheres =this.enchereService.getListeEncheres().stream().filter(e->e.getArticle().getNomArticle().contains(nomArticle)).toList();
 		//debug
 		//model.addAttribute("encheresFiltrees",listeEncheres);
-		return "redirect:/encheresEnCours";
+		return "redirect:/accueil";
 	}
 	
 	@GetMapping("/encheresDetails")
-	public String afficherEncheresDetails(@RequestParam(name = "noArticle")int noArticle, Model model) {
+	public String afficherEncheresDetails(@RequestParam("noArticle")int noArticle, Model model) {
 		
 		ArticleVendu  articleVendu = this.articleVenduService.consulterArticleVenduParId(noArticle);
+	    Enchere enchere = enchereService.getEnchereById(id); 
+	    if (enchere == null) {
+	        enchere = new Enchere();  
+	    }
 		model.addAttribute("articleVendu", articleVendu );
-		
-		
-		
-		
-		return "encheres-details:";
+	
+	
+		return "encheres-details";
 	}
 	
 	@PostMapping("/encheresDetails")

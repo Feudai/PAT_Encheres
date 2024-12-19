@@ -76,10 +76,11 @@
             <div th:replace="~{fragments/fragment-error :: frag-error('ville')}"></div>
         </div>
 
-        <div class="form-group">
-            <label for="idConfirmation">Confirmation</label>
-            <input id="idConfirmation" type="password" />
-        </div>
+<div class="form-group">
+    <label for="confirmationMotDePasse">Confirmation</label>
+    <input id="confirmationMotDePasse" type="password" th:field="*{confirmationMotDePasse}" />
+    <div th:replace="~{fragments/fragment-error :: frag-error('confirmationMotDePasse')}"></div>
+</div>
 
         <div class="buttons">
             <button type="submit">Créer</button>

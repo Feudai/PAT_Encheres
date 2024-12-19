@@ -103,6 +103,13 @@ public class LoginController {
 	@PostMapping("/createUser")
 	public String createUser(@Valid @ModelAttribute Utilisateur utilisateur, BindingResult bindingResult) {
 		
+	    // Vérification de la correspondance des mots de passe
+	    if (!utilisateur.getMotDePasse().equals(utilisateur.getConfirmationMotDePasse())) {
+	        bindingResult.rejectValue("confirmationMotDePasse", "error.utilisateur", 
+	                                "Les mots de passe ne correspondent pas");
+	        return "inscription";
+	    }
+		
 		if (bindingResult.hasErrors()) {
 			return "inscription";
 		} else {

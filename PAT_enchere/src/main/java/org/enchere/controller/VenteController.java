@@ -85,6 +85,8 @@ public class VenteController {
 	@GetMapping("/encheresDetails")
 	public String afficherEncheresDetails() {
 		
+		
+		
 		return "encheres-details:";
 	}
 	

@@ -31,33 +31,33 @@
 		<button type="submit">Valider</button>
 	</form>
 
-<!--	<div class="exemple-vente">-->
-<!--		<ul th:each="e : ${listeEncheres}">-->
-<!--			<li><img src="./images/placeholder.png" alt="" /></li>-->
-<!--			<li>-->
-<!--				<textarea id="" cols="10" rows="1" th:text="${e?.article?.nomArticle}"></textarea>-->
-<!--			</li>-->
-<!--			<li>-->
+	<div class="exemple-vente">
+		<ul th:each="e : ${listeEncheres}">
+			<li><img src="./images/placeholder.png" alt="" /></li>
+			<li>
+				<textarea id="" cols="10" rows="1" th:text="${e.article.nomArticle}"></textarea>
+			</li>
+			<li>
 
-<!--				<textarea id="" cols="10" rows="1" th:text="${e?.montantEnchere}"></textarea>-->
-<!--			</li>-->
-<!--			<li>-->
+				<textarea id="" cols="10" rows="1" th:text="${e.montantEnchere}"></textarea>
+			</li>
+			<li>
 
-<!--				<textarea id="" cols="10" rows="1" th:text="${e?.dateEnchere}"></textarea>-->
-<!--			</li>-->
-<!--			<li>-->
+				<textarea id="" cols="10" rows="1" th:text="${e.dateEnchere}"></textarea>
+			</li>
+			<li>
 
-<!--				<textarea id="" cols="10" rows="1" th:text="${e?.createur?.pseudo}"></textarea>-->
-<!--			</li>-->
-<!--		</ul>-->
-<!--	</div>-->
+				<textarea id="" cols="10" rows="1" th:text="${e.createur.pseudo}"></textarea>
+			</li>
+		</ul>
+	</div>
 	<div class="exemple-vente">
 
 		<div class="exemple-vente" th:each="e : ${listeEncheres}">
-			<a th:href="@{/encheresDetails(noArticle=${e?.article?.noArticle})}">
+			<a th:href="@{/encheresDetails(noArticle=${e.article.noArticle})}">
 			<ul>
 				<li>
-					<textarea id="" cols="10" rows="1" th:text="${article?.noArticle}"></textarea>
+					<textarea id="" cols="10" rows="1" th:text="${e.article.noArticle}"></textarea>
 				</li>
 			</ul>
 			</a>
@@ -93,7 +93,7 @@
 
 		</div>
 
-
+	</div>
 
 </body>
 

@@ -55,13 +55,14 @@
 
 		<div class="exemple-vente" th:each="e : ${listeEncheres}">
 			<a th:href="@{/encheresDetails(noArticle=${e.article.noArticle})}">
-			<ul>
-				<li>
-					<textarea id="" cols="10" rows="1" th:text="${e.article.noArticle}"></textarea>
-				</li>
-			</ul>
+				<ul>
+					<li>
+						<textarea id="" cols="10" rows="1" th:text="${e.article.noArticle}"></textarea>
+					</li>
+				</ul>
 			</a>
 		</div>
+	</div>
 		<div class="exemple-vente">
 
 			<ul>
@@ -93,7 +94,6 @@
 
 		</div>
 
-	</div>
 
 </body>
 

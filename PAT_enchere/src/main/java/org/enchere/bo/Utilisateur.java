@@ -1,25 +1,42 @@
 package org.enchere.bo;
 
+
 import java.util.List;
 
+import org.springframework.security.core.Transient;
+
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
 
 public class Utilisateur {
 
 	private int noUtilisateur;
 	
-	@Pattern(regexp = "^[a-zA-Z0-9]+$", message = "Seuls les caractères alphanumériques sont autorisés")
+	@Pattern(regexp = "^[a-zA-Z0-9]+$", message = "Seuls les caractères alphanumériques sont autorisés")@NotEmpty
 	private String pseudo;
+	@NotEmpty 
 	private String nom;
+	@NotEmpty
 	private String prenom;
+	@Email @NotEmpty
 	private String email;
+	@Pattern(regexp = "^(?:(?:\\+|00)33|0)\\s*[1-9](?:[\\s.-]*\\d{2}){4}$", message = "Format de téléphone invalide")
 	private String telephone;
-
+	@NotEmpty @Pattern(regexp = "^[0-9]{1,4}\\s+[a-zA-ZÀ-ÿ\\s'-]+$", message = "L'adresse doit commencer par un numéro suivi du nom de la rue")
 	private String rue;
+	@NotEmpty @Pattern(regexp = "^\\d{5}$", message = "Le code postal doit contenir exactement 5 chiffres")
 	private String codePostal;
+	@NotEmpty
 	private String ville;
+	
+	
 
+	@NotEmpty
 	private String motDePasse;
+
+	private String confirmationMotDePasse;
+	
 	private int credit;
 	private boolean administrateur;
 
@@ -178,5 +195,19 @@ public class Utilisateur {
 	public void setArticleAAcheter(List<ArticleVendu> articleAAcheter) {
 		this.articleAAcheter = articleAAcheter;
 	}
+
+
+
+	public String getConfirmationMotDePasse() {
+		return confirmationMotDePasse;
+	}
+
+
+
+	public void setConfirmationMotDePasse(String confirmationMotDePasse) {
+		this.confirmationMotDePasse = confirmationMotDePasse;
+	}
+	
+	
 
 }

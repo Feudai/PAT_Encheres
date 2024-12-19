@@ -1,7 +1,6 @@
 package org.enchere.controller;
 
 import java.security.Principal;
-
 import java.util.List;
 
 import org.enchere.bll.UtilisateurService;
@@ -18,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import jakarta.servlet.http.HttpSession;
-
 import jakarta.validation.Valid;
 
 @Controller
@@ -102,6 +100,13 @@ public class LoginController {
 
 	@PostMapping("/createUser")
 	public String createUser(@Valid @ModelAttribute Utilisateur utilisateur, BindingResult bindingResult) {
+		
+	    // Vérification de la correspondance des mots de passe
+	    if (!utilisateur.getMotDePasse().equals(utilisateur.getConfirmationMotDePasse())) {
+	        bindingResult.rejectValue("confirmationMotDePasse", "error.utilisateur", 
+	                                "Les mots de passe ne correspondent pas");
+	        return "inscription";
+	    }
 		
 		if (bindingResult.hasErrors()) {
 			return "inscription";

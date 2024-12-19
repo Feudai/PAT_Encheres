@@ -72,7 +72,7 @@ public class UtilisateurServiceImpl implements UtilisateurService {
 
 		return !emailExiste;
 	}
-	
+
 	private boolean validerPseudoUnique(String pseudo, BusinessException be) {
 
 		boolean pseudoExiste = utilisateurDao.validerPseudoUnique(pseudo);

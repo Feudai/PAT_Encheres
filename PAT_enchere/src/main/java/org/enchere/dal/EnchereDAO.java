@@ -6,7 +6,7 @@ import org.enchere.bo.Enchere;
 
 public interface EnchereDAO {
 
-public List<Enchere> create(Enchere enchere);
+public void create(Enchere enchere);
 
 		 List<Enchere> findAll();
 	

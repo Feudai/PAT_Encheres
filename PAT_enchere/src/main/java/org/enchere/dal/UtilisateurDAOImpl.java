@@ -120,18 +120,22 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 	public void update(Utilisateur utilisateur) {	
 
     MapSqlParameterSource map = new MapSqlParameterSource("no_utilisateur", utilisateur.getNoUtilisateur());
+   
+    System.out.println("Début update - ID utilisateur : " + utilisateur.getNoUtilisateur());
+    System.out.println("Mot de passe reçu : " + utilisateur.getMotDePasse());
     String motDePasseEncode = null;
 	if (utilisateur.getMotDePasse() != null && !utilisateur.getMotDePasse().isEmpty()) {
-
-        motDePasseEncode = passwordEncoder.encode(utilisateur.getMotDePasse());
-        map.addValue("mot_de_passe", motDePasseEncode);
+		 System.out.println("Nouveau mot de passe détecté - Encodage en cours");
+       motDePasseEncode = passwordEncoder.encode(utilisateur.getMotDePasse());
+        
+        System.out.println("Mot de passe encodé : " + motDePasseEncode);
     } else {
-       
-        motDePasseEncode = jdbcTemplate.queryForObject(RECUP_MDP, map, String.class);
-        map.addValue("mot_de_passe", motDePasseEncode);
+    	System.out.println("Pas de nouveau mot de passe - Récupération de l'ancien");
+     motDePasseEncode = jdbcTemplate.queryForObject(RECUP_MDP, map, String.class);
+     System.out.println("Ancien mot de passe récupéré : " + motDePasseEncode);
     }
 	
-
+	map.addValue("mot_de_passe", motDePasseEncode);
 	map.addValue("pseudo", utilisateur.getPseudo());
 	map.addValue("nom", utilisateur.getNom());
 	map.addValue("prenom", utilisateur.getPrenom());

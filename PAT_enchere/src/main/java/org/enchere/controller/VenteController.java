@@ -83,21 +83,25 @@ public class VenteController {
 	
 	@GetMapping("/encheresEnCours")
 	public String afficherEncheres(Model model) {
-		System.out.println(this.enchereService.getListeEncheres().toString());
+//		for(int a=0;a<1000;a++)
+//		System.out.println("caca");
 		model.addAttribute("listeEncheres",this.enchereService.getListeEncheres());
-		return "encheres-en-cours";
+		model.addAttribute("listeCategories", this.categorieService.getListeCategories());
+		model.addAttribute("article",this.articleVenduService.consulterArticleVenduParId(1));
+
+		return "accueil";
 	}
 	
 	@PostMapping("/encheresEnCours")
-	public String filtrerEncheres(Model model, @RequestParam(name="categorie", defaultValue="-1")int noCategorie,@RequestParam(name="nomArticle")String nomArticle ) {
+	public String filtrerEncheres(Model model, @RequestParam(name="categorie", defaultValue="-1")int noCategorie,@RequestParam(name="nomArticle", defaultValue="")String nomArticle ) {
 		List<Enchere> listeEncheres=null;
-		if(noCategorie!=-1)
-		listeEncheres =this.enchereService.getListeEncheres().stream().filter(e->e.getArticle().getCategorieArticle().getNoCategorie()==noCategorie).toList();
-		
-		if(!nomArticle.equals("")&&nomArticle!=null)
-			listeEncheres =this.enchereService.getListeEncheres().stream().filter(e->e.getArticle().getNomArticle().contains(nomArticle)).toList();
-			
-		model.addAttribute("encheresFiltrees",listeEncheres);
+		//if(noCategorie!=-1)
+		//listeEncheres =this.enchereService.getListeEncheres().stream().filter(e->e.getArticle().getCategorieArticle().getNoCategorie()==noCategorie).toList();
+		listeEncheres=this.enchereService.getListeEncheres();
+		//if(!nomArticle.equals("")&&nomArticle!=null)
+		//listeEncheres =this.enchereService.getListeEncheres().stream().filter(e->e.getArticle().getNomArticle().contains(nomArticle)).toList();
+		//debug
+		//model.addAttribute("encheresFiltrees",listeEncheres);
 		return "redirect:/encheresEnCours";
 	}
 	
@@ -116,7 +120,8 @@ public class VenteController {
 	@PostMapping("/encheresDetails")
 	public String proposerPrixEnchere() {
 		
-		return "redirect:/encheres-gestion";
+		
+		return "redirect:/accueil";
 	}
 	
 	

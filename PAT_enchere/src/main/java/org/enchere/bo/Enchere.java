@@ -16,6 +16,12 @@ public class Enchere {
 			this.createur = createur;
 			this.article = article;
 		}
+		
+
+		public Enchere() {
+		}
+
+
 
 
 		public LocalDateTime getDateEnchere() {

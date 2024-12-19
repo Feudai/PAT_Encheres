@@ -1,7 +1,6 @@
 package org.enchere.controller;
 
 import java.security.Principal;
-
 import java.util.List;
 
 import org.enchere.bll.UtilisateurService;
@@ -18,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import jakarta.servlet.http.HttpSession;
-
 import jakarta.validation.Valid;
 
 @Controller

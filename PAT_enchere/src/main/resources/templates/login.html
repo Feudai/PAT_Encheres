@@ -23,6 +23,9 @@
 			<li><button type="submit">Connexion</button></li>
 			<a href="">Mot de passe oublié</a>
 		</ul>
+		<div th:if="${errorMessage}" class="alert alert-warning">
+    <p th:text="${errorMessage}"></p>
+</div>
 
 
 	</form>

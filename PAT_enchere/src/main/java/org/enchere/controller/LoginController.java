@@ -36,10 +36,15 @@ public class LoginController {
 	}
 
 	@GetMapping("/login")
-	public String affichageConnexion() {
+	public String affichageConnexion(@RequestParam(value = "session", required = false) String session, Model model) {
 
-		return "login";
-	}
+        if ("expired".equals(session)) {
+            model.addAttribute("errorMessage", "Votre session a expiré. Veuillez vous reconnecter.");
+        }
+        return "login";
+    }
+
+	
 
 	@GetMapping("/profil-detail")
 	public String affichageUtilisateur(@RequestParam(name = "noUtilisateur") int noUtilisateur, Model model) {

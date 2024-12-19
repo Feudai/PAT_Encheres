@@ -44,10 +44,24 @@ public class SecurityConfig {
 						.anyRequest().permitAll() // Les autres pages restent publiques
 				)
 				
-				.formLogin(form -> form.loginPage("/login").permitAll())
-				
+	            
+	            .formLogin(login -> login
+	                    .loginPage("/login")
+	                    .defaultSuccessUrl("/accueil", true)
+	                    .permitAll()
+	                )
+	            
 				.logout(logout -> logout.logoutRequestMatcher(new AntPathRequestMatcher("/logout", "GET"))
-						.addLogoutHandler(clearSiteData));
+						.addLogoutHandler(clearSiteData)	                    .logoutUrl("/logout")
+	                    .logoutSuccessUrl("/login?logout")
+	                    .invalidateHttpSession(true)
+	                    .deleteCookies("JSESSIONID")
+	                    .permitAll()
+	                )
+	            .sessionManagement(session -> session
+	                    .invalidSessionUrl("/login?session=expired")
+	                    .maximumSessions(1) // Facultatif : limite d'une session par utilisateur
+	                );
 
 
 		return http.build();

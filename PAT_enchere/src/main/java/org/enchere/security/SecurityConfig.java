@@ -82,11 +82,11 @@ public class SecurityConfig {
 
         // Requête pour récupérer les informations d'utilisateur
         jdbcUserDetailsManager.setUsersByUsernameQuery(
-                "SELECT pseudo, mot_de_passe, administrateur FROM UTILISATEURS WHERE pseudo = ?");
+                "SELECT pseudo, mot_de_passe, 1 as enabled FROM UTILISATEURS WHERE pseudo = ?");
 
         // Requête pour récupérer les rôles de l'utilisateur
         jdbcUserDetailsManager.setAuthoritiesByUsernameQuery(
-                "SELECT pseudo, CASE WHEN administrateur = 1 THEN 'ROLE_ADMIN' ELSE 'ROLE_USER' END AS authority FROM UTILISATEURS WHERE pseudo = ?");
+        		"SELECT pseudo, CASE WHEN administrateur = 1 THEN 'ROLE_ADMIN' ELSE 'ROLE_USER' END AS authority FROM UTILISATEURS WHERE pseudo = ?");
 
         return jdbcUserDetailsManager;
     }

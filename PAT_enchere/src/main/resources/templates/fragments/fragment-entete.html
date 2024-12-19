@@ -10,7 +10,7 @@
 		<a th:href="@{/profil}" sec:authorize="isAuthenticated()">Profil</a>
 		<a th:href="@{/inscription}" sec:authorize="!isAuthenticated()">Inscription</a>
 		<a th:href="@{/logout}" sec:authorize="isAuthenticated()">Se déconnecter</a>
-		<div class="admin"><a th:href="@{/listeUtilisateurs}" sec:authorize="isAuthenticated()">Liste des utilisateurs</a></div>
+		<div class="admin"><a th:href="@{/listeUtilisateurs}" sec:authorize="hasRole('ROLE_ADMIN')">Liste des utilisateurs</a></div>
 		
 		
 	</div>

@@ -170,3 +170,65 @@ h2 {
     background-color: #004085;
     border-radius: 5px;
 }
+
+@charset "UTF-8";
+
+/* Style global du tableau */
+table {
+    width: 100%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    background-color: #ffffff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Style des cellules d'en-tête */
+table th {
+    background-color: #0056b3;
+    color: white;
+    padding: 10px;
+    text-align: left;
+    font-size: 1.1em;
+}
+
+/* Style des cellules de données */
+table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    background-color: #f9f9f9;
+}
+
+/* Style des lignes paires pour une alternance de couleurs */
+table tr:nth-child(even) td {
+    background-color: #f2f2f2;
+}
+
+/* Style des liens dans le tableau */
+table a {
+    color: #0056b3;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+table a:hover {
+    color: #004085;
+    text-decoration: underline;
+}
+
+/* Style des boutons de suppression et détails */
+table td a {
+    padding: 5px 10px;
+    border-radius: 4px;
+    background-color: #0056b3;
+    color: white;
+    text-align: center;
+    display: inline-block;
+    font-size: 1em;
+    margin-right: 10px;
+}
+
+table td a:hover {
+    background-color: #004085;
+}
+

@@ -9,41 +9,41 @@
 <body>
 <div th:replace="~{fragments/fragment-entete::entete}"></div>
     <h1>Détails de la vente</h1>
-    <form action="@{/encheresDetails}" th:object="${article}" method="get">
+    <form action="@{/encheresDetails}" th:object="${articleVendu}" method="get">
     
     <div class="form-group">
             <label for="idArticle">Article :</label>
-            <input type="text" id="idArticle" th:field="*{nomArticle}">
+            <input type="text" id="idArticle" th:text="{articleVendu.nomArticle}">
         </div>
         
         <div class="form-group">
             <label for="description">Description :</label>
-            <textarea id="description" th:field="*{description}"></textarea>
+            <textarea id="description" th:text="{articleVendu.description}"></textarea>
         </div>
             <div class="form-group">
             <label for="description">Catégorie :</label>
-            <textarea id="description" th:field="*{categorieArticle}"></textarea>
+            <textarea id="description" th:text="{articleVendu.categorieArticle}"></textarea>
         </div>
                 <div class="form-group">
             <label for="description">Meilleure offre :</label>
-            <textarea id="description" th:field="{enchere.montantEnchere}"></textarea>
+            <textarea id="description" th:text="{articleVendu.enchere.montantEnchere}"></textarea>
         </div>
               
                 <div class="form-group">
             <label for="description">Mise à prix :</label>
-            <textarea id="description" th:field="*{miseAPrix}"></textarea>
+            <textarea id="description" th:text="{articleVendu.miseAPrix}"></textarea>
         </div>
                         <div class="form-group">
             <label for="description">Fin de l'enchère :</label>
-            <textarea id="description" th:field="*{dateFinEncheres}"></textarea>
+            <textarea id="description" th:text="{articleVendu.dateFinEncheres}"></textarea>
         </div>
         <div class="form-group">
             <label for="description">Retrait :</label>
-            <textarea id="description" th:field="*{lieuRetrait}"></textarea>
+            <textarea id="description" th:text="{articleVendu.lieuRetrait}"></textarea>
         </div>
                                 <div class="form-group">
             <label for="description">Vendeur :</label>
-            <textarea id="description" th:field="{enchere.createur}"></textarea>
+            <textarea id="description" th:text="{articleVendu.enchere.createur}" th:href="@{/profil-detail(noUtilisateur=${u.noUtilisateur})}"></textarea>
         </div>
     
     </form>

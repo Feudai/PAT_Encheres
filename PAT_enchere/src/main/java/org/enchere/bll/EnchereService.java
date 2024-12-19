@@ -11,5 +11,6 @@ public interface EnchereService {
 	
 	public List<Enchere> getListeEncheres();
 
+	public Enchere getEnchereByIdArticle(int idArticle);
 
 }

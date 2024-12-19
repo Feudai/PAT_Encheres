@@ -81,13 +81,14 @@ public class VenteController {
 	
 	@GetMapping("/accueil")
 	public String afficherEncheres(Model model) {
-		List<Utilisateur> utilisateurs = this.utilisateurService.consulterUtilisateurs();
-		model.addAttribute("utilisateurs", utilisateurs);
+//		List<Utilisateur> utilisateurs = this.utilisateurService.consulterUtilisateurs();
+//		model.addAttribute("utilisateurs", utilisateurs);
 //		for(int a=0;a<1000;a++)
 //		System.out.println("caca");
+		List<Enchere> listeEncheres = this.enchereService.getListeEncheres();
 		model.addAttribute("listeEncheres",this.enchereService.getListeEncheres());
-		model.addAttribute("listeCategories", this.categorieService.getListeCategories());
-		model.addAttribute("article",this.articleVenduService.consulterArticleVenduParId(1));
+//		model.addAttribute("listeCategories", this.categorieService.getListeCategories());
+//		model.addAttribute("article",this.articleVenduService.consulterArticleVenduParId(1));
 
 
 		return "accueil";
@@ -103,7 +104,7 @@ public class VenteController {
 		//listeEncheres =this.enchereService.getListeEncheres().stream().filter(e->e.getArticle().getNomArticle().contains(nomArticle)).toList();
 		//debug
 		//model.addAttribute("encheresFiltrees",listeEncheres);
-		return "redirect:/encheresEnCours";
+		return "redirect:/accueil";
 	}
 	
 	@GetMapping("/encheresDetails")

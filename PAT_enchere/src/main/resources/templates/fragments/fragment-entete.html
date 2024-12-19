@@ -1,6 +1,6 @@
 
 <nav id="naventete" th:fragment="entete">
-	<a href=""><img src="/images/pat-encheres-logo.svg" alt="" class ="logo"/></a>
+	<a th:href="@{accueil}"><img src="/images/pat-encheres-logo.svg" alt="" class ="logo"/></a>
 	<h1>PAT_Enchère</h1>
 	<div>
 		<a href="/">Index</a>
@@ -10,6 +10,8 @@
 		<a th:href="@{/profil}" sec:authorize="isAuthenticated()">Profil</a>
 		<a th:href="@{/inscription}" sec:authorize="!isAuthenticated()">Inscription</a>
 		<a th:href="@{/logout}" sec:authorize="isAuthenticated()">Se déconnecter</a>
+		<div class="admin"><a th:href="@{/listeUtilisateurs}" sec:authorize="hasRole('ROLE_ADMIN')">Liste des utilisateurs</a></div>
+		
 		
 	</div>
 </nav>

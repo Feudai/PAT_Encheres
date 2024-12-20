@@ -396,3 +396,12 @@ table td a:hover {
     font-weight: 500;
 }
 
+
+.li-form{
+	display: flex;
+	justify-content: space-between;
+	flex-direction: row;
+	 padding: 10px 15px;
+	
+	
+}

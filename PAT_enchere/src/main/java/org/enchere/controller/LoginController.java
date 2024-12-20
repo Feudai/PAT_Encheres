@@ -38,58 +38,11 @@ public class LoginController {
 	@GetMapping("/login")
 	public String affichageConnexion(@RequestParam(value = "session", required = false) String session, Model model) {
 
-        if ("expired".equals(session)) {
-            model.addAttribute("errorMessage", "Votre session a expiré. Veuillez vous reconnecter.");
-        }
-        return "login";
-    }
-
-	
-
-	@GetMapping("/profil-detail")
-	public String affichageUtilisateur(@RequestParam(name = "noUtilisateur") int noUtilisateur, Model model) {
-		Utilisateur utilisateur = this.utilisateurService.consulterUtilisateurParId(noUtilisateur);
-		model.addAttribute("utilisateur", utilisateur);
-		return "profil-detail";
-	}
-
-	@GetMapping("/profil")
-	public String affichageUtilisateur(@RequestParam(name = "noUtilisateur", required = false) Integer noUtilisateur,
-			Principal principal, Model model) {
-
-		// Récupérer l'utilisateur connecté via le Principal
-		String username = principal.getName();
-		Utilisateur authenticatedUser = utilisateurService.findByUsername(username);
-
-		if (noUtilisateur == null) {
-			noUtilisateur = authenticatedUser.getNoUtilisateur();
+		if ("expired".equals(session)) {
+			model.addAttribute("errorMessage", "Votre session a expiré. Veuillez vous reconnecter.");
 		}
-
-		Utilisateur utilisateur = this.utilisateurService.consulterUtilisateurParId(noUtilisateur);
-		model.addAttribute("utilisateur", utilisateur);
-
-		return "profil";
+		return "login";
 	}
-
-	@PostMapping("/profil")
-	public String mettreAJourUtilisateur(@ModelAttribute Utilisateur utilisateur, Principal principal) {
-
-		String username = principal.getName();
-		Utilisateur authenticatedUser = utilisateurService.findByUsername(username);
-
-		utilisateur.setNoUtilisateur(authenticatedUser.getNoUtilisateur());
-
-		this.utilisateurService.update(utilisateur);
-
-		return "redirect:/logout";
-	}
-	
-	@GetMapping("/")
-	public String acceuilDefaut() {
-		return "accueil";
-		
-	}
-
 
 	@GetMapping("/inscription")
 	public String affichageInscription(Model model) {
@@ -99,14 +52,14 @@ public class LoginController {
 
 	@PostMapping("/createUser")
 	public String createUser(@Valid @ModelAttribute Utilisateur utilisateur, BindingResult bindingResult) {
-		
-	    // Vérification de la correspondance des mots de passe
-	    if (!utilisateur.getMotDePasse().equals(utilisateur.getConfirmationMotDePasse())) {
-	        bindingResult.rejectValue("confirmationMotDePasse", "error.utilisateur", 
-	                                "Les mots de passe ne correspondent pas");
-	        return "inscription";
-	    }
-		
+
+		// Vérification de la correspondance des mots de passe
+		if (!utilisateur.getMotDePasse().equals(utilisateur.getConfirmationMotDePasse())) {
+			bindingResult.rejectValue("confirmationMotDePasse", "error.utilisateur",
+					"Les mots de passe ne correspondent pas");
+			return "inscription";
+		}
+
 		if (bindingResult.hasErrors()) {
 			return "inscription";
 		} else {
@@ -147,19 +100,18 @@ public class LoginController {
 		model.addAttribute("utilisateurs", utilisateurs);
 		return "listeUtilisateurs";
 	}
-	
+
 	@GetMapping("listeUtilisateurs/deleteUser")
 	public String deleteUserAdmin(@RequestParam("noUtilisateur") Integer noUtilisateur, Model model) {
 
 		Utilisateur utilisateur = this.utilisateurService.consulterUtilisateurParId(noUtilisateur);
 		int idUtilisateur = utilisateur.getNoUtilisateur();
-		
+
 		model.addAttribute("utilisateur", utilisateur);
-		
+
 		this.utilisateurService.deleteUser(idUtilisateur);
 
 		return "redirect:/accueil";
 	}
-	
-	
+
 }

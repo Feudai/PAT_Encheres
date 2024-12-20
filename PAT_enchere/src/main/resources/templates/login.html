@@ -31,11 +31,13 @@
 
 
 	</form>
-<li>
+
     <button th:onclick="|window.location.href='@{/inscription}'|" type="button">
         Créer un compte
     </button>
-</li>
+    
+<a th:href="@{recuperationMotDePasse}">Mot de passe oublié ?</a>
+
 </body>
 </html>
 

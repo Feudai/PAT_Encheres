@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Récupération du mot de passe</title>
+</head>
+<body>
+    <header>
+        <div th:replace="~{fragments/fragment-entete::entete}"></div>
+    </header>
+
+	<label for="email">Email</label>
+	<input id="email" type="email" th:field="*{email}" />
+
+	<label for="motDePasse">Mot de passe</label>
+	<input id="motDePasse" type="password" th:field="*{motDePasse}" />
+
+	<label for="confirmationMotDePasse">Confirmation</label>
+	<input id="confirmationMotDePasse" type="password"
+		th:field="*{confirmationMotDePasse}" />
+	<div
+		th:replace="~{fragments/fragment-error :: frag-error('confirmationMotDePasse')}"></div>
+</body>
+</html>

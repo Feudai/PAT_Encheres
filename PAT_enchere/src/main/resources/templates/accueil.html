@@ -52,13 +52,15 @@
 	                        <span class="label">Date limite :</span>
 	                        <span th:text="${e.dateEnchere}"></span>
 	                    </div>
-						<a th:href="@{/profil-detail(noUtilisateur=${e.createur.noUtilisateur})}">
-	                    <div class="seller-info">
-	                        <span class="label">Vendeur :</span>
-	                        <span th:text="${e.createur.pseudo}"></span>
-	                    </div>
-						</a>
 	                </div>
+					<a th:href="@{/profil-detail(noUtilisateur=${e.createur.noUtilisateur})}">
+						<button class="vendeur">
+						                    <div class="seller-info">
+						                        <span class="label-s">Vendeur :</span>
+						                        <span th:text="${e.createur.pseudo}"></span>
+						                    </div>
+											</button>
+											</a>
 	            </div>
 	        </div>
 	    </div>

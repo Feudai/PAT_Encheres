@@ -35,9 +35,11 @@
 				<input id="idRue" type="text" name="" th:field="${utilisateur.rue}" />
 				<label for="idVille">Ville</label> <input id="idVille" type="text"
 					name="" th:field="${utilisateur.ville}" />
-			<button type="submit">Enregistrer</button>
+				
+			</div>
+			
 	</form>
-
+<button type="submit">Enregistrer</button>
 	<form action="/profil/deleteUser" method="get">
 		<input type="hidden" name="noUtilisateur"
 			th:value="${utilisateur.noUtilisateur}" />

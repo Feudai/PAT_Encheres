@@ -13,37 +13,37 @@
     
     <div class="form-group">
             <label for="idArticle">Article :</label>
-            <textarea id="idArticle" th:text="${articleVendu.nomArticle}"></textarea>
+            <textarea id="idArticle" th:text="${articleVendu.nomArticle}" readonly="readonly"></textarea>
         </div>
         
         <div class="form-group">
             <label for="description">Description :</label>
-            <textarea id="description" th:text="${articleVendu.description}"></textarea>
+            <textarea id="description" th:text="${articleVendu.description}" readonly="readonly"></textarea>
         </div>
             <div class="form-group">
             <label for="categorieArticle">Catégorie :</label>
-            <textarea id="categorieArticle" th:text="${articleVendu.categorieArticle.libelle}"></textarea>
+            <textarea id="categorieArticle" th:text="${articleVendu.categorieArticle.libelle}" readonly="readonly"></textarea>
         </div>
-                <div class="form-group" th:each="e:${articleVendu.ListeEncheres}">
+                <div class="form-group" th:each="e:${articleVendu.ListeEncheres}" readonly="readonly">
             <label for="montantEnchere">Meilleure offre :</label>
-            <textarea id="montantEnchere" th:text="${e.montantEnchere}"></textarea>
+            <textarea id="montantEnchere" th:text="${e.montantEnchere}" readonly="readonly"></textarea>
         </div>
               
                 <div class="form-group">
             <label for="miseAPrix">Mise à prix :</label>
-            <textarea id="miseAPrix" th:text="${articleVendu.miseAPrix}"></textarea>
+            <textarea id="miseAPrix" th:text="${articleVendu.miseAPrix}" readonly="readonly"></textarea>
         </div>
                         <div class="form-group">
             <label for="dateFinEncheres">Fin de l'enchère :</label>
-            <textarea id="dateFinEncheres" th:text="${articleVendu.dateFinEncheres}"></textarea>
+            <textarea id="dateFinEncheres" th:text="${articleVendu.dateFinEncheres}" readonly="readonly"></textarea>
         </div>
         <div class="form-group">
             <label for="lieuRetrait">Retrait :</label>
-            <textarea id="lieuRetrait" th:text="${articleVendu.lieuRetrait}"></textarea>
+            <textarea id="lieuRetrait" th:text="${articleVendu.lieuRetrait}" readonly="readonly"></textarea>
    </div>
            <div class="form-group">
             <label for="lieuRetrait">Créateur :</label>
-            <textarea id="lieuRetrait" th:text="${articleVendu.createur.pseudo}"></textarea>
+            <textarea id="lieuRetrait" th:text="${articleVendu.createur.pseudo}" readonly="readonly"></textarea>
    </div>
 
     

@@ -3,6 +3,7 @@ package org.enchere.controller;
 
 
 import java.security.Principal;
+import java.util.Collections;
 import java.util.List;
 
 import org.enchere.bll.ArticleVenduService;
@@ -110,14 +111,23 @@ public class VenteController {
 	@GetMapping("/encheresDetails")
 	public String afficherEncheresDetails(@RequestParam("noArticle")int noArticle, Model model) {
 		
-		ArticleVendu  articleVendu = this.articleVenduService.consulterArticleVenduParId(noArticle);
+
+
+		ArticleVendu  articleVendu = this.articleVenduService.consulterArticleVenduParId(noArticle).get(0);
 		Utilisateur utilisateur = this.utilisateurService.consulterUtilisateurParId(articleVendu.getCreateur().getNoUtilisateur());
+		List<Enchere> encheres = this.enchereService.getEncheresByIdArticle(noArticle);
 		articleVendu.setCreateur(utilisateur);
-	    Enchere enchere = this.enchereService.getEnchereByIdArticle(noArticle); 
-	    
-	    if (enchere == null) {
-	        enchere = new Enchere();  
-	    }
+		
+		Collections.sort(encheres, (ench1, ench2) -> {
+			  Enchere a = (Enchere) ench1;
+			  Enchere b = (Enchere) ench2;
+			  if (a.getMontantEnchere() > b.getMontantEnchere()) return -1;
+			  if (a.getMontantEnchere() < b.getMontantEnchere()) return 1;
+			  return 0;
+			});
+		
+	    articleVendu.setListeEncheres(encheres); 
+
 		model.addAttribute("articleVendu", articleVendu);
 	
 	

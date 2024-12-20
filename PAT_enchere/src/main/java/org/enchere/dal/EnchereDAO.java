@@ -8,7 +8,7 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 
 public interface EnchereDAO {
 	
-	 Enchere findByIdArticle(int idArticle);
+	List<Enchere> findByIdArticle(int idArticle);
 
 		void create(Enchere enchere);
 

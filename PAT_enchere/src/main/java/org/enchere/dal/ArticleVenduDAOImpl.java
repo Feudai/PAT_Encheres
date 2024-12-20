@@ -99,10 +99,10 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 	}
 
 	@Override
-	public ArticleVendu findById(int noArticle) {
+	public List<ArticleVendu> findById(int noArticle) {
 		MapSqlParameterSource map = new MapSqlParameterSource();
 		map.addValue("no_article", noArticle);
 		
-		return jdbcTemplate.queryForObject(FIND_BY_ID, map, new ArticleRowMapper());
+		return jdbcTemplate.query(FIND_BY_ID, map, new ArticleRowMapper());
 	}
 }

@@ -17,7 +17,7 @@ public class StringToEnchereConverter implements Converter<String,Enchere> {
 
 	@Override
 	public Enchere convert(String source) {
-		Enchere enchere = this.enchereService.getEnchereByIdArticle(Integer.parseInt(source));
+		Enchere enchere = this.enchereService.getBestEnchere(Integer.parseInt(source));
 		return null;
 	}
 

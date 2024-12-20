@@ -18,7 +18,7 @@ public class StringToArticleVenduConverter implements Converter<String,ArticleVe
 
 	@Override
 	public ArticleVendu convert(String source) {
-		ArticleVendu article = this.articleVenduService.consulterArticleVenduParId(Integer.parseInt(source));
+		ArticleVendu article = this.articleVenduService.consulterArticleVenduParId(Integer.parseInt(source)).get(0);
 		return article;
 	}
 

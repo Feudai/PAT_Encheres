@@ -11,5 +11,5 @@ public interface ArticleVenduDAO {
 	
 	void create(ArticleVendu article, int noUtilisateur);
 
-	ArticleVendu findById(int noArticle);
+	List<ArticleVendu> findById(int noArticle);
 }

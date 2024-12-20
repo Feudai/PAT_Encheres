@@ -3,6 +3,8 @@ package org.enchere.controller;
 
 
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.enchere.bll.ArticleVenduService;
@@ -81,13 +83,26 @@ public class VenteController {
 	
 	@GetMapping("/accueil")
 	public String afficherEncheres(Model model) {
-//		List<Utilisateur> utilisateurs = this.utilisateurService.consulterUtilisateurs();
-//		model.addAttribute("utilisateurs", utilisateurs);
-//		for(int a=0;a<1000;a++)
-//		System.out.println("caca");
-		List<Enchere> listeEncheres = this.enchereService.getListeEncheres();
-		model.addAttribute("listeEncheres",this.enchereService.getListeEncheres());
-//		model.addAttribute("listeCategories", this.categorieService.getListeCategories());
+		List<Utilisateur> utilisateurs = this.utilisateurService.consulterUtilisateurs();
+		model.addAttribute("utilisateurs", utilisateurs);
+
+		List<Enchere> tempListeEncheres = this.enchereService.getListeEncheres();
+		List<Enchere> listeEncheres = new ArrayList<>();
+
+		
+			tempListeEncheres.forEach(l->{ 
+				boolean addEnchere = true;
+				for (Enchere enchere : listeEncheres) {
+					if(l.getArticle().getNoArticle()==enchere.getArticle().getNoArticle())addEnchere = false;
+					}
+				if(addEnchere)listeEncheres.add(l);
+				}
+				);				
+		
+		
+		
+		model.addAttribute("listeEncheres",listeEncheres);
+		model.addAttribute("listeCategories", this.categorieService.getListeCategories());
 //		model.addAttribute("article",this.articleVenduService.consulterArticleVenduParId(1));
 
 
@@ -110,12 +125,21 @@ public class VenteController {
 	@GetMapping("/encheresDetails")
 	public String afficherEncheresDetails(@RequestParam("noArticle")int noArticle, Model model) {
 		
-		ArticleVendu  articleVendu = this.articleVenduService.consulterArticleVenduParId(noArticle);
-	    Enchere enchere = this.enchereService.getEnchereByIdArticle(noArticle); 
+		ArticleVendu  articleVendu = this.articleVenduService.consulterArticleVenduParId(noArticle).get(0);
+		
+		List<Enchere> encheres = this.enchereService.getEncheresByIdArticle(noArticle);
+		
+		Collections.sort(encheres, (ench1, ench2) -> {
+			  Enchere a = (Enchere) ench1;
+			  Enchere b = (Enchere) ench2;
+			  if (a.getMontantEnchere() > b.getMontantEnchere()) return -1;
+			  if (a.getMontantEnchere() < b.getMontantEnchere()) return 1;
+			  return 0;
+			});
+		
+	    articleVendu.setListeEncheres(encheres); 
 	    
-	    if (enchere == null) {
-	        enchere = new Enchere();  
-	    }
+	    	 
 		model.addAttribute("articleVendu", articleVendu);
 	
 	

@@ -24,9 +24,9 @@
             <label for="categorieArticle">Catégorie :</label>
             <textarea id="categorieArticle" th:text="${articleVendu.categorieArticle}"></textarea>
         </div>
-                <div class="form-group" th:each="e:${articleVendu.ListeEncheres}">
+                <div class="form-group" >
             <label for="montantEnchere">Meilleure offre :</label>
-            <textarea id="montantEnchere" th:text="${e.montantEnchere}"></textarea>
+            <textarea id="montantEnchere" th:text="${articleVendu.listeEncheres[0].montantEnchere}"></textarea>
         </div>
               
                 <div class="form-group">

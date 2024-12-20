@@ -23,7 +23,7 @@ public class ArticleVenduServiceImpl implements ArticleVenduService {
 
 
 	@Override
-	public ArticleVendu consulterArticleVenduParId(int noArticle) {
+	public List<ArticleVendu> consulterArticleVenduParId(int noArticle) {
 		return this.articleVenduDAO.findById(noArticle);
 	}
 

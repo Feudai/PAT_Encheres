@@ -10,17 +10,19 @@
 		<div th:replace="~{fragments/fragment-entete::entete}"></div>
 	</header>
 	<form th:action="@{/profil-detail}" method="post" th:object="${utilisateur}">
-
+<div class="form-container">
 <ul>
-	<li><label for="idPseudo">Pseudo : </label><textarea id="" cols="10" rows="1" th:text="${utilisateur.pseudo}"></textarea></li>
-	<li><label for="idNom">Nom : </label><textarea id="" cols="10" rows="1" th:text="${utilisateur.nom}"></textarea></li>
-	<li><label for="idPrenom">Prénom : </label><textarea id="" cols="10" rows="1" th:text="${utilisateur.prenom}"></textarea></li>
-	<li><label for="idEmail">Email : </label><textarea id="" cols="10" rows="1" th:text="${utilisateur.email}"></textarea></li>
-	<li><label for="idTelephone">Téléphone : </label><textarea id="" cols="10" rows="1" th:text="${utilisateur.telephone}"></textarea></li>
-	<li><label for="idRue">Rue : </label><textarea id="" cols="10" rows="1" th:text="${utilisateur.rue}"></textarea></li>
-	<li><label for="idCodePostal">Code Postal : </label><textarea id="" cols="10" rows="1" th:text="${utilisateur.codePostal}"></textarea></li>
-	<li><label for="idVille">Ville : </label><textarea id="" cols="10" rows="1" th:text="${utilisateur.ville}"></textarea>></li>
+	<li class = "li-form"><label for="idPseudo">Pseudo : </label><input type="text" th:field="${utilisateur.pseudo}" readonly="readonly"/></li>
+	<li class = "li-form"><label for="idPseudo">Nom : </label><input type="text" th:field="${utilisateur.nom}" readonly="readonly"/></li>
+		<li class = "li-form"><label for="idPseudo">Prénom : </label><input type="text" th:field="${utilisateur.prenom}" readonly="readonly"/></li>
+	<li class = "li-form"><label for="idPseudo">Email : </label><input type="text" th:field="${utilisateur.email}" readonly="readonly"/></li>
+	<li class = "li-form"><label for="idPseudo">Téléphone : </label><input type="text" th:field="${utilisateur.telephone}" readonly="readonly"/></li>
+	<li class = "li-form"><label for="idPseudo">Rue : </label><input type="text" th:field="${utilisateur.rue}" readonly="readonly"/></li>
+	<li class = "li-form"><label for="idPseudo">Code Postal : </label><input type="text" th:field="${utilisateur.codePostal}" readonly="readonly"/></li>
+	<li class = "li-form"><label for="idPseudo">Ville : </label><input type="text" th:field="${utilisateur.ville}" readonly="readonly"/></li>	
+
 </ul>
+</div>
 </form>
 
 

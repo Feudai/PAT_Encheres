@@ -6,6 +6,7 @@ import org.enchere.bll.UtilisateurService;
 import org.enchere.bo.Utilisateur;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -71,5 +72,32 @@ public class UtilisateurController {
 	public String acceuilDefaut() {
 		return "accueil";
 
+	}
+	
+	@GetMapping("/recuperationMotDePasse")
+	public String affichageRecupMotDePasse (Model model) {
+		model.addAttribute("utilisateur", new Utilisateur());
+		return "recup-mot-de-passe";
+	}
+	
+	@PostMapping("recuperationMotDePasse/recupMotDePasse")
+	public String recupMotDePasse(@ModelAttribute Utilisateur utilisateur,BindingResult bindingResult, Principal principal) {
+		String username = principal.getName();
+		Utilisateur authenticatedUser = utilisateurService.findByUsername(username);
+
+		utilisateur.setNoUtilisateur(authenticatedUser.getNoUtilisateur());
+
+		if (!utilisateur.getMotDePasse().equals(utilisateur.getConfirmationMotDePasse())) {
+			bindingResult.rejectValue("confirmationMotDePasse", "error.utilisateur",
+					"Les mots de passe ne correspondent pas");
+			return "recuperationMotDePasse";
+		}
+		this.utilisateurService.update(utilisateur);
+		
+		return "redirect:/login";
+	}
+	@GetMapping("/kowalski")
+	public String hiddenKowalski () {
+		return "kowalski";
 	}
 }

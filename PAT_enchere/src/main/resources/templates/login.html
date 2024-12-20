@@ -23,7 +23,7 @@
                         Se souvenir de moi
                 <input type="checkbox" name="remember-me" />
 			<li><button type="submit">Connexion</button></li>
-			<a href="">Mot de passe oublié</a>
+			<a th:href="recuperationMotDePasse">Mot de passe oublié</a>
 		</ul>
 		<div th:if="${errorMessage}" class="alert alert-warning">
     <p th:text="${errorMessage}"></p>
@@ -36,7 +36,8 @@
         Créer un compte
     </button>
     
-<a th:href="@{recuperationMotDePasse}">Mot de passe oublié ?</a>
+
+
 
 </body>
 </html>

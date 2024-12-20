@@ -72,6 +72,49 @@ form {
     width: 48%;
 }
 
+/* Conteneur global pour les deux colonnes */
+.form-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px; /* Espacement entre les colonnes */
+}
+
+/* Première colonne (gauche) */
+.left-column {
+  flex: 1;
+}
+
+/* Deuxième colonne (droite) */
+.right-column {
+  flex: 1;
+}
+
+/* Label et champs de formulaire */
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 15px;
+  box-sizing: border-box;
+}
+
+/* Optionnel : ajout d'un peu de style pour les boutons */
+button {
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
 label {
     font-weight: bold;
     margin-bottom: 5px;

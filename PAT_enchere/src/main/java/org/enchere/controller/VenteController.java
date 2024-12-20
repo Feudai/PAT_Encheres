@@ -3,6 +3,7 @@ package org.enchere.controller;
 
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -82,13 +83,26 @@ public class VenteController {
 	
 	@GetMapping("/accueil")
 	public String afficherEncheres(Model model) {
-//		List<Utilisateur> utilisateurs = this.utilisateurService.consulterUtilisateurs();
-//		model.addAttribute("utilisateurs", utilisateurs);
-//		for(int a=0;a<1000;a++)
-//		System.out.println("caca");
-		List<Enchere> listeEncheres = this.enchereService.getListeEncheres();
-		model.addAttribute("listeEncheres",this.enchereService.getListeEncheres());
-//		model.addAttribute("listeCategories", this.categorieService.getListeCategories());
+		List<Utilisateur> utilisateurs = this.utilisateurService.consulterUtilisateurs();
+		model.addAttribute("utilisateurs", utilisateurs);
+
+		List<Enchere> tempListeEncheres = this.enchereService.getListeEncheres();
+		List<Enchere> listeEncheres = new ArrayList<>();
+
+		
+			tempListeEncheres.forEach(l->{ 
+				boolean addEnchere = true;
+				for (Enchere enchere : listeEncheres) {
+					if(l.getArticle().getNoArticle()==enchere.getArticle().getNoArticle())addEnchere = false;
+					}
+				if(addEnchere)listeEncheres.add(l);
+				}
+				);				
+		
+		
+		
+		model.addAttribute("listeEncheres",listeEncheres);
+		model.addAttribute("listeCategories", this.categorieService.getListeCategories());
 //		model.addAttribute("article",this.articleVenduService.consulterArticleVenduParId(1));
 
 

@@ -3,22 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <title>Récupération du mot de passe</title>
+<link rel="stylesheet" href="./css/style.css" />
 </head>
 <body>
-    <header>
-        <div th:replace="~{fragments/fragment-entete::entete}"></div>
-    </header>
-
-	<label for="email">Email</label>
-	<input id="email" type="email" th:field="*{email}" />
-
-	<label for="motDePasse">Mot de passe</label>
-	<input id="motDePasse" type="password" th:field="*{motDePasse}" />
-
-	<label for="confirmationMotDePasse">Confirmation</label>
-	<input id="confirmationMotDePasse" type="password"
-		th:field="*{confirmationMotDePasse}" />
-	<div
-		th:replace="~{fragments/fragment-error :: frag-error('confirmationMotDePasse')}"></div>
+	<header>
+		<div th:replace="~{fragments/fragment-entete::entete}"></div>
+	</header>
+<h1>Récupération de mot de passe</h1>
+	<form th:action="recupMotDePasse" th:object ="${utilisateur}">
+		<label for="email">Email</label> <input id="email" type="email"
+			th:field="*{email}" /> <label for="motDePasse">Mot de passe</label>
+		<input id="motDePasse" type="password" th:field="*{motDePasse}" /> <label
+			for="confirmationMotDePasse">Confirmation</label> <input
+			id="confirmationMotDePasse" type="password"
+			th:field="*{confirmationMotDePasse}" />
+	</form>
 </body>
 </html>

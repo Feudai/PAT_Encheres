@@ -77,12 +77,15 @@ form {
   display: flex;
   justify-content: space-between;
   gap: 20px; /* Espacement entre les colonnes */
+ 
 }
 
 /* Première colonne (gauche) */
 .left-column {
   flex: 1;
 }
+
+
 
 /* Deuxième colonne (droite) */
 .right-column {
@@ -303,6 +306,10 @@ table td a:hover {
     background: white;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     transition: transform 0.2s ease-in-out;
+}
+
+.hidden{
+	opacity:0%;
 }
 
 .auction-card:hover {

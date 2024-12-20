@@ -13,6 +13,7 @@
 	<h2>Mon profil</h2>
 	<form th:action="@{/profil}" method="post" th:object="${utilisateur}">
 		<div class="form-container">
+		
 			<div class="left-colums">
 
 				<label for="idPseudo">Pseudo</label> <input id="idPseudo"
@@ -27,7 +28,7 @@
 					type="password" th:field="${utilisateur.motDePasse}" />
 			</div>
 			<div class="right-colums">
-
+				<label for="" class="hidden">raerg</label><input class="hidden" type="text" disabled="disabled"/>
 				<label for="idNom">Nom</label> <input id="idNom" type="text" name=""
 					th:field="${utilisateur.nom}" /> <label for="idEmail">Email</label>
 				<input id="idEmail" type="text" name=""
@@ -35,17 +36,21 @@
 				<input id="idRue" type="text" name="" th:field="${utilisateur.rue}" />
 				<label for="idVille">Ville</label> <input id="idVille" type="text"
 					name="" th:field="${utilisateur.ville}" />
-				
-			</div>
-			
+
+		</div>
+		</div>
+		<button type="submit">Enregistrer</button>
 	</form>
-<button type="submit">Enregistrer</button>
+
 	<form action="/profil/deleteUser" method="get">
 		<input type="hidden" name="noUtilisateur"
 			th:value="${utilisateur.noUtilisateur}" />
 		<button type="submit">Supprimer mon compte</button>
 	</form>
-	<div th:replace="~{fragments/fragment-piedpage::piedpage}"></div>
+
 </body>
+<footer>
+	<div th:replace="~{fragments/fragment-piedpage::piedpage}"></div>
+</footer>
 
 </html>

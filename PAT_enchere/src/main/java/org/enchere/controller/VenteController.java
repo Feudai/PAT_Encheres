@@ -92,9 +92,16 @@ public class VenteController {
 		
 			tempListeEncheres.forEach(l->{ 
 				boolean addEnchere = true;
+				List<Enchere> remove = new ArrayList<>();
 				for (Enchere enchere : listeEncheres) {
-					if(l.getArticle().getNoArticle()==enchere.getArticle().getNoArticle())addEnchere = false;
+					if(l.getArticle().getNoArticle()==enchere.getArticle().getNoArticle()) {
+						if(l.getMontantEnchere()<=enchere.getMontantEnchere())addEnchere = false;
+						else remove.add(enchere);
+						}
 					}
+				for (Enchere enchere : remove) {
+					listeEncheres.remove(enchere);
+				}
 				if(addEnchere)listeEncheres.add(l);
 				}
 				);				

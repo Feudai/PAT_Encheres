@@ -33,6 +33,7 @@
 
 	<div class="exemple-vente">
 		<ul th:each="e : ${listeEncheres}">
+			<a th:href="@{/encheresDetails(noArticle=${e.article.noArticle})}">
 			<li><img src="./images/placeholder.png" alt="" /></li>
 			<li>
 				<textarea id="" cols="10" rows="1" th:text="${e.article.nomArticle}"></textarea>
@@ -49,19 +50,8 @@
 
 				<textarea id="" cols="10" rows="1" th:text="${e.createur.pseudo}"></textarea>
 			</li>
-		</ul>
-	</div>
-	<div class="exemple-vente">
-
-		<div class="exemple-vente" th:each="e : ${listeEncheres}">
-			<a th:href="@{/encheresDetails(noArticle=${e.article.noArticle})}">
-				<ul>
-					<li>
-						<textarea id="" cols="10" rows="1" th:text="${e.article.noArticle}"></textarea>
-					</li>
-				</ul>
 			</a>
-		</div>
+		</ul>
 	</div>
 		<div class="exemple-vente">
 

@@ -23,8 +23,18 @@ public void ajouterEnchere(Enchere enchere) {
 		this.enchereDao.create(enchere);
 	}
 
-public Enchere getEnchereByIdArticle(int idArticle) {
+public List<Enchere> getEncheresByIdArticle(int idArticle) {
 	return this.enchereDao.findByIdArticle(idArticle);
+}
+
+public Enchere getBestEnchere (int idArticle) {
+	Enchere best = new Enchere();
+	for (Enchere enchere : this.enchereDao.findByIdArticle(idArticle)) {
+		if(enchere.getMontantEnchere()>best.getMontantEnchere())
+			best=enchere;
+	}
+	
+	return best;
 }
 
 public List<Enchere> getListeEncheres(){

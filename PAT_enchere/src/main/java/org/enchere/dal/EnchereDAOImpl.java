@@ -80,11 +80,11 @@ public class EnchereDAOImpl implements EnchereDAO {
 		this.jdbcTemplate = jdbcTemplate;
 	}
 	
-	public Enchere findByIdArticle(int idArticle) {
+	public List<Enchere> findByIdArticle(int idArticle) {
 		MapSqlParameterSource map = new MapSqlParameterSource();
 		map.addValue("no_article", idArticle);
 		
-		return jdbcTemplate.queryForObject(FIND_BY_ID, map, new EnchereRowMapper());
+		return jdbcTemplate.query(FIND_BY_ID, map, new EnchereRowMapper());
 	}
 
 	public void create(Enchere enchere){

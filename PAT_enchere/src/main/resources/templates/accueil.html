@@ -10,11 +10,11 @@
 <body>
 	<div th:replace="~{fragments/fragment-entete::entete}"></div>
 	<h1>Liste des enchères</h1>
-	<form th:action="@{/accueil(nomArticle=search)}" method="POST">
+	<form th:action="@{/accueil(nomArticle=search)}" method="POST" >
 		<div>
 			<h3>Filtres :</h3>
 		</div>
-		<div>
+		<div class =form-group>
 			<ul>
 
 				<label for="search">Rechercher :</label> <input type="search" id="search" name="search"
@@ -33,63 +33,38 @@
 
 	<div class="auctions-grid">
 	    <div th:each="e : ${listeEncheres}" class="auction-card">
-	        <a th:href="@{/encheresDetails(noArticle=${e.article.noArticle})}" class="card-link">
+	        <div class="card-link">
+				<a th:href="@{/encheresDetails(noArticle=${e.article.noArticle})}">
 	            <div class="card-image">
 	                <img src="./images/placeholder.png" alt="Product Image" />
 	            </div>
+				</a>
 	            <div class="card-content">
 	                <div class="auction-title">
 	                    <span th:text="${e.article.nomArticle}"></span>
 	                </div>
 	                <div class="auction-details">
 	                    <div class="bid-amount">
-	                        <span class="label">Current Bid:</span>
-	                        <span th:text="${e.montantEnchere}"></span>
+	                        <span class="label">Meilleure Proposition :</span>
+	                        <span th:text="${e.montantEnchere}+' pts'"></span>
 	                    </div>
 	                    <div class="bid-date">
-	                        <span class="label">Bid Date:</span>
+	                        <span class="label">Date limite :</span>
 	                        <span th:text="${e.dateEnchere}"></span>
 	                    </div>
+						<a th:href="@{/profil-detail(noUtilisateur=${e.createur.noUtilisateur})}">
 	                    <div class="seller-info">
-	                        <span class="label">Seller:</span>
+	                        <span class="label">Vendeur :</span>
 	                        <span th:text="${e.createur.pseudo}"></span>
 	                    </div>
+						</a>
 	                </div>
 	            </div>
-	        </a>
+	        </div>
 	    </div>
 	</div>
-		<div class="exemple-vente">
 
-			<ul>
-				<li><img src="./images/placeholder.png" alt="" /></li>
-				<li>Titre de l'article</li>
-				<li>Prix :</li>
-				<li>Fin de l'enchère :</li>
-
-			</ul>
-			<table>
-				<thead>
-					<tr>
-						<th>Pseudo</th>
-						<th>Action</th>
-					</tr>
-
-				</thead>
-				<tbody th:each="u : ${utilisateurs}">
-					<tr>
-						<td th:text="${u.pseudo}"></td>
-
-						<td><a th:href="@{/profil-detail(noUtilisateur=${u.noUtilisateur})}">Détail</a></td>
-
-
-					</tr>
-				</tbody>
-
-			</table>
-
-		</div>
-
+	<footer th:replace="~{fragments/fragment-piedpage::piedpage}"></footer>
 
 </body>
 

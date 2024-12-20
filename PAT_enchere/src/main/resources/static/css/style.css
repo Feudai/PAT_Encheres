@@ -12,7 +12,6 @@ body {
 #naventete {
     background-color: #0056b3;
     color: white;
-    padding: 20px 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -22,7 +21,7 @@ body {
 
 #naventete .logo {
     width: 150px;
-    height: 150px;
+    height: 100px;
     object-fit: contain;
 }
 
@@ -58,6 +57,7 @@ form {
     background-color: #ffffff;
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    justify-content: center;
 }
 
 /* Style des groupes de champs */
@@ -225,6 +225,7 @@ table {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
+
 /* Style des cellules d'en-tête */
 table th {
     background-color: #0056b3;
@@ -252,6 +253,19 @@ table a {
     color: #0056b3;
     text-decoration: none;
     font-weight: bold;
+}
+
+a{
+	color: black;
+	text-decoration: none;
+}
+
+footer{
+	    background-color: #0056b3;
+    color: white;
+    padding: 10px;
+    text-align:center;
+    font-size: 1.1em;
 }
 
 table a:hover {

@@ -81,21 +81,11 @@ public class UtilisateurController {
 	}
 	
 	@PostMapping("recuperationMotDePasse/recupMotDePasse")
-	public String recupMotDePasse(@ModelAttribute Utilisateur utilisateur,BindingResult bindingResult, Principal principal) {
-		String username = principal.getName();
-		Utilisateur authenticatedUser = utilisateurService.findByUsername(username);
+	public String recupMotDePasse() {
 
-		utilisateur.setNoUtilisateur(authenticatedUser.getNoUtilisateur());
-
-		if (!utilisateur.getMotDePasse().equals(utilisateur.getConfirmationMotDePasse())) {
-			bindingResult.rejectValue("confirmationMotDePasse", "error.utilisateur",
-					"Les mots de passe ne correspondent pas");
-			return "recuperationMotDePasse";
-		}
-		this.utilisateurService.update(utilisateur);
-		
 		return "redirect:/login";
 	}
+	
 	@GetMapping("/kowalski")
 	public String hiddenKowalski () {
 		return "kowalski";

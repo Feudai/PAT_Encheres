@@ -31,27 +31,33 @@
 		<button type="submit">Valider</button>
 	</form>
 
-	<div class="exemple-vente">
-		<ul th:each="e : ${listeEncheres}">
-			<a th:href="@{/encheresDetails(noArticle=${e.article.noArticle})}">
-			<li><img src="./images/placeholder.png" alt="" /></li>
-			<li>
-				<textarea id="" cols="10" rows="1" th:text="${e.article.nomArticle}"></textarea>
-			</li>
-			<li>
-
-				<textarea id="" cols="10" rows="1" th:text="${e.montantEnchere}"></textarea>
-			</li>
-			<li>
-
-				<textarea id="" cols="10" rows="1" th:text="${e.dateEnchere}"></textarea>
-			</li>
-			<li>
-
-				<textarea id="" cols="10" rows="1" th:text="${e.createur.pseudo}"></textarea>
-			</li>
-			</a>
-		</ul>
+	<div class="auctions-grid">
+	    <div th:each="e : ${listeEncheres}" class="auction-card">
+	        <a th:href="@{/encheresDetails(noArticle=${e.article.noArticle})}" class="card-link">
+	            <div class="card-image">
+	                <img src="./images/placeholder.png" alt="Product Image" />
+	            </div>
+	            <div class="card-content">
+	                <div class="auction-title">
+	                    <span th:text="${e.article.nomArticle}"></span>
+	                </div>
+	                <div class="auction-details">
+	                    <div class="bid-amount">
+	                        <span class="label">Current Bid:</span>
+	                        <span th:text="${e.montantEnchere}"></span>
+	                    </div>
+	                    <div class="bid-date">
+	                        <span class="label">Bid Date:</span>
+	                        <span th:text="${e.dateEnchere}"></span>
+	                    </div>
+	                    <div class="seller-info">
+	                        <span class="label">Seller:</span>
+	                        <span th:text="${e.createur.pseudo}"></span>
+	                    </div>
+	                </div>
+	            </div>
+	        </a>
+	    </div>
 	</div>
 		<div class="exemple-vente">
 

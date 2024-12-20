@@ -127,8 +127,9 @@ public class VenteController {
 		
 
 		ArticleVendu  articleVendu = this.articleVenduService.consulterArticleVenduParId(noArticle).get(0);
-		
+		Utilisateur utilisateur = this.utilisateurService.consulterUtilisateurParId(articleVendu.getCreateur().getNoUtilisateur());
 		List<Enchere> encheres = this.enchereService.getEncheresByIdArticle(noArticle);
+		articleVendu.setCreateur(utilisateur);
 		
 		Collections.sort(encheres, (ench1, ench2) -> {
 			  Enchere a = (Enchere) ench1;

@@ -61,11 +61,11 @@
 		</div>
 	</form>
 	<h1>Montez les Enchères !</h1>
-	<form th:action="@{/encheresDetails(proposition=value)}" method="post">
+	<form th:action="@{/encheresDetails(proposition=${proposition})}" method="post">
 
 		<div class="form-group">
-			<label for="proposition">Proposition :</label>
-			<input id="proposition" placeholder="Faites vos jeux" value=""></input>
+			<label for="idProposition">Proposition :</label>
+			<input id="idProposition" name ="proposition" placeholder="Faites vos jeux" th:value="${proposition}"></input>
 		</div>
 
 		<button type="submit">Surenchérir</button>

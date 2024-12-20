@@ -156,9 +156,9 @@ public class VenteController {
 	}
 	
 	@PostMapping("/encheresDetails")
-	public String proposerPrixEnchere() {
-		
-		
+	public String proposerPrixEnchere(@RequestParam("proposition") String proposition) {
+		int enchere = Integer.parseInt(proposition);
+		System.out.println(enchere);
 		return "redirect:/accueil";
 	}
 	

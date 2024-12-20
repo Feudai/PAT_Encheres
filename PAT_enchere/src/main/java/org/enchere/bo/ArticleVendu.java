@@ -15,6 +15,7 @@ public class ArticleVendu {
 	private int miseAPrix;
 	private int prixVente;
 	private boolean etatVente;
+	private Utilisateur createur;
 	
 	private List<Enchere> listeEncheres;
 	private Retrait lieuRetrait;
@@ -23,7 +24,7 @@ public class ArticleVendu {
 	
 	public ArticleVendu(int noArticle, String nomArticle, String description, LocalDateTime dateDebutEncheres,
 			LocalDateTime dateFinEncheres, int miseAPrix, int prixVente, boolean etatVente,
-			List<Enchere> listeEncheres, Retrait lieuRetrait, Categorie categorieArticle) {
+			List<Enchere> listeEncheres, Retrait lieuRetrait, Categorie categorieArticle, Utilisateur createur) {
 		this.noArticle = noArticle;
 		this.nomArticle = nomArticle;
 		this.description = description;
@@ -127,6 +128,14 @@ public class ArticleVendu {
 
 	public void setCategorieArticle(Categorie categorieArticle) {
 		this.categorieArticle = categorieArticle;
+	}
+
+	public Utilisateur getCreateur() {
+		return createur;
+	}
+
+	public void setCreateur(Utilisateur createur) {
+		this.createur = createur;
 	}
 	
 	

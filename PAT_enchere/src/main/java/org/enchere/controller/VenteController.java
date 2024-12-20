@@ -111,6 +111,8 @@ public class VenteController {
 	public String afficherEncheresDetails(@RequestParam("noArticle")int noArticle, Model model) {
 		
 		ArticleVendu  articleVendu = this.articleVenduService.consulterArticleVenduParId(noArticle);
+		Utilisateur utilisateur = this.utilisateurService.consulterUtilisateurParId(articleVendu.getCreateur().getNoUtilisateur());
+		articleVendu.setCreateur(utilisateur);
 	    Enchere enchere = this.enchereService.getEnchereByIdArticle(noArticle); 
 	    
 	    if (enchere == null) {

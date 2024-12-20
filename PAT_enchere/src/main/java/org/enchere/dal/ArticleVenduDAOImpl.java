@@ -8,6 +8,7 @@ import java.util.List;
 import org.enchere.bo.ArticleVendu;
 import org.enchere.bo.Categorie;
 import org.enchere.bo.Enchere;
+import org.enchere.bo.Utilisateur;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -45,9 +46,11 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 			ArticleVendu a = new ArticleVendu();
 			Enchere e = new Enchere();
 			Categorie c = new Categorie();
+			Utilisateur u = new Utilisateur();
 			
 			List<Enchere> listeEncheres = new ArrayList<>();
-			
+			u.setNoUtilisateur(rs.getInt("no_utilisateur"));
+			a.setCreateur(u);
 			a.setNoArticle(rs.getInt("no_article"));
 			a.setNomArticle(rs.getString("nom_article"));
 			a.setDescription(rs.getString("description"));

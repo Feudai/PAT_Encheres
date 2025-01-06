@@ -21,7 +21,7 @@ import org.springframework.stereotype.Repository;
 public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 	
 	private static final String CREATE = "INSERT INTO ARTICLES_VENDUS (nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie, chemin_image) VALUES (:nom_article, :description, :date_debut_encheres, :date_fin_encheres, :prix_initial, :prix_vente, :no_utilisateur, :no_categorie, :chemin_image)";
-	private static final String FIND_BY_ID = "SELECT a.no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, a.no_utilisateur, a.no_categorie, c.libelle, e.montant_enchere  FROM ARTICLES_VENDUS a INNER JOIN ENCHERES e ON a.no_article = e.no_article INNER JOIN CATEGORIES c ON a.no_categorie = c.no_categorie WHERE a.no_article =:no_article";
+	private static final String FIND_BY_ID = "SELECT a.no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, a.no_utilisateur, a.no_categorie, chemin_image, c.libelle, e.montant_enchere  FROM ARTICLES_VENDUS a INNER JOIN ENCHERES e ON a.no_article = e.no_article INNER JOIN CATEGORIES c ON a.no_categorie = c.no_categorie WHERE a.no_article =:no_article";
 	
 
 	
@@ -49,6 +49,7 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 			Utilisateur u = new Utilisateur();
 			
 			List<Enchere> listeEncheres = new ArrayList<>();
+			a.setCheminImage(rs.getString("chemin_image"));
 			u.setNoUtilisateur(rs.getInt("no_utilisateur"));
 			a.setCheminImage(rs.getString("chemin_image"));
 			a.setCreateur(u);

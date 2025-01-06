@@ -3,6 +3,7 @@ package org.enchere.controller;
 
 
 import java.security.Principal;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -11,6 +12,7 @@ import java.util.List;
 import org.enchere.bll.ArticleVenduService;
 import org.enchere.bll.CategorieService;
 import org.enchere.bll.EnchereService;
+import org.enchere.bll.ImageService;
 import org.enchere.bll.RetraitService;
 import org.enchere.bll.UtilisateurService;
 import org.enchere.bo.ArticleVendu;
@@ -24,6 +26,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
@@ -35,6 +38,7 @@ public class VenteController {
 	private EnchereService enchereService;
 	private RetraitService retraitService;
 	private CategorieService categorieService;
+	private ImageService imageService;
 	
 	private UtilisateurService utilisateurService;
 
@@ -46,12 +50,13 @@ public class VenteController {
 	}
 	
 	public VenteController(ArticleVenduService articleVenduService, EnchereService enchereService,
-			RetraitService retraitService, CategorieService categorieService,UtilisateurService utilisateurService) {
+			RetraitService retraitService, CategorieService categorieService,UtilisateurService utilisateurService,ImageService imageService) {
 		this.articleVenduService = articleVenduService;
 		this.enchereService = enchereService;
 		this.retraitService = retraitService;
 		this.categorieService = categorieService;
 		this.utilisateurService = utilisateurService;
+		this.imageService = imageService;
 
 	}
 
@@ -65,26 +70,34 @@ public class VenteController {
 	}
 	
 	@PostMapping("/nouvelleVente")
-	public String vendreUnArticle(@Valid @ModelAttribute ArticleVendu article,Principal principal, BindingResult br) {
-		if(br.hasErrors()) {
-//debug
-			return "nouvelle-vente";
-		}
-		
-		String username = principal.getName();
-		Utilisateur authenticatedUser = utilisateurService.findByUsername(username);
+	public String vendreUnArticle(
+	        @Valid @ModelAttribute ArticleVendu article,
+	        @RequestParam("image") MultipartFile imageFile,
+	        Principal principal,
+	        BindingResult br) {
 
-		int noUtilisateur = authenticatedUser.getNoUtilisateur();
-		
-		this.articleVenduService.ajouterArticle(article,noUtilisateur);
-		
-		Enchere initialize = new Enchere(LocalDateTime.now(),article.getMiseAPrix(),authenticatedUser,article);
-		System.err.println(article.getNoArticle());
-		
-		this.enchereService.ajouterEnchere(initialize);
+	    if (br.hasErrors()) {
+	        return "nouvelle-vente";
+	    }
 
-		
-		return "redirect:/accueil";
+	    try {
+	        // Récupérer l'utilisateur connecté
+	        String username = principal.getName();
+	        Utilisateur authenticatedUser = utilisateurService.findByUsername(username);
+	        int noUtilisateur = authenticatedUser.getNoUtilisateur();
+
+	        // Sauvegarder l'image
+	        String cheminImage = imageService.sauvegarderImage(imageFile, article.getNoArticle());
+	        article.setCheminImage(cheminImage);
+
+	        // Sauvegarder l'article
+	        articleVenduService.ajouterArticle(article, noUtilisateur);
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        return "nouvelle-vente";
+	    }
+
+	    return "redirect:/accueil";
 	}
 	
 	@GetMapping("/accueil")

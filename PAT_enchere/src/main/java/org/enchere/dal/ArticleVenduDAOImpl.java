@@ -21,6 +21,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 	
+
 	private static final String CREATE = "INSERT INTO ARTICLES_VENDUS (nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie) VALUES (:nom_article, :description, :date_debut_encheres, :date_fin_encheres, :prix_initial, :prix_vente, :no_utilisateur, :no_categorie)";
 	private static final String FIND_BY_ID = "SELECT a.no_article, nom_article, a.description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, a.no_utilisateur, a.no_categorie, c.libelle, e.montant_enchere, r.rue,r.code_postal, r.ville  FROM ARTICLES_VENDUS a LEFT JOIN ENCHERES e ON a.no_article = e.no_article INNER JOIN CATEGORIES c ON a.no_categorie = c.no_categorie LEFT JOIN RETRAITS r ON a.no_article = r.no_article WHERE a.no_article =:no_article";
 	
@@ -52,6 +53,7 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 			
 			List<Enchere> listeEncheres = new ArrayList<>();
 			u.setNoUtilisateur(rs.getInt("no_utilisateur"));
+			a.setCheminImage(rs.getString("chemin_image"));
 			a.setCreateur(u);
 			a.setNoArticle(rs.getInt("no_article"));
 			a.setNomArticle(rs.getString("nom_article"));
@@ -95,18 +97,19 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 		map.addValue("date_debut_encheres", article.getDateDebutEncheres());
 		map.addValue("date_fin_encheres", article.getDateFinEncheres());
 		map.addValue("prix_initial", article.getMiseAPrix());
-		map.addValue("prix_vente", article.getPrixVente());
+		map.addValue("prix_vente", article.getMiseAPrix());
 		map.addValue("no_utilisateur", noUtilisateur);
 		map.addValue("no_categorie", article.getCategorieArticle().getNoCategorie());
-		
-
+		map.addValue("chemin_image", article.getCheminImage());
 		
 		jdbcTemplate.update(CREATE, map, keyHolder);
+		
+
 		if (keyHolder != null && keyHolder.getKey() != null) {
 			article.setNoArticle(keyHolder.getKey().intValue());
 			
 		}
-		
+
 	}
 
 	@Override

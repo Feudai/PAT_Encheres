@@ -16,6 +16,7 @@ public class ArticleVendu {
 	private int prixVente;
 	private boolean etatVente;
 	private Utilisateur createur;
+	private String cheminImage;
 	
 	private List<Enchere> listeEncheres;
 	private Retrait lieuRetrait;
@@ -38,6 +39,41 @@ public class ArticleVendu {
 		this.categorieArticle = categorieArticle;
 	}
 	
+	
+	
+	public ArticleVendu(int noArticle, String nomArticle, String description, LocalDateTime dateDebutEncheres,
+			LocalDateTime dateFinEncheres, int miseAPrix, int prixVente, boolean etatVente, Utilisateur createur,
+			String cheminImage, List<Enchere> listeEncheres, Retrait lieuRetrait, Categorie categorieArticle) {
+		super();
+		this.noArticle = noArticle;
+		this.nomArticle = nomArticle;
+		this.description = description;
+		this.dateDebutEncheres = dateDebutEncheres;
+		this.dateFinEncheres = dateFinEncheres;
+		this.miseAPrix = miseAPrix;
+		this.prixVente = prixVente;
+		this.etatVente = etatVente;
+		this.createur = createur;
+		this.cheminImage = cheminImage;
+		this.listeEncheres = listeEncheres;
+		this.lieuRetrait = lieuRetrait;
+		this.categorieArticle = categorieArticle;
+	}
+
+
+
+	public String getCheminImage() {
+		return cheminImage;
+	}
+
+
+
+	public void setCheminImage(String cheminImage) {
+		this.cheminImage = cheminImage;
+	}
+
+
+
 	public ArticleVendu() {}
 	
 	

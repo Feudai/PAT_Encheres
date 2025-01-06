@@ -10,11 +10,14 @@
 		<div th:replace="~{fragments/fragment-entete::entete}"></div>
 	</header>
 <h1>Récupération de mot de passe</h1>
-	<form th:action="recupMotDePasse" th:object ="${utilisateur}">
-		<label for="email">Email</label> <input id="email" type="email"
-			th:field="*{email}" />
+<form th:action="@{/recuperationMotDePasse/recupMotDePasse}" method="post">
+    <label for="email">Email</label>
+    <input id="email" name="email" type="email" required />
+    <button type="submit">Récupération</button>
+    <div th:if="${globalError != null}" class="error">
+        <p th:text="${globalError}"></p>
+    </div>
+</form>
 
-			<button type="submit">Connexion</button>
-	</form>
 </body>
 </html>

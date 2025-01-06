@@ -7,12 +7,13 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 
 public interface EnchereDAO {
-	
+
 	List<Enchere> findByIdArticle(int idArticle);
 
-		void create(Enchere enchere);
+	void create(Enchere enchere);
 
-		 List<Enchere> findAll();
-	
+	List<Enchere> findAll();
+
+	void update(Enchere enchere);
+
 }
-

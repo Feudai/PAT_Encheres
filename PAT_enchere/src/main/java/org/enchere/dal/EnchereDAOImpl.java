@@ -35,7 +35,6 @@ public class EnchereDAOImpl implements EnchereDAO {
 			Categorie categorie = new Categorie();
 			Utilisateur utilisateur = new Utilisateur();
 			
-			List<Enchere> listeEncheres = new ArrayList<Enchere>();
 			
 			categorie.setNoCategorie(rs.getInt("no_categorie"));
 			categorie.setLibelle(rs.getString("libelle"));
@@ -92,14 +91,20 @@ public class EnchereDAOImpl implements EnchereDAO {
 
 	public void create(Enchere enchere){
 		MapSqlParameterSource  map = new MapSqlParameterSource();
+		
+		KeyHolder keyHolder = new GeneratedKeyHolder();
 				
 		map.addValue("no_utilisateur", enchere.getCreateur().getNoUtilisateur());
 		map.addValue("no_article", enchere.getArticle().getNoArticle());
 		map.addValue("date_enchere", enchere.getDateEnchere());
 		map.addValue("montant_enchere", enchere.getMontantEnchere());
 
+		if (keyHolder != null && keyHolder.getKey() != null) {
+			enchere.setIdEnchere(keyHolder.getKey().intValue());
+			;
+		}
 		
-		jdbcTemplate.update(CREATE, map);
+		jdbcTemplate.update(CREATE, map, keyHolder);
 	}
 	
 	public void update (Enchere enchere) {

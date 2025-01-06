@@ -8,6 +8,7 @@ public class Enchere {
 		private int montantEnchere;
 		private Utilisateur createur;
 		private ArticleVendu article;
+		private int idEnchere;
 		
 		
 		public Enchere(LocalDateTime dateEnchere, int montantEnchere, Utilisateur createur, ArticleVendu article) {
@@ -61,6 +62,15 @@ public class Enchere {
 
 		public void setArticle(ArticleVendu article) {
 			this.article = article;
+		}
+		
+		public int getIdEnchere() {
+			return idEnchere;
+		}
+
+
+		public void setIdEnchere(int idEnchere) {
+			this.idEnchere = idEnchere;
 		}
 
 		

@@ -91,14 +91,12 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 		map.addValue("no_utilisateur", noUtilisateur);
 		map.addValue("no_categorie", article.getCategorieArticle().getNoCategorie());
 		
-		if (keyHolder != null && keyHolder.getKey() != null) {
-			article.setNoArticle(keyHolder.getKey().intValue());
-			;
-		}
-		
 		jdbcTemplate.update(CREATE, map, keyHolder);
 		
-		
+		if (keyHolder != null && keyHolder.getKey() != null) {
+			article.setNoArticle(keyHolder.getKey().intValue());
+			
+		}
 	}
 
 	@Override

@@ -77,6 +77,11 @@ public class VenteController {
 		int noUtilisateur = authenticatedUser.getNoUtilisateur();
 		
 		this.articleVenduService.ajouterArticle(article,noUtilisateur);
+		
+		Enchere initialize = new Enchere(LocalDateTime.now(),article.getMiseAPrix(),authenticatedUser,article);
+		System.err.println(article.getNoArticle());
+		
+		this.enchereService.ajouterEnchere(initialize);
 
 		
 		return "redirect:/accueil";
@@ -164,9 +169,8 @@ public class VenteController {
 		int montant = Integer.parseInt(proposition);
 		Enchere nouvelleEnchere = new Enchere(LocalDateTime.now(),montant,authenticatedUser,articleVendu);
 		
-		if (nouvelleEnchere.getMontantEnchere()>this.enchereService.getBestEnchere(articleVendu.getNoArticle()).getMontantEnchere()) {
+		if (nouvelleEnchere.getMontantEnchere()>this.enchereService.getBestEnchere(articleVendu.getNoArticle()).getMontantEnchere()&&this.enchereService.getBestEnchere(articleVendu.getNoArticle()).getCreateur().getNoUtilisateur()!=nouvelleEnchere.getCreateur().getNoUtilisateur()) {
 			this.enchereService.ajouterEnchere(nouvelleEnchere);
-			System.out.println(nouvelleEnchere.getMontantEnchere());
 		}
 		else System.err.println("caca");
 		

@@ -123,15 +123,18 @@ public class VenteController {
 	}
 	
 	@PostMapping("/accueil")
-	public String filtrerEncheres(@RequestParam(name="categorie", defaultValue="-1")int noCategorie,@RequestParam(name="nomArticle", defaultValue="")String nomArticle ) {
-		List<Enchere> listeEncheres=null;
-		//if(noCategorie!=-1)
-		//listeEncheres =this.enchereService.getListeEncheres().stream().filter(e->e.getArticle().getCategorieArticle().getNoCategorie()==noCategorie).toList();
-		listeEncheres=this.enchereService.getListeEncheres();
-		//if(!nomArticle.equals("")&&nomArticle!=null)
-		//listeEncheres =this.enchereService.getListeEncheres().stream().filter(e->e.getArticle().getNomArticle().contains(nomArticle)).toList();
+	public String filtrerEncheres(@RequestParam(name="categorie", defaultValue="-1")int noCategorie,@RequestParam(name="nomArticle", defaultValue="")String nomArticle, Model model) {
+		List<Enchere> listeEncheres=new ArrayList<Enchere>();
+		List<Enchere> tempList=null;
+		if(noCategorie!=-1)
+		tempList =this.enchereService.getListeEncheres().stream().filter(e->e.getArticle().getCategorieArticle().getNoCategorie()==noCategorie).toList();
+		tempList.forEach(e->listeEncheres.add(e));
+
+		if(!nomArticle.equals("")&&nomArticle!=null)
+		tempList =this.enchereService.getListeEncheres().stream().filter(e->e.getArticle().getNomArticle().contains(nomArticle)).toList();
+		tempList.forEach(e->listeEncheres.add(e));
 		//debug
-		//model.addAttribute("encheresFiltrees",listeEncheres);
+		model.addAttribute("encheresFiltrees",listeEncheres);
 		return "redirect:/accueil";
 	}
 	

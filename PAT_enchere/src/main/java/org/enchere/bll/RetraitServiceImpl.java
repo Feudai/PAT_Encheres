@@ -2,6 +2,10 @@ package org.enchere.bll;
 
 
 
+import java.util.List;
+
+import org.enchere.bo.ArticleVendu;
+import org.enchere.bo.Retrait;
 import org.enchere.dal.RetraitDAO;
 import org.springframework.stereotype.Service;
 
@@ -13,5 +17,13 @@ public class RetraitServiceImpl implements RetraitService {
 	public RetraitServiceImpl(RetraitDAO retraitDao) {
 		this.retraitDao = retraitDao;
 	}
+
+	@Override
+	public void ajouterRetrait(Retrait retrait) {
+		this.retraitDao.create(retrait);
+		
+	}
+
+
 	
 }

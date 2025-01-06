@@ -15,6 +15,7 @@ import org.enchere.bll.RetraitService;
 import org.enchere.bll.UtilisateurService;
 import org.enchere.bo.ArticleVendu;
 import org.enchere.bo.Enchere;
+import org.enchere.bo.Retrait;
 import org.enchere.bo.Utilisateur;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -57,8 +58,13 @@ public class VenteController {
 
 	@GetMapping("/nouvelleVente")
 	public String afficherCreationArticle(Model model) {
+		
+		Retrait retrait =new Retrait();
+		ArticleVendu article = new ArticleVendu();
+		retrait.setArticle(article);
+		article.setLieuRetrait(retrait);
 
-		model.addAttribute("article",new ArticleVendu());
+		model.addAttribute("article",article);
 		model.addAttribute("listeCategories",this.categorieService.getListeCategories());
 		
 		return "nouvelle-vente";
@@ -82,6 +88,12 @@ public class VenteController {
 		System.err.println(article.getNoArticle());
 		
 		this.enchereService.ajouterEnchere(initialize);
+
+		
+		Retrait retrait = article.getLieuRetrait();
+		retrait.setArticle(article);
+		
+		this.retraitService.ajouterRetrait(retrait);
 
 		
 		return "redirect:/accueil";
@@ -181,6 +193,8 @@ public class VenteController {
 		
 		return "redirect:/accueil";
 	}
+	
+	
 	
 	
 	

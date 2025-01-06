@@ -12,8 +12,6 @@ import org.enchere.bo.Enchere;
 import org.enchere.bo.Utilisateur;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.jdbc.support.GeneratedKeyHolder;
-import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -22,7 +20,6 @@ public class EnchereDAOImpl implements EnchereDAO {
 	private static final String CREATE = "INSERT INTO ENCHERES (no_utilisateur, no_article, date_enchere, montant_enchere) VALUES (:no_utilisateur, :no_article, :date_enchere, :montant_enchere)";
 	private static final String FIND_BY_ID="SELECT e.no_utilisateur, e.no_article, e.date_enchere, e.montant_enchere, a.nom_article, a.description, a.date_debut_encheres, a.date_fin_encheres, a.prix_initial, a.prix_vente, a.no_categorie, c.no_categorie, c.libelle, u.no_utilisateur, u.pseudo, u.nom, u.prenom, u.email, u.telephone, u.rue, u.code_postal, u.ville, u.mot_de_passe, u.credit, u.administrateur FROM ENCHERES e INNER JOIN ARTICLES_VENDUS a ON a.no_article = e.no_article INNER JOIN CATEGORIES c ON a.no_categorie = c.no_categorie INNER JOIN UTILISATEURS u ON e.no_utilisateur = u.no_utilisateur WHERE e.no_article=:no_article";
 	private static final String FIND_ALL = "SELECT e.no_utilisateur, e.no_article, e.date_enchere, e.montant_enchere, a.nom_article, a.description, a.date_debut_encheres, a.date_fin_encheres, a.prix_initial, a.prix_vente, a.no_categorie, c.no_categorie, c.libelle, u.no_utilisateur, u.pseudo, u.nom, u.prenom, u.email, u.telephone, u.rue, u.code_postal, u.ville, u.mot_de_passe, u.credit, u.administrateur FROM ENCHERES e INNER JOIN ARTICLES_VENDUS a ON a.no_article = e.no_article INNER JOIN CATEGORIES c ON a.no_categorie = c.no_categorie INNER JOIN UTILISATEURS u ON e.no_utilisateur = u.no_utilisateur";
-	private static final String UPDATE = "UPDATE ENCHERES SET date_enchere = :date_enchere, montant_enchere = :montant_enchere WHERE no_utilisateur = :no_utilisateur AND no_article = :no_article";
 	
 	private NamedParameterJdbcTemplate jdbcTemplate;
 	
@@ -92,25 +89,14 @@ public class EnchereDAOImpl implements EnchereDAO {
 
 	public void create(Enchere enchere){
 		MapSqlParameterSource  map = new MapSqlParameterSource();
-				
+		
 		map.addValue("no_utilisateur", enchere.getCreateur().getNoUtilisateur());
 		map.addValue("no_article", enchere.getArticle().getNoArticle());
 		map.addValue("date_enchere", enchere.getDateEnchere());
 		map.addValue("montant_enchere", enchere.getMontantEnchere());
 
 		
-		jdbcTemplate.update(CREATE, map);
-	}
-	
-	public void update (Enchere enchere) {
-		MapSqlParameterSource map = new MapSqlParameterSource();
-		
-		map.addValue("no_utilisateur", enchere.getCreateur().getNoUtilisateur());
-		map.addValue("no_article", enchere.getArticle().getNoArticle());
-		map.addValue("date_enchere", enchere.getDateEnchere());
-		map.addValue("montant_enchere", enchere.getMontantEnchere());
-		
-		jdbcTemplate.update(UPDATE, map);
+		map.addValue(CREATE, map);
 	}
 
 	

@@ -87,7 +87,7 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 		map.addValue("date_debut_encheres", article.getDateDebutEncheres());
 		map.addValue("date_fin_encheres", article.getDateFinEncheres());
 		map.addValue("prix_initial", article.getMiseAPrix());
-		map.addValue("prix_vente", article.getMiseAPrix());
+		map.addValue("prix_vente", article.getPrixVente());
 		map.addValue("no_utilisateur", noUtilisateur);
 		map.addValue("no_categorie", article.getCategorieArticle().getNoCategorie());
 		

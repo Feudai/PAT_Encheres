@@ -3,6 +3,7 @@ package org.enchere.controller;
 
 
 import java.security.Principal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -117,7 +118,7 @@ public class VenteController {
 	}
 	
 	@PostMapping("/accueil")
-	public String filtrerEncheres(Model model, @RequestParam(name="categorie", defaultValue="-1")int noCategorie,@RequestParam(name="nomArticle", defaultValue="")String nomArticle ) {
+	public String filtrerEncheres(@RequestParam(name="categorie", defaultValue="-1")int noCategorie,@RequestParam(name="nomArticle", defaultValue="")String nomArticle ) {
 		List<Enchere> listeEncheres=null;
 		//if(noCategorie!=-1)
 		//listeEncheres =this.enchereService.getListeEncheres().stream().filter(e->e.getArticle().getCategorieArticle().getNoCategorie()==noCategorie).toList();
@@ -130,7 +131,7 @@ public class VenteController {
 	}
 	
 	@GetMapping("/encheresDetails")
-	public String afficherEncheresDetails(@RequestParam("noArticle")int noArticle, Model model) {
+	public String afficherEncheresDetails(Model model,@RequestParam("noArticle")int noArticle) {
 		
 
 
@@ -146,7 +147,6 @@ public class VenteController {
 			  if (a.getMontantEnchere() < b.getMontantEnchere()) return 1;
 			  return 0;
 			});
-		
 	    articleVendu.setListeEncheres(encheres); 
 
 		model.addAttribute("articleVendu", articleVendu);
@@ -156,9 +156,22 @@ public class VenteController {
 	}
 	
 	@PostMapping("/encheresDetails")
-	public String proposerPrixEnchere(@RequestParam("proposition") String proposition) {
-		int enchere = Integer.parseInt(proposition);
-		System.out.println(enchere);
+	public String proposerPrixEnchere(@ModelAttribute ArticleVendu articleVendu,@RequestParam("proposition") String proposition,Principal principal) {
+		
+		String username = principal.getName();
+		Utilisateur authenticatedUser = utilisateurService.findByUsername(username);
+		
+		int montant = Integer.parseInt(proposition);
+		Enchere nouvelleEnchere = new Enchere(LocalDateTime.now(),montant,authenticatedUser,articleVendu);
+		
+		if (nouvelleEnchere.getMontantEnchere()>this.enchereService.getBestEnchere(articleVendu.getNoArticle()).getMontantEnchere()) {
+			this.enchereService.ajouterEnchere(nouvelleEnchere);
+			System.out.println(nouvelleEnchere.getMontantEnchere());
+		}
+		else System.err.println("caca");
+		
+		
+		
 		return "redirect:/accueil";
 	}
 	

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>Accueil</title>
+	<link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+	<div th:replace="~{fragments/fragment-entete::entete}"></div>
+	<h1>Liste des enchères</h1>
+	<form th:action="@{/accueil(nomArticle=search)}" method="POST" >
+		<div>
+			<h3>Filtres :</h3>
+		</div>
+		<div class =form-group>
+			<ul>
+
+				<label for="search">Rechercher :</label> <input type="search" id="search" name="search"
+					placeholder="Entrez votre recherche">
+			</ul>
+			<ul>
+				<label for="filtreCategorie">Catégorie :</label>
+				<select name="idCategorie" id="filtreCategorie">
+					<option th:each="c : ${listeCategories}" th:value="${c.noCategorie}" th:text="${c.libelle}">
+					</option>
+				</select>
+			</ul>
+		</div>
+		<button type="submit">Valider</button>
+	</form>
+
+	<div class="auctions-grid">
+	    <div th:each="e : ${listeEncheres}" class="auction-card">
+	        <div class="card-link">
+				<a th:href="@{/encheresDetails(noArticle=${e.article.noArticle})}">
+	            <div class="card-image">
+	                <img src="./images/placeholder.png" alt="Product Image" />
+	            </div>
+				</a>
+	            <div class="card-content">
+	                <div class="auction-title">
+	                    <span th:text="${e.article.nomArticle}"></span>
+	                </div>
+	                <div class="auction-details">
+	                    <div class="bid-amount">
+	                        <span class="label">Meilleure Proposition :</span>
+	                        <span th:text="${e.montantEnchere}+' pts'"></span>
+	                    </div>
+	                    <div class="bid-date">
+	                        <span class="label">Date limite :</span>
+	                        <span th:text="${e.dateEnchere}"></span>
+	                    </div>
+	                </div>
+					<a th:href="@{/profil-detail(noUtilisateur=${e.createur.noUtilisateur})}">
+						<button class="vendeur">
+						                    <div class="seller-info">
+						                        <span class="label-s">Vendeur :</span>
+						                        <span th:text="${e.createur.pseudo}"></span>
+						                    </div>
+											</button>
+											</a>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+
+	<footer th:replace="~{fragments/fragment-piedpage::piedpage}"></footer>
+
+</body>
+
+</html>

@@ -19,9 +19,8 @@ public class EnchereServiceImpl implements EnchereService {
 	}
 	
 public void ajouterEnchere(Enchere enchere) {
-		if(this.enchereDao.findByIdArticle(enchere.getArticle().getNoArticle()).stream().noneMatch(e->e.getCreateur()==enchere.getCreateur())) {
-		this.enchereDao.create(enchere);}
-		else this.enchereDao.update(enchere);
+		
+		this.enchereDao.create(enchere);
 	}
 
 public List<Enchere> getEncheresByIdArticle(int idArticle) {

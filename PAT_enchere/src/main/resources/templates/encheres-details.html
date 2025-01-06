@@ -11,7 +11,7 @@
 <body>
 	<div th:replace="~{fragments/fragment-entete::entete}"></div>
 	<h1>Détails de la vente</h1>
-	<form th:action="@{/encheresDetails}" th:object="${articleVendu}" method="get">
+	<form th:action="@{/encheresDetails}" th:object="${articleVendu}" method="post">
 		<div class="rows">
 			<div class="form-group">
 				<div class="form-group">
@@ -59,15 +59,17 @@
 				</div>
 			</div>
 		</div>
-	</form>
-	<h1>Montez les Enchères !</h1>
-	<form th:action="@{/encheresDetails(proposition=${proposition})}" method="post">
-
-		<div class="form-group">
-			<label for="idProposition">Proposition :</label>
-			<input id="idProposition" name ="proposition" placeholder="Faites vos jeux" th:value="${proposition}"></input>
-		</div>
-
+		<input type="hidden" th:field="*{noArticle}" />
+		<fieldset class="form-group">
+			<legend>
+				<h1>Montez les Enchères !</h1>
+			</legend>
+			<div class="form-group">
+				<label for="idProposition">Proposition :</label>
+				<input id="idProposition" name="proposition" placeholder="Faites vos jeux"
+					th:value="${proposition}"></input>
+			</div>
+		</fieldset>
 		<button type="submit">Surenchérir</button>
 	</form>
 

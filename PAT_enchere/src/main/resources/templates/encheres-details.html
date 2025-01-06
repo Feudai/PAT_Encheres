@@ -51,7 +51,7 @@
 			<div class="form-group">
 				<div class="form-group">
 					<label for="lieuRetrait">Retrait :</label>
-					<textarea id="lieuRetrait" th:text="${articleVendu.lieuRetrait}" readonly="readonly"></textarea>
+					<textarea id="lieuRetrait" th:text="${articleVendu.lieuRetrait.rue} +' '+ ${articleVendu.lieuRetrait.codePostal} +' ' +${articleVendu.lieuRetrait.ville}" readonly="readonly"></textarea>
 				</div>
 				<div class="form-group">
 					<label for="lieuRetrait">Créateur :</label>

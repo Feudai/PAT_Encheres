@@ -8,6 +8,7 @@ import java.util.List;
 import org.enchere.bo.ArticleVendu;
 import org.enchere.bo.Categorie;
 import org.enchere.bo.Enchere;
+import org.enchere.bo.Retrait;
 import org.enchere.bo.Utilisateur;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
@@ -21,7 +22,7 @@ import org.springframework.stereotype.Repository;
 public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 	
 	private static final String CREATE = "INSERT INTO ARTICLES_VENDUS (nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie) VALUES (:nom_article, :description, :date_debut_encheres, :date_fin_encheres, :prix_initial, :prix_vente, :no_utilisateur, :no_categorie)";
-	private static final String FIND_BY_ID = "SELECT a.no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, a.no_utilisateur, a.no_categorie, c.libelle, e.montant_enchere  FROM ARTICLES_VENDUS a INNER JOIN ENCHERES e ON a.no_article = e.no_article INNER JOIN CATEGORIES c ON a.no_categorie = c.no_categorie WHERE a.no_article =:no_article";
+	private static final String FIND_BY_ID = "SELECT a.no_article, nom_article, a.description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, a.no_utilisateur, a.no_categorie, c.libelle, e.montant_enchere, r.rue,r.code_postal, r.ville  FROM ARTICLES_VENDUS a LEFT JOIN ENCHERES e ON a.no_article = e.no_article INNER JOIN CATEGORIES c ON a.no_categorie = c.no_categorie LEFT JOIN RETRAITS r ON a.no_article = r.no_article WHERE a.no_article =:no_article";
 	
 
 	
@@ -47,6 +48,7 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 			Enchere e = new Enchere();
 			Categorie c = new Categorie();
 			Utilisateur u = new Utilisateur();
+			Retrait r = new Retrait();
 			
 			List<Enchere> listeEncheres = new ArrayList<>();
 			u.setNoUtilisateur(rs.getInt("no_utilisateur"));
@@ -61,6 +63,12 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 			c.setLibelle(rs.getString("libelle"));
 			a.setCategorieArticle(c);
 			e.setMontantEnchere(rs.getInt("montant_enchere"));
+			r.setRue(rs.getString("rue"));
+			r.setCodePostal(rs.getString("code_postal"));
+			r.setVille(rs.getString("ville"));
+			a.setLieuRetrait(r);
+			
+			
 			
 			listeEncheres.add(e);
 			a.setListeEncheres(listeEncheres);
@@ -91,13 +99,13 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 		map.addValue("no_utilisateur", noUtilisateur);
 		map.addValue("no_categorie", article.getCategorieArticle().getNoCategorie());
 		
-		if (keyHolder != null && keyHolder.getKey() != null) {
-			article.setNoArticle(keyHolder.getKey().intValue());
-			;
-		}
+
 		
 		jdbcTemplate.update(CREATE, map, keyHolder);
-		
+		if (keyHolder != null && keyHolder.getKey() != null) {
+			article.setNoArticle(keyHolder.getKey().intValue());
+			
+		}
 		
 	}
 

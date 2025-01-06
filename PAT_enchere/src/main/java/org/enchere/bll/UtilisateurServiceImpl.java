@@ -83,4 +83,27 @@ public class UtilisateurServiceImpl implements UtilisateurService {
 
 		return !pseudoExiste;
 	}
+	
+	private boolean trouverEmail (String email, BusinessException be) {
+
+		boolean emailExiste = utilisateurDao.validerEmailUnique(email);
+
+		if (!emailExiste) {
+			be.addMessage("L'email n'est pas enregistré en base de donnée");
+		}
+
+		return emailExiste;
+	}
+
+
+	@Override
+	public void findByEmail(String email) throws BusinessException {
+	    BusinessException be = new BusinessException();
+	    boolean valide = trouverEmail(email, be);
+	    
+	    // Si l'email n'existe pas (valide est faux), alors lève une exception
+	    if (!valide) {
+	        throw be;
+	    }
+	}
 }

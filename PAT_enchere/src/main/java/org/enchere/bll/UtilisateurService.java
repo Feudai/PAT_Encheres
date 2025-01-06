@@ -19,6 +19,7 @@ public interface UtilisateurService {
 
 	void deleteUser(int noUtilisateur);
 
+	void findByEmail(String email) throws BusinessException;
 
 	
 }

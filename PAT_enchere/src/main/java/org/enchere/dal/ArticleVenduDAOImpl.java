@@ -10,7 +10,6 @@ import org.enchere.bo.Categorie;
 import org.enchere.bo.Enchere;
 import org.enchere.bo.Retrait;
 import org.enchere.bo.Utilisateur;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;

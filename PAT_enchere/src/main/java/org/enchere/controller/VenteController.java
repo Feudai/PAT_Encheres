@@ -92,15 +92,6 @@ public class VenteController {
 	        return "nouvelle-vente";
 	    }
 		
-<<<<<<< HEAD
-		Retrait retrait = article.getLieuRetrait();
-		retrait.setArticle(article);
-		this.retraitService.ajouterRetrait(retrait);
-=======
->>>>>>> f935afd2d4ee4d61bbc61827aaa8f45eae874d1d
-
-	
-
 	    try {
 	        // Récupérer l'utilisateur connecté
 	        String username = principal.getName();

@@ -354,6 +354,8 @@ table td a:hover {
     font-weight: bold;
     margin-bottom: 1rem;
     color: #1a202c;
+    	text-align: center;
+
 }
 
 .auction-details {

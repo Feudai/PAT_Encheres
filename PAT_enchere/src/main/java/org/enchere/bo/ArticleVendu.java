@@ -173,6 +173,18 @@ public class ArticleVendu {
 	public void setCreateur(Utilisateur createur) {
 		this.createur = createur;
 	}
+
+
+
+	@Override
+	public String toString() {
+		return "ArticleVendu [noArticle=" + noArticle + ", nomArticle=" + nomArticle + ", description=" + description
+				+ ", dateDebutEncheres=" + dateDebutEncheres + ", dateFinEncheres=" + dateFinEncheres + ", miseAPrix="
+				+ miseAPrix + ", prixVente=" + prixVente + ", etatVente=" + etatVente + ", createur=" + createur
+				+ ", cheminImage=" + cheminImage + ", listeEncheres=" + listeEncheres + ", lieuRetrait=" + lieuRetrait
+				+ ", categorieArticle=" + categorieArticle + "]";
+	}
+	
 	
 	
 	

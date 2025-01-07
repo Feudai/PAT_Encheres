@@ -109,11 +109,6 @@ public class VenteController {
 	        System.err.println(cheminImage);
 	        article.setCheminImage(cheminImage);
 	        
-	        // Instanciation de la première enchère automatique
-	        List<Enchere> initList = new ArrayList<>();
-	        ArticleVendu retrieve = this.articleVenduService.consulterArticleVenduParId(article.getNoArticle()).get(0);
-	        Enchere init = new Enchere(retrieve.getDateDebutEncheres(), retrieve.getMiseAPrix(), retrieve.getCreateur(), retrieve);
-	        this.enchereService.ajouterEnchere(init);
 
 	        // Modifier le nom de l'image
 	        articleVenduService.modifierNomImage(cheminImage , article.getNoArticle());
@@ -123,6 +118,14 @@ public class VenteController {
 			retrait.setArticle(article);
 			
 			this.retraitService.ajouterRetrait(retrait);
+			
+	        // Instanciation de la première enchère automatique
+	        List<Enchere> initList = new ArrayList<>();
+	        
+	        ArticleVendu retrieve = this.articleVenduService.consulterArticleVenduParId(article.getNoArticle()).get(0);
+	        Enchere init = new Enchere(retrieve.getDateDebutEncheres(), retrieve.getMiseAPrix(), retrieve.getCreateur(), retrieve);
+	        
+	        this.enchereService.ajouterEnchere(init);
 
 	    } catch (Exception e) {
 	        e.printStackTrace();
@@ -142,34 +145,12 @@ public class VenteController {
 		model.addAttribute("listeEncheres",this.sortEncheres());
 		model.addAttribute("listeCategories", this.categorieService.getListeCategories());
 //		model.addAttribute("article",this.articleVenduService.consulterArticleVenduParId(1));
+		System.err.println(this.sortEncheres().get(0).getArticle().toString());
 
 
 		return "accueil";
 	}
 	
-	//Function for sorting Encheres  
-	public List<Enchere> sortEncheres (){
-		List<Enchere> tempListeEncheres = this.enchereService.getListeEncheres();
-		List<Enchere> listeEncheres = new ArrayList<>();
-
-		
-			tempListeEncheres.forEach(l->{ 
-				boolean addEnchere = true;
-				List<Enchere> remove = new ArrayList<>();
-				for (Enchere enchere : listeEncheres) {
-					if(l.getArticle().getNoArticle()==enchere.getArticle().getNoArticle()) {
-						if(l.getMontantEnchere()<=enchere.getMontantEnchere())addEnchere = false;
-						else remove.add(enchere);
-						}
-					}
-				for (Enchere enchere : remove) {
-					listeEncheres.remove(enchere);
-				}
-				if(addEnchere)listeEncheres.add(l);
-				}
-				);	
-		return listeEncheres;
-	}
 	
 	@PostMapping("/accueil")
 	public String filtrerEncheres(@RequestParam(name="idCategorie", defaultValue="-1")String idCategorie,@RequestParam(name="search", defaultValue="")String nomArticle, Model model) {
@@ -193,12 +174,37 @@ public class VenteController {
 		tempList =sortedList;
 		tempList.forEach(e->listeEncheres.add(e));}
 		
+		
 		model.addAttribute("utilisateurs", utilisateurs);
 		model.addAttribute("listeEncheres",listeEncheres);
 		model.addAttribute("listeCategories", this.categorieService.getListeCategories());
 		
 		return "accueil";
 	}
+	
+	//Function for sorting Encheres  
+		public List<Enchere> sortEncheres (){
+			List<Enchere> tempListeEncheres = this.enchereService.getListeEncheres();
+			List<Enchere> listeEncheres = new ArrayList<>();
+
+			
+				tempListeEncheres.forEach(l->{ 
+					boolean addEnchere = true;
+					List<Enchere> remove = new ArrayList<>();
+					for (Enchere enchere : listeEncheres) {
+						if(l.getArticle().getNoArticle()==enchere.getArticle().getNoArticle()) {
+							if(l.getMontantEnchere()<=enchere.getMontantEnchere())addEnchere = false;
+							else remove.add(enchere);
+							}
+						}
+					for (Enchere enchere : remove) {
+						listeEncheres.remove(enchere);
+					}
+					if(addEnchere)listeEncheres.add(l);
+					}
+					);	
+			return listeEncheres;
+		}
 	
 	@GetMapping("/encheresDetails")
 	public String afficherEncheresDetails(Model model,@RequestParam("noArticle")int noArticle) {

@@ -20,38 +20,36 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class ArticleVenduDAOImpl implements ArticleVenduDAO {
-	
-
 
 	private static final String CREATE = "INSERT INTO ARTICLES_VENDUS (nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie, chemin_image) VALUES (:nom_article, :description, :date_debut_encheres, :date_fin_encheres, :prix_initial, :prix_vente, :no_utilisateur, :no_categorie, :chemin_image)";
 	private static final String FIND_BY_ID = "SELECT a.no_article, nom_article, a.description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, a.no_utilisateur, a.no_categorie, chemin_image, c.libelle, e.montant_enchere, r.rue,r.code_postal, r.ville  FROM ARTICLES_VENDUS a LEFT JOIN ENCHERES e ON a.no_article = e.no_article INNER JOIN CATEGORIES c ON a.no_categorie = c.no_categorie LEFT JOIN RETRAITS r ON a.no_article = r.no_article WHERE a.no_article =:no_article";
-
-
+	private static final String MODIF_NOM = "UPDATE [ENCHERES].[dbo].[ARTICLES_VENDUS] SET [chemin_image] = :chemin_image WHERE [no_article] = :no_article ";
+	
 	
 	private NamedParameterJdbcTemplate jdbcTemplate;
-	
+
 	public ArticleVenduDAOImpl(NamedParameterJdbcTemplate jdbcTemplate) {
 		this.jdbcTemplate = jdbcTemplate;
 	}
 
-	
-	
-	public List<ArticleVendu> findAll(){
-	
-	return null;
+	public List<ArticleVendu> findAll() {
+
+		return null;
 	}
 	
-	class ArticleRowMapper implements RowMapper<ArticleVendu>{
+	
+
+	class ArticleRowMapper implements RowMapper<ArticleVendu> {
 
 		@Override
 		public ArticleVendu mapRow(ResultSet rs, int rowNum) throws SQLException {
-			
+
 			ArticleVendu a = new ArticleVendu();
 			Enchere e = new Enchere();
 			Categorie c = new Categorie();
 			Utilisateur u = new Utilisateur();
 			Retrait r = new Retrait();
-			
+
 			List<Enchere> listeEncheres = new ArrayList<>();
 			a.setCheminImage(rs.getString("chemin_image"));
 			u.setNoUtilisateur(rs.getInt("no_utilisateur"));
@@ -71,29 +69,21 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 			r.setCodePostal(rs.getString("code_postal"));
 			r.setVille(rs.getString("ville"));
 			a.setLieuRetrait(r);
-			
-			
-			
+
 			listeEncheres.add(e);
 			a.setListeEncheres(listeEncheres);
-			
-			
+
 			return a;
 		}
-		
-		
-		
-		
+
 	}
-	
-	
-	
+
 	public void create(ArticleVendu article, int noUtilisateur) {
-		
+
 		MapSqlParameterSource map = new MapSqlParameterSource();
-		
+
 		KeyHolder keyHolder = new GeneratedKeyHolder();
-		
+
 		map.addValue("nom_article", article.getNomArticle());
 		map.addValue("description", article.getDescription());
 		map.addValue("date_debut_encheres", article.getDateDebutEncheres());
@@ -103,13 +93,12 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 		map.addValue("no_utilisateur", noUtilisateur);
 		map.addValue("no_categorie", article.getCategorieArticle().getNoCategorie());
 		map.addValue("chemin_image", article.getCheminImage());
-		
+
 		jdbcTemplate.update(CREATE, map, keyHolder);
-		
 
 		if (keyHolder != null && keyHolder.getKey() != null) {
 			article.setNoArticle(keyHolder.getKey().intValue());
-			
+
 		}
 
 	}
@@ -118,7 +107,17 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 	public List<ArticleVendu> findById(int noArticle) {
 		MapSqlParameterSource map = new MapSqlParameterSource();
 		map.addValue("no_article", noArticle);
-		
+
 		return jdbcTemplate.query(FIND_BY_ID, map, new ArticleRowMapper());
+	}
+
+	@Override
+	public void modifierNomImage(String cheminImage,int noArticle) {
+		MapSqlParameterSource map = new MapSqlParameterSource();
+		map.addValue("chemin_image", cheminImage);
+		map.addValue("no_article", noArticle);
+		
+		this.jdbcTemplate.update(MODIF_NOM, map);
+		
 	}
 }

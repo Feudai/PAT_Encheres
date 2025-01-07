@@ -12,4 +12,6 @@ public interface ArticleVenduDAO {
 	void create(ArticleVendu article, int noUtilisateur);
 
 	List<ArticleVendu> findById(int noArticle);
+
+	void modifierNomImage(String cheminImage,int noArticle);
 }

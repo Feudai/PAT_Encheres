@@ -28,4 +28,11 @@ public class ArticleVenduServiceImpl implements ArticleVenduService {
 	}
 
 
+	@Override
+	public void modifierNomImage(String cheminImage, int noArticle) {
+		this.articleVenduDAO.modifierNomImage(cheminImage,noArticle);
+		
+	}
+
+
 }

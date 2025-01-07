@@ -64,11 +64,15 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 			c.setLibelle(rs.getString("libelle"));
 			a.setCategorieArticle(c);
 			e.setMontantEnchere(rs.getInt("montant_enchere"));
+			e.setCreateur(u);
+			e.setDateEnchere(rs.getTimestamp("date_debut_encheres").toLocalDateTime());
 			r.setRue(rs.getString("rue"));
 			r.setCodePostal(rs.getString("code_postal"));
 			r.setVille(rs.getString("ville"));
 			a.setLieuRetrait(r);
-
+			e.setArticle(a);
+				
+			
 			listeEncheres.add(e);
 			a.setListeEncheres(listeEncheres);
 

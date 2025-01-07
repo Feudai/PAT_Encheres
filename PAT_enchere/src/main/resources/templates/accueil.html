@@ -10,7 +10,7 @@
 <body>
 	<div th:replace="~{fragments/fragment-entete::entete}"></div>
 	<h1>Liste des enchères</h1>
-	<form th:action="@{/accueil(nomArticle=search)}" method="POST" >
+	<form th:action="@{/accueil}" method="post" >
 		<div>
 			<h3>Filtres :</h3>
 		</div>
@@ -23,6 +23,7 @@
 			<ul>
 				<label for="filtreCategorie">Catégorie :</label>
 				<select name="idCategorie" id="filtreCategorie">
+					<option value="-1">Toutes les catégories</option>
 					<option th:each="c : ${listeCategories}" th:value="${c.noCategorie}" th:text="${c.libelle}">
 					</option>
 				</select>

@@ -21,9 +21,9 @@ import org.springframework.stereotype.Repository;
 public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 
 	private static final String CREATE = "INSERT INTO ARTICLES_VENDUS (nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie, chemin_image) VALUES (:nom_article, :description, :date_debut_encheres, :date_fin_encheres, :prix_initial, :prix_vente, :no_utilisateur, :no_categorie, :chemin_image)";
-	private static final String FIND_BY_ID = "SELECT a.no_article, nom_article, a.description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, a.no_utilisateur, a.no_categorie, chemin_image, c.libelle, e.montant_enchere, r.rue,r.code_postal, r.ville  FROM ARTICLES_VENDUS a LEFT JOIN ENCHERES e ON a.no_article = e.no_article INNER JOIN CATEGORIES c ON a.no_categorie = c.no_categorie LEFT JOIN RETRAITS r ON a.no_article = r.no_article WHERE a.no_article =:no_article";
+	private static final String FIND_BY_ID = "SELECT a.no_article, nom_article, a.description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, a.no_utilisateur, a.no_categorie, chemin_image, u.pseudo, c.libelle, e.montant_enchere, e.id_enchere, r.rue,r.code_postal, r.ville  FROM ARTICLES_VENDUS a LEFT JOIN ENCHERES e ON a.no_article = e.no_article INNER JOIN CATEGORIES c ON a.no_categorie = c.no_categorie LEFT JOIN RETRAITS r ON a.no_article = r.no_article INNER JOIN UTILISATEURS u ON a.no_utilisateur=u.no_utilisateur WHERE a.no_article =:no_article";
 	private static final String MODIF_NOM = "UPDATE [ENCHERES].[dbo].[ARTICLES_VENDUS] SET [chemin_image] = :chemin_image WHERE [no_article] = :no_article ";
-	
+	private static final String FIND_ALL = "SELECT a.no_article, a.nom_article, a.description, a.date_debut_encheres, a.date_fin_encheres, a.prix_initial, a.prix_vente, a.no_utilisateur, a.no_categorie, a.chemin_image, u.pseudo, c.libelle, e.montant_enchere, e.id_enchere, r.rue,r.code_postal, r.ville  FROM ARTICLES_VENDUS a INNER JOIN ENCHERES e ON a.no_article = e.no_article INNER JOIN CATEGORIES c ON a.no_categorie = c.no_categorie INNER JOIN RETRAITS r ON a.no_article = r.no_article INNER JOIN UTILISATEURS u ON a.no_utilisateur=u.no_utilisateur";
 	
 	private NamedParameterJdbcTemplate jdbcTemplate;
 
@@ -33,7 +33,7 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 
 	public List<ArticleVendu> findAll() {
 
-		return null;
+		return jdbcTemplate.query(FIND_ALL, new ArticleRowMapper());
 	}
 	
 	
@@ -52,6 +52,7 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 			List<Enchere> listeEncheres = new ArrayList<>();
 			a.setCheminImage(rs.getString("chemin_image"));
 			u.setNoUtilisateur(rs.getInt("no_utilisateur"));
+			u.setPseudo(rs.getString("pseudo"));
 			a.setCreateur(u);
 			a.setNoArticle(rs.getInt("no_article"));
 			a.setNomArticle(rs.getString("nom_article"));
@@ -65,16 +66,16 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 			e.setMontantEnchere(rs.getInt("montant_enchere"));
 			e.setCreateur(u);
 			e.setDateEnchere(rs.getTimestamp("date_debut_encheres").toLocalDateTime());
+			e.setIdEnchere(rs.getInt("id_enchere"));
 			r.setRue(rs.getString("rue"));
 			r.setCodePostal(rs.getString("code_postal"));
 			r.setVille(rs.getString("ville"));
 			a.setLieuRetrait(r);
 			e.setArticle(a);
-				
 			
 			listeEncheres.add(e);
 			a.setListeEncheres(listeEncheres);
-
+			
 			return a;
 		}
 

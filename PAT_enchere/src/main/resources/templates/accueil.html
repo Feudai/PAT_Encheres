@@ -10,54 +10,97 @@
 <div>
 	<div th:replace="~{fragments/fragment-entete::entete}"></div>
 	<h1>Liste des enchères</h1>
-	<form th:action="@{/accueil}" method="post">
-		<div>
-			<h3>Filtres :</h3>
+	<form th:action="@{/accueil}" method="post" class="cases">
+		<div class="left">
+			<h3>Filtrer les enchères :</h3>
 		</div>
-		<div class=form-group>
-			<ul>
 
-				<label for="search">Rechercher :</label> <input type="search" id="search" name="search"
-					placeholder="Entrez votre recherche">
-			</ul>
-			<ul>
-				<label for="filtreCategorie">Catégorie :</label>
-				<select name="idCategorie" id="filtreCategorie">
-					<option value="-1">Toutes les catégories</option>
-					<option th:each="c : ${listeCategories}" th:value="${c.noCategorie}" th:text="${c.libelle}">
-					</option>
-				</select>
-			</ul>
+		<div class="aform-group-half">
+			<div class="aform-group">
+				<div class="cases">
+
+					<input type="radio" id="achats" name="choix" checked onchange="toggleCheckboxes(true)"/>
+					<label for="achats">Mes achats</label>
+					<input type="checkbox" class="ouv" id="enchOuv" name="enchOuv"/>
+					<label for="enchOuv">Enchères ouvertes</label>
+					<input type="checkbox"  class="ouv" id="enchCours" name="enchCours"/>
+					<label for="enchCours">Mes Enchères en Cours</label>
+					<input type="checkbox"  class="ouv" id="enchRemp" name="enchRemp"/>
+					<label for="enchRemp">Mes Enchères Remportées</label>
+
+				</div>
+				<div class="cases">
+					<input type="radio" id="ventes" name="choix" onchange="toggleCheckboxes(false)" />
+					<label for="ventes">Mes ventes</label>
+
+					<input type="checkbox" class="fer" disabled id="venCours" name="venCours"/>
+					<label for="venCours">Mes Ventes en Cours</label>
+					<input type="checkbox" class="fer" disabled id="venPrep" name="venPrep"/>
+					<label for="VenPrep">Ventes non Débutées</label>
+					<input type="checkbox" class="fer" disabled id="venTerm" name="venTerm"/>
+					<label for="venTerm">Ventes Terminées</label>
+				</div>
+				<script th:inline="javascript">
+				    function toggleCheckboxes(enable) {
+				        document.querySelectorAll('.ouv').forEach(checkbox => {
+				            checkbox.disabled = !enable;
+				        });
+						document.querySelectorAll('.fer').forEach(checkbox => {
+										            checkbox.disabled = enable;
+										        });
+				    }
+				</script>
+			</div>
+
+			<div class="cases">
+				<div class=aform-group>
+					<ul>
+
+						<label for="search">Rechercher :</label> <input type="search" id="search" name="search"
+							placeholder="Entrez votre recherche">
+					</ul>
+					<ul>
+						<label for="filtreCategorie">Catégorie :</label>
+						<select name="idCategorie" id="filtreCategorie">
+							<option value="-1">Toutes les catégories</option>
+							<option th:each="c : ${listeCategories}" th:value="${c.noCategorie}" th:text="${c.libelle}">
+							</option>
+						</select>
+					</ul>
+				</div>
+				<button type="submit">Valider</button>
+
+
+			</div>
 		</div>
-		<button type="submit">Valider</button>
 	</form>
 
 	<div class="auctions-grid">
-		<div th:each="e : ${listeEncheres}" class="auction-card">
+		<div th:each="a : ${listeArticles}" class="auction-card">
 			<div class="card-link">
-				<a th:href="@{/encheresDetails(noArticle=${e.article.noArticle})}">
+				<a th:href="@{/encheresDetails(noArticle=${a.noArticle})}">
 					<div class="card-content">
 						<div class="auction-title">
-							<span id="card-title" th:text="${e.article.nomArticle}">
+							<span id="card-title" th:text="${a.nomArticle}">
 						</div>
 						<div class="auction-details">
 							<div class="bid-amount">
 								<span class="label">Meilleure Proposition :</span>
-								<span th:text="${e.montantEnchere}+' pts'">
+								<span th:text="${a.listeEncheres[0].montantEnchere}+' pts'">
 							</div>
 							<div class="bid-date">
 								<span class="label">Date limite :</span>
-								<span th:text="${e.dateEnchere}">
+								<span th:text="${a.listeEncheres[0].dateEnchere}">
 							</div>
 						</div>
 					</div>
 				</a>
 
-				<a th:href="@{/profil-detail(noUtilisateur=${e.createur.noUtilisateur})}">
+				<a th:href="@{/profil-detail(noUtilisateur=${a.createur.noUtilisateur})}">
 					<button class="vendeur">
 						<div class="seller-info">
 							<span class="label-s">Vendeur :</span>
-							<span th:text="${e.createur.pseudo}"></span>
+							<span th:text="${a.createur.pseudo}"></span>
 						</div>
 					</button>
 				</a>
@@ -65,10 +108,8 @@
 		</div>
 	</div>
 </div>
-</div>
 <footer th:replace="~{fragments/fragment-piedpage::piedpage}"></footer>
 
 </body>
-
 
 </html>

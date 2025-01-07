@@ -10,6 +10,9 @@ public interface ArticleVenduService {
 	List<ArticleVendu> ajouterArticle(ArticleVendu article, int noUtilisateur);
 
 	List<ArticleVendu> consulterArticleVenduParId(int noArticle);
+	List<ArticleVendu> 	getListeArticles();
+
+
 
 	void modifierNomImage(String cheminImage,int noArticle);
 }

@@ -37,6 +37,7 @@ public class ArticleVendu {
 		this.listeEncheres = listeEncheres;
 		this.lieuRetrait = lieuRetrait;
 		this.categorieArticle = categorieArticle;
+		this.createur=createur;
 	}
 	
 	
@@ -44,7 +45,6 @@ public class ArticleVendu {
 	public ArticleVendu(int noArticle, String nomArticle, String description, LocalDateTime dateDebutEncheres,
 			LocalDateTime dateFinEncheres, int miseAPrix, int prixVente, boolean etatVente, Utilisateur createur,
 			String cheminImage, List<Enchere> listeEncheres, Retrait lieuRetrait, Categorie categorieArticle) {
-		super();
 		this.noArticle = noArticle;
 		this.nomArticle = nomArticle;
 		this.description = description;
@@ -175,15 +175,6 @@ public class ArticleVendu {
 	}
 
 
-
-	@Override
-	public String toString() {
-		return "ArticleVendu [noArticle=" + noArticle + ", nomArticle=" + nomArticle + ", description=" + description
-				+ ", dateDebutEncheres=" + dateDebutEncheres + ", dateFinEncheres=" + dateFinEncheres + ", miseAPrix="
-				+ miseAPrix + ", prixVente=" + prixVente + ", etatVente=" + etatVente + ", createur=" + createur
-				+ ", cheminImage=" + cheminImage + ", listeEncheres=" + listeEncheres + ", lieuRetrait=" + lieuRetrait
-				+ ", categorieArticle=" + categorieArticle + "]";
-	}
 	
 	
 	

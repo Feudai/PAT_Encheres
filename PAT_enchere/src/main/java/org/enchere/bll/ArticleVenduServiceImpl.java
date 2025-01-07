@@ -15,6 +15,10 @@ public class ArticleVenduServiceImpl implements ArticleVenduService {
 		this.articleVenduDAO = articleVenduDAO;
 	}
 	
+	public 	List<ArticleVendu> 	getListeArticles(){
+		return this.articleVenduDAO.findAll();
+	}
+
 
 	public List<ArticleVendu> ajouterArticle(ArticleVendu article, int noUtilisateur) {
 		this.articleVenduDAO.create(article, noUtilisateur);

@@ -33,7 +33,7 @@
 
 				<div class="form-group">
 					<label for="montantEnchere">Meilleure offre :</label>
-					<textarea id="montantEnchere" th:text="${articleVendu.listeEncheres[0].montantEnchere}"></textarea>
+					<textarea id="montantEnchere" th:text="${articleVendu.listeEncheres[0].montantEnchere}+' points par '+${articleVendu.listeEncheres[0].createur.pseudo}"></textarea>
 
 				</div>
 			</div>

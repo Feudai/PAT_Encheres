@@ -68,15 +68,30 @@ public class VenteController {
 	}
 
 	@GetMapping("/nouvelleVente")
-	public String afficherCreationArticle(Model model) {
+	public String afficherCreationArticle(Model model, Principal principal) {
 		
 		Retrait retrait =new Retrait();
 		ArticleVendu article = new ArticleVendu();
 		retrait.setArticle(article);
 		article.setLieuRetrait(retrait);
 		
+		String username = principal.getName();
+        Utilisateur authenticatedUser = utilisateurService.findByUsername(username);
+        
+        
+        //Filling by default the retrait
+        if (article.getLieuRetrait().getRue() == null || article.getLieuRetrait().getRue().isEmpty()) {
+        	article.getLieuRetrait().setRue(authenticatedUser.getRue());
+        }
+        if (article.getLieuRetrait().getVille() == null || article.getLieuRetrait().getVille().isEmpty()) {
+        	article.getLieuRetrait().setVille(authenticatedUser.getVille());
+        }
+        if (article.getLieuRetrait().getCodePostal() == null || article.getLieuRetrait().getCodePostal().isEmpty()) {
+        	article.getLieuRetrait().setCodePostal(authenticatedUser.getCodePostal());
+        }
+       
 		
-
+        model.addAttribute("utilisateur",authenticatedUser);
 		model.addAttribute("article",article);
 		model.addAttribute("listeCategories",this.categorieService.getListeCategories());
 		
@@ -89,7 +104,7 @@ public class VenteController {
 	        @RequestParam("image") MultipartFile imageFile,
 	        Principal principal,
 	        BindingResult br) {
-
+		
 	    if (br.hasErrors()) {
 	        return "nouvelle-vente";
 	    }
@@ -101,6 +116,7 @@ public class VenteController {
 	        Utilisateur authenticatedUser = utilisateurService.findByUsername(username);
 	        int noUtilisateur = authenticatedUser.getNoUtilisateur();
 
+	        
 	        // Sauvegarder l'article
 	       this.articleVenduService.ajouterArticle(article, noUtilisateur);
 	        
@@ -139,13 +155,12 @@ public class VenteController {
 	@GetMapping("/accueil")
 	public String afficherEncheres(Model model) {
 		List<Utilisateur> utilisateurs = this.utilisateurService.consulterUtilisateurs();
+		List<ArticleVendu> EncheresArticlesTriees = this.sortEncheresArticles();
+		
 		model.addAttribute("utilisateurs", utilisateurs);
-					
-	
-		model.addAttribute("listeEncheres",this.sortEncheres());
+		model.addAttribute("listeArticles",EncheresArticlesTriees);
 		model.addAttribute("listeCategories", this.categorieService.getListeCategories());
 //		model.addAttribute("article",this.articleVenduService.consulterArticleVenduParId(1));
-		System.err.println(this.sortEncheres().get(0).getArticle().toString());
 
 
 		return "accueil";
@@ -153,58 +168,111 @@ public class VenteController {
 	
 	
 	@PostMapping("/accueil")
-	public String filtrerEncheres(@RequestParam(name="idCategorie", defaultValue="-1")String idCategorie,@RequestParam(name="search", defaultValue="")String nomArticle, Model model) {
-		List<Enchere> sortedList=this.sortEncheres();
-		List<Enchere> listeEncheres=new ArrayList<Enchere>();
-		List<Enchere> tempList=null;
+	public String filtrerEncheres(
+			@RequestParam(name="idCategorie", defaultValue="-1")String idCategorie,
+			@RequestParam(name="search", defaultValue="")String nomArticle, 
+			@RequestParam(name="enchOuv") boolean encheresOuvertes, 
+			@RequestParam(name="enchCours") boolean encheresEnCours ,
+			@RequestParam(name="enchRemp") boolean encheresRemportees ,
+			@RequestParam(name="venCours") boolean ventesEnCours ,
+			@RequestParam(name="venPrep") boolean ventesAVenir ,
+			@RequestParam(name="venTerm") boolean ventesTerminees,
+			Model model, 
+			Principal principal) {
+		List<ArticleVendu> EncheresArticlesTriees=this.sortEncheresArticles();
+		List<ArticleVendu> listeArticles=new ArrayList<>();
+		List<ArticleVendu> tempList=null;
 		List<Utilisateur> utilisateurs = this.utilisateurService.consulterUtilisateurs();
 
+		 String username = principal.getName();
+	        Utilisateur authenticatedUser = utilisateurService.findByUsername(username);
+	        int noUtilisateur = authenticatedUser.getNoUtilisateur();
 		
 		int noCategorie= Integer.parseInt(idCategorie);
+		
 		if(noCategorie!=-1) {
-		tempList =sortedList.stream().filter(e->e.getArticle().getCategorieArticle().getNoCategorie()==noCategorie).toList();
-		tempList.forEach(e->listeEncheres.add(e));}
+		tempList =EncheresArticlesTriees.stream().filter(a->a.getCategorieArticle().getNoCategorie()==noCategorie).toList();
+		tempList.forEach(e->listeArticles.add(e));}
 
 		if(!nomArticle.equals("")&&nomArticle!=null) {
-		tempList =sortedList.stream().filter(e->e.getArticle().getNomArticle().toLowerCase().contains(nomArticle.toLowerCase())).toList();
-		
-		tempList.forEach(e->listeEncheres.add(e));}
-		//debug
+			
+		tempList =EncheresArticlesTriees.stream().filter(a->a.getNomArticle().toLowerCase().contains(nomArticle.toLowerCase())).toList();
+		tempList.forEach(e->listeArticles.add(e));}
+
+
 		if(tempList==null) {
-		tempList =sortedList;
-		tempList.forEach(e->listeEncheres.add(e));}
+		tempList =EncheresArticlesTriees;
+		tempList.forEach(a->listeArticles.add(a));}
 		
+		
+		//checkboxes
+		if(encheresOuvertes) {
+			tempList = EncheresArticlesTriees.stream().filter(a->LocalDateTime.now().compareTo(a.getDateDebutEncheres())>=0).toList();
+		}
+		if(encheresEnCours) { //incomplet, nécessite articlesaacheter
+			tempList = EncheresArticlesTriees.stream().filter(a->LocalDateTime.now().compareTo(a.getDateDebutEncheres())>=0&&LocalDateTime.now().compareTo(a.getDateFinEncheres())<0&&a.getCreateur().getNoUtilisateur()==noUtilisateur).toList();
+		}
+		if(encheresRemportees) {
+			tempList = EncheresArticlesTriees.stream().filter(a->LocalDateTime.now().compareTo(a.getDateDebutEncheres())>=0&&LocalDateTime.now().compareTo(a.getDateFinEncheres())<0).toList();
+		}
+		if(ventesEnCours) {
+			tempList = EncheresArticlesTriees.stream().filter(a->LocalDateTime.now().compareTo(a.getDateDebutEncheres())>=0&&LocalDateTime.now().compareTo(a.getDateFinEncheres())<0&&a.getCreateur().getNoUtilisateur()==noUtilisateur).toList();
+
+		}
+		if(ventesAVenir) {
+			
+		}
+		if(ventesTerminees) {
+			
+		}	
+		//chantier
 		
 		model.addAttribute("utilisateurs", utilisateurs);
-		model.addAttribute("listeEncheres",listeEncheres);
+		model.addAttribute("listeArticles",listeArticles);
 		model.addAttribute("listeCategories", this.categorieService.getListeCategories());
 		
 		return "accueil";
 	}
 	
 	//Function for sorting Encheres  
-		public List<Enchere> sortEncheres (){
-			List<Enchere> tempListeEncheres = this.enchereService.getListeEncheres();
-			List<Enchere> listeEncheres = new ArrayList<>();
+		public List<ArticleVendu> sortEncheresArticles (){
+			List<ArticleVendu> temp = this.articleVenduService.getListeArticles();
+			List<ArticleVendu> articles = new ArrayList<>();
+			
+			//debug
+			//temp.forEach(a->System.err.println(a.getListeEncheres().size()));
+
+			//Only one instance of article by noArticle
+			temp.forEach(a->{
+				List<ArticleVendu> stream = articles.stream().filter(b->b.getNoArticle()==a.getNoArticle()).toList();
+				if(stream.size()==0)articles.add(a);
+				else stream.get(0).getListeEncheres().add(a.getListeEncheres().get(0));
+			});
+			
+			articles.forEach(a->{
+				List<Enchere> enchereParArticle = new ArrayList<>();
+				a.getListeEncheres().forEach(e->enchereParArticle.add(e));
+				a.setListeEncheres(this.sort(enchereParArticle));
+				
+				//Nouvelle fonction pour trier les encheres au sein de chaque article
+	
+				});
 
 			
-				tempListeEncheres.forEach(l->{ 
-					boolean addEnchere = true;
-					List<Enchere> remove = new ArrayList<>();
-					for (Enchere enchere : listeEncheres) {
-						if(l.getArticle().getNoArticle()==enchere.getArticle().getNoArticle()) {
-							if(l.getMontantEnchere()<=enchere.getMontantEnchere())addEnchere = false;
-							else remove.add(enchere);
-							}
-						}
-					for (Enchere enchere : remove) {
-						listeEncheres.remove(enchere);
-					}
-					if(addEnchere)listeEncheres.add(l);
-					}
-					);	
-			return listeEncheres;
+			
+			return articles;
 		}
+		
+	public List<Enchere> sort(List<Enchere> encheres){
+		Collections.sort(encheres, (ench1, ench2) -> {
+			  Enchere a = (Enchere) ench1;
+			  Enchere b = (Enchere) ench2;
+			  if (a.getMontantEnchere() > b.getMontantEnchere()) return -1;
+			  if (a.getMontantEnchere() < b.getMontantEnchere()) return 1;
+			  return 0;
+			});
+		return encheres;
+	}
 	
 	@GetMapping("/encheresDetails")
 	public String afficherEncheresDetails(Model model,@RequestParam("noArticle")int noArticle) {
@@ -216,14 +284,7 @@ public class VenteController {
 		List<Enchere> encheres = this.enchereService.getEncheresByIdArticle(noArticle);
 		articleVendu.setCreateur(utilisateur);
 		
-		Collections.sort(encheres, (ench1, ench2) -> {
-			  Enchere a = (Enchere) ench1;
-			  Enchere b = (Enchere) ench2;
-			  if (a.getMontantEnchere() > b.getMontantEnchere()) return -1;
-			  if (a.getMontantEnchere() < b.getMontantEnchere()) return 1;
-			  return 0;
-			});
-	    articleVendu.setListeEncheres(encheres); 
+	    articleVendu.setListeEncheres(this.sort(encheres)); 
 
 		model.addAttribute("articleVendu", articleVendu);
 	
@@ -252,6 +313,24 @@ public class VenteController {
 	
 	
 	
+	//Deprecated function that kept only the best bid
+//	List<Enchere> listeEncheres = new ArrayList<>();
+
+//		tempListeEncheres.forEach(l->{ 
+//			boolean addEnchere = true;
+//			List<Enchere> remove = new ArrayList<>();
+//			for (Enchere enchere : listeEncheres) {
+//				if(l.getArticle().getNoArticle()==enchere.getArticle().getNoArticle()) {
+//					if(l.getMontantEnchere()<=enchere.getMontantEnchere())addEnchere = false;
+//					else remove.add(enchere);
+//					}
+//				}
+//			for (Enchere enchere : remove) {
+//				listeEncheres.remove(enchere);
+//			}
+//			if(addEnchere)listeEncheres.add(l);
+//			}
+//			);	
 	
 	
 }

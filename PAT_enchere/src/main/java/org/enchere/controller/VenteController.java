@@ -74,6 +74,8 @@ public class VenteController {
 		ArticleVendu article = new ArticleVendu();
 		retrait.setArticle(article);
 		article.setLieuRetrait(retrait);
+		
+		
 
 		model.addAttribute("article",article);
 		model.addAttribute("listeCategories",this.categorieService.getListeCategories());
@@ -98,13 +100,18 @@ public class VenteController {
 	        Utilisateur authenticatedUser = utilisateurService.findByUsername(username);
 	        int noUtilisateur = authenticatedUser.getNoUtilisateur();
 
+	        // Sauvegarder l'article
+	       this.articleVenduService.ajouterArticle(article, noUtilisateur);
+	        
 	        // Sauvegarder l'image
 	        String cheminImage = imageService.sauvegarderImage(imageFile, article.getNoArticle());
+	        System.err.println(cheminImage);
 	        article.setCheminImage(cheminImage);
-
-	        // Sauvegarder l'article
-	        articleVenduService.ajouterArticle(article, noUtilisateur);
 	        
+
+	         
+	       
+	       
 			Retrait retrait = article.getLieuRetrait();
 			retrait.setArticle(article);
 			

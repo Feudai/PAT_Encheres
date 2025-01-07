@@ -31,7 +31,6 @@ public class RetraitDAOImpl implements RetraitDAO {
 		MapSqlParameterSource map = new MapSqlParameterSource();
 		
 		map.addValue("no_article", retrait.getArticle().getNoArticle());
-		System.out.println(retrait.getArticle().getNoArticle());
 		map.addValue("rue", retrait.getRue());
 		map.addValue("code_postal", retrait.getCodePostal());
 		map.addValue("ville", retrait.getVille());

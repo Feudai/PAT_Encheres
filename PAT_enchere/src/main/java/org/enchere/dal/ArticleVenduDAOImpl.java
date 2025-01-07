@@ -55,7 +55,6 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 			List<Enchere> listeEncheres = new ArrayList<>();
 			a.setCheminImage(rs.getString("chemin_image"));
 			u.setNoUtilisateur(rs.getInt("no_utilisateur"));
-			a.setCheminImage(rs.getString("chemin_image"));
 			a.setCreateur(u);
 			a.setNoArticle(rs.getInt("no_article"));
 			a.setNomArticle(rs.getString("nom_article"));

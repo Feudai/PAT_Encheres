@@ -91,7 +91,8 @@ public class VenteController {
 	    if (br.hasErrors()) {
 	        return "nouvelle-vente";
 	    }
-		
+
+
 	    try {
 	        // Récupérer l'utilisateur connecté
 	        String username = principal.getName();
@@ -101,15 +102,20 @@ public class VenteController {
 	        // Sauvegarder l'image
 	        String cheminImage = imageService.sauvegarderImage(imageFile, article.getNoArticle());
 	        article.setCheminImage(cheminImage);
-
+	        
 	        // Sauvegarder l'article
 	        articleVenduService.ajouterArticle(article, noUtilisateur);
 	        
+
+	        
+	        // Modifier le nom de l'image
+	        articleVenduService.modifierNomImage(cheminImage , article.getNoArticle());
+	        
+			
 			Retrait retrait = article.getLieuRetrait();
 			retrait.setArticle(article);
-			
 			this.retraitService.ajouterRetrait(retrait);
-	        
+			
 	    } catch (Exception e) {
 	        e.printStackTrace();
 	        return "nouvelle-vente";

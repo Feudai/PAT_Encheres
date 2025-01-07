@@ -90,7 +90,6 @@ public class VenteController {
 		
 		Retrait retrait = article.getLieuRetrait();
 		retrait.setArticle(article);
-		
 		this.retraitService.ajouterRetrait(retrait);
 
 		

@@ -3,7 +3,6 @@
 	<a th:href="@{accueil}"><img src="/images/pat-encheres-logo.svg" alt="" class ="logo"/></a>
 	<h1>PAT_Enchère</h1>
 	<div>
-		<a href="/">Index</a>
 		<a th:href="@{/accueil}">Accueil</a>
 		<a th:href="@{/login}" sec:authorize="!isAuthenticated()">Connexion</a>
 		<a th:href="@{/nouvelleVente}" sec:authorize="isAuthenticated()">Vendre un objet</a>

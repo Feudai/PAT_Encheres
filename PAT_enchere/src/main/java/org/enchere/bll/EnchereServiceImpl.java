@@ -19,10 +19,8 @@ public class EnchereServiceImpl implements EnchereService {
 	}
 	
 public void ajouterEnchere(Enchere enchere) {
-		//if(this.enchereDao.findByIdArticle(enchere.getArticle().getNoArticle()).stream().noneMatch(e->e.getCreateur()==enchere.getCreateur())) {
 		this.enchereDao.create(enchere);
-		//}
-		//else this.enchereDao.update(enchere);
+
 	}
 
 public List<Enchere> getEncheresByIdArticle(int idArticle) {
@@ -30,7 +28,7 @@ public List<Enchere> getEncheresByIdArticle(int idArticle) {
 }
 
 public Enchere getBestEnchere (int idArticle) {
-	Enchere best = new Enchere();
+	Enchere best = new Enchere(null, 0, null, null);
 	for (Enchere enchere : this.enchereDao.findByIdArticle(idArticle)) {
 		if(enchere.getMontantEnchere()>best.getMontantEnchere())
 			best=enchere;

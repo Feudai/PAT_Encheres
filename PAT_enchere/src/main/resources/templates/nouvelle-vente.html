@@ -7,9 +7,9 @@
     <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
-<div th:replace="~{fragments/fragment-entete::entete}"></div>
+	<div th:replace="~{fragments/fragment-entete::entete}"></div>
     <h1>Formulaire de mise en vente</h1>
-    <form th:action="@{/nouvelleVente}" th:object="${article}" method="post" enctype="multipart/form-data" >
+    <form th:action="@{/nouvelleVente}" th:object="${article}" method="post" enctype="multipart/form-data">
        
         <div class="form-group">
             <label for="idArticle">Article :</label>
@@ -28,19 +28,17 @@
                 <option th:each="c : ${listeCategories}" th:value="${c.noCategorie}" th:text="${c.libelle}">-- Choisissez une catégorie --</option>
             </select>
         </div>
-        
-      
-    <div class="form-group photo-upload">
-        <label for="photo">Photo de l'article :</label>
-        <input id="imgUpload" type="file" name="image" accept="image/*">
-    </div>
+  
+    	<div class="form-group photo-upload">
+       	 	<label for="photo">Photo de l'article :</label>
+        	<input id="imgUpload" type="file" name="image" accept="image/*">
+    	</div>
         
         <div class="form-group-half">
             <label for="miseAPrix">Mise à prix :</label>
             <input id="miseAPrix" type="number" th:field="*{miseAPrix}" placeholder="150" min="0" required>
         </div>
         
- 
         <div class="form-group-half calendar-icon">
             <label for="debutEncheres">Début de l'enchère :</label>
             <input id="debutEncheres" type="datetime-local" th:field="*{dateDebutEncheres}" required>
@@ -50,8 +48,7 @@
             <label for="finEncheres">Fin de l'enchère :</label>
             <input id="finEncheres" type="datetime-local" th:field="*{dateFinEncheres}" required>
         </div>
-        
-     
+             
         <fieldset class="form-group">
             <legend>Retrait</legend>
             <div class="form-group-half">

@@ -104,17 +104,22 @@ public class VenteController {
 	        article.setCheminImage(cheminImage);
 	        
 	        // Sauvegarder l'article
-	        articleVenduService.ajouterArticle(article, noUtilisateur);
-
+	        this.articleVenduService.ajouterArticle(article, noUtilisateur);
 	        
+	        // Instanciation de la première enchère automatique
+	        List<Enchere> initList = new ArrayList<>();
+	        ArticleVendu retrieve = this.articleVenduService.consulterArticleVenduParId(article.getNoArticle()).get(0);
+	        Enchere init = new Enchere(retrieve.getDateDebutEncheres(), retrieve.getMiseAPrix(), retrieve.getCreateur(), retrieve);
+	        this.enchereService.ajouterEnchere(init);
+
 	        // Modifier le nom de l'image
 	        articleVenduService.modifierNomImage(cheminImage , article.getNoArticle());
 	        
-			
-			Retrait retrait = article.getLieuRetrait();
+	    	Retrait retrait = article.getLieuRetrait();
 			retrait.setArticle(article);
-			this.retraitService.ajouterRetrait(retrait);
 			
+			this.retraitService.ajouterRetrait(retrait);
+
 	    } catch (Exception e) {
 	        e.printStackTrace();
 	        return "nouvelle-vente";
@@ -128,7 +133,18 @@ public class VenteController {
 	public String afficherEncheres(Model model) {
 		List<Utilisateur> utilisateurs = this.utilisateurService.consulterUtilisateurs();
 		model.addAttribute("utilisateurs", utilisateurs);
+					
+	
+		model.addAttribute("listeEncheres",this.sortEncheres());
+		model.addAttribute("listeCategories", this.categorieService.getListeCategories());
+//		model.addAttribute("article",this.articleVenduService.consulterArticleVenduParId(1));
 
+
+		return "accueil";
+	}
+	
+	//Function for sorting Encheres  
+	public List<Enchere> sortEncheres (){
 		List<Enchere> tempListeEncheres = this.enchereService.getListeEncheres();
 		List<Enchere> listeEncheres = new ArrayList<>();
 
@@ -147,32 +163,37 @@ public class VenteController {
 				}
 				if(addEnchere)listeEncheres.add(l);
 				}
-				);				
-		
-		
-		
-		model.addAttribute("listeEncheres",listeEncheres);
-		model.addAttribute("listeCategories", this.categorieService.getListeCategories());
-//		model.addAttribute("article",this.articleVenduService.consulterArticleVenduParId(1));
-
-
-		return "accueil";
+				);	
+		return listeEncheres;
 	}
 	
 	@PostMapping("/accueil")
-	public String filtrerEncheres(@RequestParam(name="categorie", defaultValue="-1")int noCategorie,@RequestParam(name="nomArticle", defaultValue="")String nomArticle, Model model) {
+	public String filtrerEncheres(@RequestParam(name="idCategorie", defaultValue="-1")String idCategorie,@RequestParam(name="search", defaultValue="")String nomArticle, Model model) {
+		List<Enchere> sortedList=this.sortEncheres();
 		List<Enchere> listeEncheres=new ArrayList<Enchere>();
 		List<Enchere> tempList=null;
-		if(noCategorie!=-1)
-		tempList =this.enchereService.getListeEncheres().stream().filter(e->e.getArticle().getCategorieArticle().getNoCategorie()==noCategorie).toList();
-		tempList.forEach(e->listeEncheres.add(e));
+		List<Utilisateur> utilisateurs = this.utilisateurService.consulterUtilisateurs();
 
-		if(!nomArticle.equals("")&&nomArticle!=null)
-		tempList =this.enchereService.getListeEncheres().stream().filter(e->e.getArticle().getNomArticle().contains(nomArticle)).toList();
-		tempList.forEach(e->listeEncheres.add(e));
+		
+		int noCategorie= Integer.parseInt(idCategorie);
+		if(noCategorie!=-1) {
+		tempList =sortedList.stream().filter(e->e.getArticle().getCategorieArticle().getNoCategorie()==noCategorie).toList();
+		tempList.forEach(e->listeEncheres.add(e));}
+
+		if(!nomArticle.equals("")&&nomArticle!=null) {
+		tempList =sortedList.stream().filter(e->e.getArticle().getNomArticle().toLowerCase().contains(nomArticle.toLowerCase())).toList();
+		
+		tempList.forEach(e->listeEncheres.add(e));}
 		//debug
-		model.addAttribute("encheresFiltrees",listeEncheres);
-		return "redirect:/accueil";
+		if(tempList==null) {
+		tempList =sortedList;
+		tempList.forEach(e->listeEncheres.add(e));}
+		
+		model.addAttribute("utilisateurs", utilisateurs);
+		model.addAttribute("listeEncheres",listeEncheres);
+		model.addAttribute("listeCategories", this.categorieService.getListeCategories());
+		
+		return "accueil";
 	}
 	
 	@GetMapping("/encheresDetails")

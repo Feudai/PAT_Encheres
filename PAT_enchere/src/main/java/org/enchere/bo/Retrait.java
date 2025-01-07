@@ -6,6 +6,7 @@ public class Retrait {
 	private String codePostal;
 	private String ville;
 	private ArticleVendu article;
+	private int idRetrait;
 		
 	
 
@@ -58,6 +59,16 @@ public class Retrait {
 
 	public void setArticle(ArticleVendu article) {
 		this.article = article;
+	}
+
+
+	public int getIdRetrait() {
+		return idRetrait;
+	}
+
+
+	public void setIdRetrait(int idRetrait) {
+		this.idRetrait = idRetrait;
 	}
 	
 	

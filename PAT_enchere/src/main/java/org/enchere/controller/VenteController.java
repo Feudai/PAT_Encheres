@@ -49,6 +49,12 @@ public class VenteController {
 		Object authenticatedUser = session.getAttribute("authenticatedUser");
 		return "Authenticated User: " + authenticatedUser.toString();
 	}
+	@GetMapping("/")
+	public String acceuilDefaut() {
+		return "redirect:/accueil";
+
+	}
+
 	
 	public VenteController(ArticleVenduService articleVenduService, EnchereService enchereService,
 			RetraitService retraitService, CategorieService categorieService,UtilisateurService utilisateurService,ImageService imageService) {
@@ -87,11 +93,6 @@ public class VenteController {
 	    }
 
 
-
-
-		
-	
-
 	    try {
 	        // Récupérer l'utilisateur connecté
 	        String username = principal.getName();
@@ -104,7 +105,7 @@ public class VenteController {
 	        
 	        // Sauvegarder l'article
 	        articleVenduService.ajouterArticle(article, noUtilisateur);
-	        
+
 	        
 	        // Modifier le nom de l'image
 	        articleVenduService.modifierNomImage(cheminImage , article.getNoArticle());

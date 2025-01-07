@@ -1,5 +1,6 @@
 package org.enchere.bo;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class Enchere {
@@ -71,6 +72,13 @@ public class Enchere {
 
 		public void setIdEnchere(int idEnchere) {
 			this.idEnchere = idEnchere;
+		}
+
+
+		@Override
+		public String toString() {
+			return "Enchere [dateEnchere=" + dateEnchere + ", montantEnchere=" + montantEnchere + ", createur="
+					+ createur + ", article=" + article + ", idEnchere=" + idEnchere + "]";
 		}
 
 		

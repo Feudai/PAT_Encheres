@@ -14,6 +14,4 @@ public interface EnchereDAO {
 
 	List<Enchere> findAll();
 
-	void update(Enchere enchere);
-
 }

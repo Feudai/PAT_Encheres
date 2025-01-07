@@ -49,6 +49,12 @@ public class VenteController {
 		Object authenticatedUser = session.getAttribute("authenticatedUser");
 		return "Authenticated User: " + authenticatedUser.toString();
 	}
+	@GetMapping("/")
+	public String acceuilDefaut() {
+		return "redirect:/accueil";
+
+	}
+
 	
 	public VenteController(ArticleVenduService articleVenduService, EnchereService enchereService,
 			RetraitService retraitService, CategorieService categorieService,UtilisateurService utilisateurService,ImageService imageService) {
@@ -85,14 +91,14 @@ public class VenteController {
 	    if (br.hasErrors()) {
 	        return "nouvelle-vente";
 	    }
-
-
 		
+<<<<<<< HEAD
 		Retrait retrait = article.getLieuRetrait();
 		retrait.setArticle(article);
 		this.retraitService.ajouterRetrait(retrait);
+=======
+>>>>>>> f935afd2d4ee4d61bbc61827aaa8f45eae874d1d
 
-		
 	
 
 	    try {
@@ -107,6 +113,12 @@ public class VenteController {
 
 	        // Sauvegarder l'article
 	        articleVenduService.ajouterArticle(article, noUtilisateur);
+	        
+			Retrait retrait = article.getLieuRetrait();
+			retrait.setArticle(article);
+			
+			this.retraitService.ajouterRetrait(retrait);
+	        
 	    } catch (Exception e) {
 	        e.printStackTrace();
 	        return "nouvelle-vente";

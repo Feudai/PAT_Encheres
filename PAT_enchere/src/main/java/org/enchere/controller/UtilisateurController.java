@@ -71,11 +71,6 @@ public class UtilisateurController {
 		return "redirect:/logout";
 	}
 
-	@GetMapping("/")
-	public String acceuilDefaut() {
-		return "accueil";
-
-	}
 
 	@GetMapping("/recuperationMotDePasse")
 	public String affichageRecupMotDePasse(Model model) {

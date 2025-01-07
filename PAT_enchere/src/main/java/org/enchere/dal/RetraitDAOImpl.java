@@ -9,6 +9,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -25,6 +27,7 @@ public class RetraitDAOImpl implements RetraitDAO {
     
 	@Override
 	public void create(Retrait retrait) {
+		
 		MapSqlParameterSource map = new MapSqlParameterSource();
 		
 		map.addValue("no_article", retrait.getArticle().getNoArticle());
@@ -34,8 +37,7 @@ public class RetraitDAOImpl implements RetraitDAO {
 		map.addValue("ville", retrait.getVille());
 		
 		jdbcTemplate.update(CREATE, map);
-		
-		
+			
 	}
 
 	@Override

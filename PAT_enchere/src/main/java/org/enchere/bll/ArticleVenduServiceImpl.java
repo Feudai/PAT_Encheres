@@ -18,6 +18,10 @@ public class ArticleVenduServiceImpl implements ArticleVenduService {
 	public 	List<ArticleVendu> 	getListeArticles(){
 		return this.articleVenduDAO.findAll();
 	}
+	
+	public 	List<ArticleVendu> 	getListeArticlesEmpty(){
+		return this.articleVenduDAO.findAllEmpty();
+	}
 
 
 	public List<ArticleVendu> ajouterArticle(ArticleVendu article, int noUtilisateur) {
@@ -29,6 +33,12 @@ public class ArticleVenduServiceImpl implements ArticleVenduService {
 	@Override
 	public List<ArticleVendu> consulterArticleVenduParId(int noArticle) {
 		return this.articleVenduDAO.findById(noArticle);
+	}
+	
+	
+	@Override
+	public List<ArticleVendu> consulterArticleVenduEmptyParId(int noArticle) {
+		return this.articleVenduDAO.findByIdEmpty(noArticle);
 	}
 
 

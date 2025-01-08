@@ -3,6 +3,7 @@ package org.enchere.dal;
 import java.util.List;
 
 import org.enchere.bo.ArticleVendu;
+import org.enchere.dal.ArticleVenduDAOImpl.ArticleRowMapper;
 
 public interface ArticleVenduDAO {
 
@@ -14,4 +15,9 @@ public interface ArticleVenduDAO {
 	List<ArticleVendu> findById(int noArticle);
 
 	void modifierNomImage(String cheminImage,int noArticle);
+	
+	List<ArticleVendu> findAllEmpty();
+	
+	List<ArticleVendu> findByIdEmpty(int noArticle);
+
 }

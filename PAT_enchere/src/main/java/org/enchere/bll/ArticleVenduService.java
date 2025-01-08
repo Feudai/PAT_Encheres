@@ -6,13 +6,15 @@ import org.enchere.bo.ArticleVendu;
 
 public interface ArticleVenduService {
 
-	
 	List<ArticleVendu> ajouterArticle(ArticleVendu article, int noUtilisateur);
 
 	List<ArticleVendu> consulterArticleVenduParId(int noArticle);
-	List<ArticleVendu> 	getListeArticles();
 
+	List<ArticleVendu> getListeArticles();
 
+	List<ArticleVendu> getListeArticlesEmpty();
 
-	void modifierNomImage(String cheminImage,int noArticle);
+	List<ArticleVendu> consulterArticleVenduEmptyParId(int noArticle);
+
+	void modifierNomImage(String cheminImage, int noArticle);
 }

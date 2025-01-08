@@ -19,13 +19,13 @@
 			<div class="aform-group">
 				<div class="cases">
 
-					<input type="radio" id="achats" name="choix" checked onchange="toggleCheckboxes(true)"/>
+					<input type="radio" id="achats" name="choix" checked onchange="toggleCheckboxes(true)" />
 					<label for="achats">Mes achats</label>
-					<input type="checkbox" class="ouv" id="enchOuv" name="enchOuv"/>
+					<input type="checkbox" class="ouv" id="enchOuv" name="enchOuv" />
 					<label for="enchOuv">Enchères ouvertes</label>
-					<input type="checkbox"  class="ouv" id="enchCours" name="enchCours"/>
+					<input type="checkbox" class="ouv" id="enchCours" name="enchCours" />
 					<label for="enchCours">Mes Enchères en Cours</label>
-					<input type="checkbox"  class="ouv" id="enchRemp" name="enchRemp"/>
+					<input type="checkbox" class="ouv" id="enchRemp" name="enchRemp" />
 					<label for="enchRemp">Mes Enchères Remportées</label>
 
 				</div>
@@ -33,22 +33,22 @@
 					<input type="radio" id="ventes" name="choix" onchange="toggleCheckboxes(false)" />
 					<label for="ventes">Mes ventes</label>
 
-					<input type="checkbox" class="fer" disabled id="venCours" name="venCours"/>
+					<input type="checkbox" class="fer" disabled id="venCours" name="venCours" />
 					<label for="venCours">Mes Ventes en Cours</label>
-					<input type="checkbox" class="fer" disabled id="venPrep" name="venPrep"/>
+					<input type="checkbox" class="fer" disabled id="venPrep" name="venPrep" />
 					<label for="VenPrep">Ventes non Débutées</label>
-					<input type="checkbox" class="fer" disabled id="venTerm" name="venTerm"/>
+					<input type="checkbox" class="fer" disabled id="venTerm" name="venTerm" />
 					<label for="venTerm">Ventes Terminées</label>
 				</div>
 				<script th:inline="javascript">
-				    function toggleCheckboxes(enable) {
-				        document.querySelectorAll('.ouv').forEach(checkbox => {
-				            checkbox.disabled = !enable;
-				        });
+					function toggleCheckboxes(enable) {
+						document.querySelectorAll('.ouv').forEach(checkbox => {
+							checkbox.disabled = !enable;
+						});
 						document.querySelectorAll('.fer').forEach(checkbox => {
-										            checkbox.disabled = enable;
-										        });
-				    }
+							checkbox.disabled = enable;
+						});
+					}
 				</script>
 			</div>
 
@@ -84,13 +84,23 @@
 							<span id="card-title" th:text="${a.nomArticle}">
 						</div>
 						<div class="auction-details">
-							<div class="bid-amount">
+							<div class="bid-amount"
+								th:if="${a.listeEncheres!=null and not #lists.isEmpty(a.listeEncheres)}">
 								<span class="label">Meilleure Proposition :</span>
-								<span th:text="${a.listeEncheres[0].montantEnchere}+' pts'">
+								<span th:text="${a.listeEncheres[0].montantEnchere}+ ' pts'">
 							</div>
-							<div class="bid-date">
+							<div class="bid-amount"
+								th:unless="${a.listeEncheres!=null and not #lists.isEmpty(a.listeEncheres)}">
+								<span class="label">Mise à Prix :</span>
+								<span th:text="${a.miseAPrix}+' pts'">
+							</div>
+							<div class="bid-date" th:if="${a.listeEncheres!=null and not #lists.isEmpty(a.listeEncheres)}">
 								<span class="label">Date limite :</span>
-								<span th:text="${a.listeEncheres[0].dateEnchere}">
+								<span th:text="${a.dateFinEncheres}">
+							</div>
+							<div class="bid-date" th:unless="${a.listeEncheres!=null and not #lists.isEmpty(a.listeEncheres)}">
+								<span class="label">Début de l'Enchère :</span>
+								<span th:text="${a.dateFinEncheres}">
 							</div>
 						</div>
 					</div>

@@ -2,32 +2,36 @@
 <html lang="fr">
 
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Liste des Encheres</title>
-	<link rel="stylesheet" href="./css/style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Liste des Encheres</title>
+<link rel="stylesheet" href="./css/style.css">
 </head>
 
 <body>
 	<div th:replace="~{fragments/fragment-entete::entete}"></div>
 	<h1>Détails de la vente</h1>
-	<form th:action="@{/encheresDetails}" th:object="${articleVendu}" method="post">
+	<form th:action="@{/encheresDetails}" th:object="${articleVendu}"
+		method="post">
 		<div class="rows">
 			<div class="form-group">
 				<div class="form-group">
 					<label for="idArticle">Article :</label>
-					<textarea id="idArticle" th:text="${articleVendu.nomArticle}" readonly="readonly"></textarea>
+					<textarea id="idArticle" th:text="${articleVendu.nomArticle}"
+						th:readonly="${!utilisateurIsAuthentificate}"></textarea>
 				</div>
 
 				<div class="form-group">
 					<label for="description">Description :</label>
-					<textarea id="description" th:text="${articleVendu.description}" readonly="readonly"></textarea>
+					<textarea id="description" th:text="${articleVendu.description}"
+						th:readonly="${!utilisateurIsAuthentificate}"></textarea>
 				</div>
 			</div>
 			<div class="form-group">
 				<div class="form-group">
 					<label for="categorieArticle">Catégorie :</label>
-					<textarea id="categorieArticle" th:text="${articleVendu.categorieArticle.libelle}"
+					<textarea id="categorieArticle"
+						th:text="${articleVendu.categorieArticle.libelle}"
 						readonly="readonly"></textarea>
 				</div>
 
@@ -36,17 +40,24 @@
 					<textarea id="montantEnchere" th:if="${articleVendu.listeEncheres!=null and not #lists.isEmpty(articleVendu.listeEncheres)}"
 						th:text="${articleVendu.listeEncheres[0].montantEnchere}+' points par '+${articleVendu.listeEncheres[0].createur.pseudo}"></textarea>
 						<textarea id="montantEnchere" th:unless="${articleVendu.listeEncheres!=null and not #lists.isEmpty(articleVendu.listeEncheres)}">Vous êtes la première personne à Enchérir</textarea>
+
 				</div>
 			</div>
 			<div class="form-group">
 				<div class="form-group">
 					<label for="miseAPrix">Mise à prix :</label>
-					<textarea id="miseAPrix" th:text="${articleVendu.miseAPrix}" readonly="readonly"></textarea>
+					<textarea id="miseAPrix" th:text="${articleVendu.miseAPrix}"
+						th:readonly="${!utilisateurIsAuthentificate}"></textarea>
 				</div>
 				<div class="form-group">
 					<label for="dateFinEncheres">Fin de l'enchère :</label>
-					<textarea id="dateFinEncheres" th:text="${articleVendu.dateFinEncheres}"
-						readonly="readonly"></textarea>
+					<textarea id="dateFinEncheres"
+						th:text="${articleVendu.dateFinEncheres}" readonly="readonly"></textarea>
+				</div>
+				<div class="form-group">
+					<label for="dateDebutEncheres">Début de l'enchère :</label>
+					<textarea id="dateDebutEncheres"
+						th:text="${articleVendu.dateDebutEncheres}" readonly="readonly"></textarea>
 				</div>
 			</div>
 			<div class="form-group">
@@ -58,8 +69,10 @@
 				</div>
 				<div class="form-group">
 					<label for="lieuRetrait">Créateur :</label>
-					<textarea id="lieuRetrait" th:text="${articleVendu.createur.pseudo}" readonly="readonly"></textarea>
+					<textarea id="lieuRetrait"
+						th:text="${articleVendu.createur.pseudo}" readonly="readonly"></textarea>
 				</div>
+				<button th:if="${utilisateurIsAuthentificate}"  sec:authorize="isAuthenticated()" type="submit">Modifier les informations</button>
 			</div>
 		</div>
 <div class="card-image">
@@ -67,18 +80,18 @@
 </div>
 
 		<input type="hidden" th:field="*{noArticle}" />
-		<fieldset class="form-group">
+		<fieldset th:if="${!utilisateurIsAuthentificate}"  sec:authorize="isAuthenticated()" class="form-group">
 			<legend>
 				<h1>Montez les Enchères !</h1>
 			</legend>
 			<div class="form-group">
-				<label for="idProposition">Proposition :</label>
-				<input id="idProposition" name="proposition" placeholder="Faites vos jeux"
+				<label for="idProposition">Proposition :</label> <input
+					id="idProposition" name="proposition" placeholder="Faites vos jeux"
 					th:value="${proposition}"></input>
 			</div>
 		</fieldset>
 
-		<button type="submit">Surenchérir</button>
+		<button th:if="${!utilisateurIsAuthentificate}"  sec:authorize="isAuthenticated()" type="submit">Surenchérir</button>
 	</form>
 
 </body>

@@ -13,11 +13,17 @@ import org.springframework.web.multipart.MultipartFile;
 @Service
 public class ImageService {
 
-    private final String uploadDir = "src/main/resources/static/images/";
+    private final String uploadDir = "C:/Users/pperrot12024/Documents/PATsave/";
 
     public String sauvegarderImage(MultipartFile file, int noArticle) throws IOException {
         if (file.isEmpty()) {
             throw new IllegalArgumentException("Le fichier est vide");
+        }
+
+        // Créer le dossier si nécessaire
+        Path cheminDossier = Paths.get(uploadDir);
+        if (!Files.exists(cheminDossier)) {
+            Files.createDirectories(cheminDossier);
         }
 
         // Renommer l'image avec le numéro d'article
@@ -26,10 +32,11 @@ public class ImageService {
         String nomFichier = "article_" + noArticle + extension;
 
         // Sauvegarder l'image
-        Path chemin = Paths.get(uploadDir, nomFichier);
-        Files.copy(file.getInputStream(), chemin, StandardCopyOption.REPLACE_EXISTING);
+        Path cheminFichier = cheminDossier.resolve(nomFichier);
+        Files.copy(file.getInputStream(), cheminFichier, StandardCopyOption.REPLACE_EXISTING);
 
         // Retourner le chemin relatif pour l'affichage
-        return "/images/" + nomFichier;
+        return "/images/" + nomFichier;  // Chemin relatif
     }
+
 }

@@ -14,6 +14,6 @@ public class WebConfig implements WebMvcConfigurer {
         
         // Pour les ressources statiques (comme le logo)
         registry.addResourceHandler("/static/**")
-               .addResourceLocations("classpath:/static/");
+               .addResourceLocations("/PAT_enchere/src/main/resources/static/images/");
     }
 }

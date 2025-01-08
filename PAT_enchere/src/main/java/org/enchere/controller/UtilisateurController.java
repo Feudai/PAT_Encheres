@@ -7,8 +7,7 @@ import org.enchere.bo.Utilisateur;
 import org.enchere.exceptions.BusinessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import jakarta.servlet.http.HttpSession;
-import jakarta.validation.Valid;
 
 @Controller
 public class UtilisateurController {
@@ -71,7 +69,6 @@ public class UtilisateurController {
 		return "redirect:/logout";
 	}
 
-
 	@GetMapping("/recuperationMotDePasse")
 	public String affichageRecupMotDePasse(Model model) {
 		model.addAttribute("utilisateur", new Utilisateur());
@@ -80,24 +77,21 @@ public class UtilisateurController {
 
 	@PostMapping("/recuperationMotDePasse/recupMotDePasse")
 	public String recupMotDePasse(@RequestParam("email") String email, Model model) {
-	    if (email == null || email.trim().isEmpty()) {
-	        System.out.println("Email non renseigné ou vide.");
-	        model.addAttribute("globalError", "Veuillez fournir un email valide.");
-	        return "recup-mot-de-passe";
-	    }
+		if (email == null || email.trim().isEmpty()) {
+			System.out.println("Email non renseigné ou vide.");
+			model.addAttribute("globalError", "Veuillez fournir un email valide.");
+			return "recup-mot-de-passe";
+		}
 
-	    try {
-	        utilisateurService.findByEmail(email);
-	        return "redirect:/login";
-	    } catch (BusinessException e) {
-	        e.printStackTrace();
-	        model.addAttribute("globalError", "Cet email n'est pas enregistré.");
-	        return "recup-mot-de-passe";
-	    }
+		try {
+			utilisateurService.findByEmail(email);
+			return "redirect:/login";
+		} catch (BusinessException e) {
+			e.printStackTrace();
+			model.addAttribute("globalError", "Cet email n'est pas enregistré.");
+			return "recup-mot-de-passe";
+		}
 	}
-
-
-
 
 	@GetMapping("/kowalski")
 	public String hiddenKowalski() {

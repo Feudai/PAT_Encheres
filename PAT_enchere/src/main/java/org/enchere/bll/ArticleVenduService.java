@@ -15,4 +15,6 @@ public interface ArticleVenduService {
 
 
 	void modifierNomImage(String cheminImage,int noArticle);
+
+	void modifierArticle(ArticleVendu article, int noUtilisateur);
 }

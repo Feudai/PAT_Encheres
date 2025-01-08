@@ -275,16 +275,28 @@ public class VenteController {
 	}
 	
 	@GetMapping("/encheresDetails")
-	public String afficherEncheresDetails(Model model,@RequestParam("noArticle")int noArticle) {
+	public String afficherEncheresDetails(Model model,@RequestParam("noArticle")int noArticle, Principal principal) {
 		
 
-
+        
 		ArticleVendu  articleVendu = this.articleVenduService.consulterArticleVenduParId(noArticle).get(0);
 		Utilisateur utilisateur = this.utilisateurService.consulterUtilisateurParId(articleVendu.getCreateur().getNoUtilisateur());
 		List<Enchere> encheres = this.enchereService.getEncheresByIdArticle(noArticle);
-		articleVendu.setCreateur(utilisateur);
 		
+		articleVendu.setCreateur(utilisateur);
 	    articleVendu.setListeEncheres(this.sort(encheres)); 
+	    
+	    boolean utilisateurIsAuthentificate = false;
+	    
+	    if (principal != null) {
+	        String username = principal.getName();
+	        Utilisateur authenticatedUser = utilisateurService.findByUsername(username);
+	        if (authenticatedUser != null && authenticatedUser.getNoUtilisateur() == articleVendu.getCreateur().getNoUtilisateur()) {
+	            utilisateurIsAuthentificate = true;
+	        }
+	    }
+	    
+	    model.addAttribute("utilisateurIsAuthentificate", utilisateurIsAuthentificate);
 
 		model.addAttribute("articleVendu", articleVendu);
 	
@@ -298,8 +310,16 @@ public class VenteController {
 		String username = principal.getName();
 		Utilisateur authenticatedUser = utilisateurService.findByUsername(username);
 		
+		int noUtilisateur = authenticatedUser.getNoUtilisateur();
+		
+		ArticleVendu article = articleVendu;
+		this.articleVenduService.modifierArticle(article, noUtilisateur);
+		
+		
 		int montant = Integer.parseInt(proposition);
 		Enchere nouvelleEnchere = new Enchere(LocalDateTime.now(),montant,authenticatedUser,articleVendu);
+		
+		
 		
 		if (nouvelleEnchere.getMontantEnchere()>this.enchereService.getBestEnchere(articleVendu.getNoArticle()).getMontantEnchere()&&this.enchereService.getBestEnchere(articleVendu.getNoArticle()).getCreateur().getNoUtilisateur()!=nouvelleEnchere.getCreateur().getNoUtilisateur()) {
 			this.enchereService.ajouterEnchere(nouvelleEnchere);

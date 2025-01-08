@@ -24,6 +24,12 @@ public class ArticleVenduServiceImpl implements ArticleVenduService {
 		this.articleVenduDAO.create(article, noUtilisateur);
 		return this.articleVenduDAO.findAll();
 	}
+	
+	@Override
+	public void modifierArticle(ArticleVendu article, int noUtilisateur) {
+		this.articleVenduDAO.modifierArticle(article, noUtilisateur);
+		
+	}
 
 
 	@Override
@@ -37,6 +43,8 @@ public class ArticleVenduServiceImpl implements ArticleVenduService {
 		this.articleVenduDAO.modifierNomImage(cheminImage,noArticle);
 		
 	}
+
+
 
 
 }

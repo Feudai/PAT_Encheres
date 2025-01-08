@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class ImageController {
-    private final String uploadDir = "C:/Users/pperrot12024/Documents/PATsave/";
+    private final String uploadDir = System.getProperty("user.home") + "\\Documents/";
 
     @GetMapping("/images/{cheminImage}")
     @ResponseBody

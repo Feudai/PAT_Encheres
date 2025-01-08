@@ -13,7 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Service
 public class ImageService {
 
-    private final String uploadDir = "C:/Users/pperrot12024/Documents/PATsave/";
+    private final String uploadDir = System.getProperty("user.home") + "\\Documents/";
 
     public String sauvegarderImage(MultipartFile imageFile, int noArticle) {
         try {

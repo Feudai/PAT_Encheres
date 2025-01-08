@@ -18,12 +18,15 @@ public class ImageService {
 
     public String sauvegarderImage(MultipartFile imageFile, int noArticle) {
         try {
+            // Générer un nom de fichier unique
             String fileName = noArticle + "_" + UUID.randomUUID().toString() + ".jpg";
+            
+            // Sauvegarder le fichier
             Path path = Paths.get(uploadDir + fileName);
             Files.copy(imageFile.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
             
-            // Retourner le chemin avec le préfixe /uploads/
-            return "/uploads/" + fileName;  // Modifié pour correspondre au nouveau chemin
+            // Retourner uniquement le nom du fichier, pas le chemin complet
+            return fileName;
         } catch (IOException e) {
             throw new RuntimeException("Erreur lors de la sauvegarde de l'image", e);
         }

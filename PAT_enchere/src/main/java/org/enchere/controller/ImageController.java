@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class ImageController {
     private final String uploadDir = "C:/Users/pperrot12024/Documents/PATsave/";
 
-    @GetMapping("/uploads/{cheminImage}")  // Changé de /images/ à /uploads/
+    @GetMapping("/images/{cheminImage}")
     @ResponseBody
     public ResponseEntity<Resource> getImage(@PathVariable("cheminImage") String cheminImage) {
         try {
@@ -25,7 +25,7 @@ public class ImageController {
             Resource resource = new FileSystemResource(imagePath);
             
             return ResponseEntity.ok()
-                .contentType(MediaType.IMAGE_JPEG)
+                .contentType(MediaType.parseMediaType("image/jpeg"))
                 .body(resource);
         } catch (Exception e) {
             return ResponseEntity.notFound().build();

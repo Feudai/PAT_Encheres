@@ -9,12 +9,11 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         // Pour les images uploadées
-        registry.addResourceHandler("/uploads/**")
+        registry.addResourceHandler("/images/**")
                .addResourceLocations("file:C:/Users/pperrot12024/Documents/PATsave/");
         
-        // Pour les ressources statiques (logo)
-        registry.addResourceHandler("/images/**")
-               .addResourceLocations("classpath:/static/images/")
-               .setCachePeriod(0);  // Désactive le cache pendant le développement
+        // Pour les ressources statiques (comme le logo)
+        registry.addResourceHandler("/static/**")
+               .addResourceLocations("classpath:/static/");
     }
 }

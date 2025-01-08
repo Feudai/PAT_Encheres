@@ -278,7 +278,8 @@ public class VenteController {
 				utilisateurIsAuthentificate = true;
 			}
 		}
-
+		if (encheres != null && !encheres.isEmpty())
+			articleVendu.setListeEncheres(this.sort(encheres));
 		model.addAttribute("utilisateurIsAuthentificate", utilisateurIsAuthentificate);
 
 		model.addAttribute("articleVendu", articleVendu);
@@ -345,23 +346,6 @@ public class VenteController {
 		});
 
 		return articles;
-	}
-
-	@GetMapping("/encheresDetails")
-	public String afficherEncheresDetails(Model model, @RequestParam("noArticle") int noArticle) {
-
-		ArticleVendu articleVendu = this.articleVenduService.consulterArticleVenduParId(noArticle).get(0);
-		Utilisateur utilisateur = this.utilisateurService
-				.consulterUtilisateurParId(articleVendu.getCreateur().getNoUtilisateur());
-		List<Enchere> encheres = this.enchereService.getEncheresByIdArticle(noArticle);
-		articleVendu.setCreateur(utilisateur);
-
-		if (encheres != null && !encheres.isEmpty())
-			articleVendu.setListeEncheres(this.sort(encheres));
-
-		model.addAttribute("articleVendu", articleVendu);
-
-		return "encheres-details";
 	}
 
 }

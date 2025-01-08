@@ -14,7 +14,12 @@ public interface ArticleVenduService {
 
 	List<ArticleVendu> getListeArticlesEmpty();
 
+
 	List<ArticleVendu> consulterArticleVenduEmptyParId(int noArticle);
 
 	void modifierNomImage(String cheminImage, int noArticle);
+
+
+	void modifierArticle(ArticleVendu article, int noUtilisateur);
+
 }

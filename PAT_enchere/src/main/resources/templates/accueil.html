@@ -102,6 +102,10 @@
 								<span class="label">Début de l'Enchère :</span>
 								<span th:text="${a.dateFinEncheres}">
 							</div>
+							<div class="card-image" th:unless="${a.listeEncheres!=null and not #lists.isEmpty(a.listeEncheres)}">
+							<span class ="label">Image</span>
+    <img th:src="@{'/images/' + ${a.cheminImage}}" alt="Image de l'article">
+</div>
 						</div>
 					</div>
 				</a>

@@ -164,91 +164,100 @@ public class VenteController {
 	@PostMapping("/accueil")
 	public String filtrerEncheres(@RequestParam(name = "idCategorie", defaultValue = "-1") String idCategorie,
 			@RequestParam(name = "search", defaultValue = "") String nomArticle,
-			
-			@RequestParam(name = "enchOuv", required=false) boolean encheresOuvertes,
-			@RequestParam(name = "enchCours", required=false) boolean encheresEnCours,
-			@RequestParam(name = "enchRemp", required=false) boolean encheresRemportees,
-			@RequestParam(name = "venCours", required=false) boolean ventesEnCours,
-			@RequestParam(name = "venPrep", required=false) boolean ventesAVenir,
-			@RequestParam(name = "venTerm", required=false) boolean ventesTerminees, Model model, Principal principal) {
+
+			@RequestParam(name = "enchOuv", required = false) boolean encheresOuvertes,
+			@RequestParam(name = "enchCours", required = false) boolean encheresEnCours,
+			@RequestParam(name = "enchRemp", required = false) boolean encheresRemportees,
+			@RequestParam(name = "venCours", required = false) boolean ventesEnCours,
+			@RequestParam(name = "venPrep", required = false) boolean ventesAVenir,
+			@RequestParam(name = "venTerm", required = false) boolean ventesTerminees, Model model,
+			Principal principal) {
 
 		System.out.println("Enchères ouvertes: " + encheresOuvertes);
-	
-		model.addAttribute("achatsChecked",encheresOuvertes||encheresEnCours||encheresRemportees);
-		model.addAttribute("ventesChecked",ventesEnCours||ventesAVenir||ventesTerminees);
 
-		model.addAttribute("enchOuv",encheresOuvertes);
-		model.addAttribute("enchCours",encheresEnCours);
-		model.addAttribute("enchRemp",encheresRemportees);
-		model.addAttribute("venCours",ventesEnCours);
-		model.addAttribute("venPrep",ventesAVenir);
-		model.addAttribute("venTerm",ventesTerminees);
-		
-		
+		model.addAttribute("achatsChecked", encheresOuvertes || encheresEnCours || encheresRemportees);
+		model.addAttribute("ventesChecked", ventesEnCours || ventesAVenir || ventesTerminees);
+
+		model.addAttribute("enchOuv", encheresOuvertes);
+		model.addAttribute("enchCours", encheresEnCours);
+		model.addAttribute("enchRemp", encheresRemportees);
+		model.addAttribute("venCours", ventesEnCours);
+		model.addAttribute("venPrep", ventesAVenir);
+		model.addAttribute("venTerm", ventesTerminees);
+
+		int nbFiltres = 8;
 		List<ArticleVendu> EncheresArticlesTriees = this.sortEncheresArticles();
 		List<ArticleVendu> listeArticles = new ArrayList<>();
-		List<ArticleVendu> tempList = null;
+		List<ArticleVendu> tempList = new ArrayList<>();
+		String message = "Aucun élément ne correspond à votre recherche";
 		List<Utilisateur> utilisateurs = this.utilisateurService.consulterUtilisateurs();
+		List<Boolean> filtres = new ArrayList<>();
+		for (int a = 0; a < nbFiltres; a++)
+			filtres.add(false);
 
 		String username = principal.getName();
 		Utilisateur authenticatedUser = utilisateurService.findByUsername(username);
 		int noUtilisateur = authenticatedUser.getNoUtilisateur();
 
 		int noCategorie = Integer.parseInt(idCategorie);
+		
+		if (!nomArticle.equals("") && nomArticle != null)
+			filtres.set(0, true);
+		else filtres.set(0, false);
+		
+		
+		if (noCategorie != -1)
+			filtres.set(1, true);
+		else filtres.set(1, false);
 
-		if (noCategorie != -1) {
-			tempList = EncheresArticlesTriees.stream()
-					.filter(a -> a.getCategorieArticle().getNoCategorie() == noCategorie).toList();
-			tempList.forEach(e -> listeArticles.add(e));
-		}
-			if(!nomArticle.equals("")&&nomArticle!=null) {
+			filtres.set(2, encheresOuvertes);
 
-			
-			tempList = EncheresArticlesTriees.stream()
-					.filter(a -> a.getNomArticle().toLowerCase().contains(nomArticle.toLowerCase())).toList();
-			tempList.forEach(e -> listeArticles.add(e));
-		}
+			filtres.set(3, encheresEnCours);
+
+			filtres.set(4, encheresRemportees);
+
+			filtres.set(5, ventesEnCours);
+
+			filtres.set(6, ventesAVenir);
+
+			filtres.set(7, ventesTerminees);
 
 		
-		if (tempList == null) {
+			tempList = EncheresArticlesTriees.stream().filter(a -> 
+			
+			
+			filtres.get(0)?(a.getNomArticle().toLowerCase().contains(nomArticle.toLowerCase())):true
+					
+			&&filtres.get(1)?(a.getCategorieArticle().getNoCategorie() == noCategorie): true
+				  
+				&&filtres.get(2)?(LocalDateTime.now().compareTo(a.getDateDebutEncheres()) >= 0):true
+				
+				&&filtres.get(3)?(LocalDateTime.now().compareTo(a.getDateDebutEncheres()) >= 0
+						&& LocalDateTime.now().compareTo(a.getDateFinEncheres()) < 0
+						&& (a.getListeEncheres()!=null)?a.getListeEncheres().get(0).getCreateur().getNoUtilisateur() == noUtilisateur:false):true
+				
+				&&filtres.get(4)?(LocalDateTime.now().compareTo(a.getDateFinEncheres()) >= 0):true
+				
+				&&filtres.get(5)?(LocalDateTime.now().compareTo(a.getDateDebutEncheres()) >= 0
+						&& LocalDateTime.now().compareTo(a.getDateFinEncheres()) < 0
+						&& a.getCreateur().getNoUtilisateur() == noUtilisateur):true
+				
+				&&filtres.get(6)?(LocalDateTime.now().compareTo(a.getDateDebutEncheres()) < 0
+						&& a.getCreateur().getNoUtilisateur() == noUtilisateur):true
+				
+				&&filtres.get(7)?(LocalDateTime.now().compareTo(a.getDateFinEncheres()) >= 0
+						&& a.getCreateur().getNoUtilisateur() == noUtilisateur):true
+				
+
+					).toList();
+			
+			EncheresArticlesTriees.forEach(a->System.err.println(a.getCategorieArticle().getNoCategorie()==noCategorie&&a.getNomArticle().toLowerCase().contains(nomArticle.toLowerCase())));
+			
+		if (tempList.isEmpty()) {
 			tempList = EncheresArticlesTriees;
-			tempList.forEach(a -> listeArticles.add(a));
+			System.err.println(message);
 		}
-
-		// checkboxes
-		if (encheresOuvertes) {
-			System.err.println("tropbien");
-			tempList = EncheresArticlesTriees.stream()
-					.filter(a -> LocalDateTime.now().compareTo(a.getDateDebutEncheres()) >= 0).toList();
-		}
-		if (encheresEnCours) { // incomplet, nécessite articlesaacheter
-			tempList = EncheresArticlesTriees.stream()
-					.filter(a -> LocalDateTime.now().compareTo(a.getDateDebutEncheres()) >= 0
-							&& LocalDateTime.now().compareTo(a.getDateFinEncheres()) < 0
-							&& a.getCreateur().getNoUtilisateur() == noUtilisateur)
-					.toList();
-		}
-		if (encheresRemportees) {
-			tempList = EncheresArticlesTriees.stream()
-					.filter(a -> LocalDateTime.now().compareTo(a.getDateDebutEncheres()) >= 0
-							&& LocalDateTime.now().compareTo(a.getDateFinEncheres()) < 0)
-					.toList();
-		}
-		if (ventesEnCours) {
-			tempList = EncheresArticlesTriees.stream()
-					.filter(a -> LocalDateTime.now().compareTo(a.getDateDebutEncheres()) >= 0
-							&& LocalDateTime.now().compareTo(a.getDateFinEncheres()) < 0
-							&& a.getCreateur().getNoUtilisateur() == noUtilisateur)
-					.toList();
-
-		}
-		if (ventesAVenir) {
-
-		}
-		if (ventesTerminees) {
-
-		}
-		// chantier
+		tempList.forEach(e -> listeArticles.add(e));
 
 		model.addAttribute("utilisateurs", utilisateurs);
 		model.addAttribute("listeArticles", listeArticles);
@@ -277,11 +286,10 @@ public class VenteController {
 		Utilisateur utilisateur = this.utilisateurService
 				.consulterUtilisateurParId(articleVendu.getCreateur().getNoUtilisateur());
 		List<Enchere> encheres = this.enchereService.getEncheresByIdArticle(noArticle);
-	
+
 		articleVendu.setCreateur(utilisateur);
 		articleVendu.setListeEncheres(this.sort(encheres));
 
-		
 		boolean utilisateurIsAuthentificate = false;
 
 		if (principal != null) {
@@ -295,8 +303,6 @@ public class VenteController {
 		if (encheres != null && !encheres.isEmpty())
 			articleVendu.setListeEncheres(this.sort(encheres));
 
-
-		
 		model.addAttribute("listCategorie", this.categorieService.getListeCategories());
 		model.addAttribute("utilisateurIsAuthentificate", utilisateurIsAuthentificate);
 
@@ -307,29 +313,27 @@ public class VenteController {
 
 	@PostMapping("/encheresDetails")
 	public String proposerPrixEnchere(@ModelAttribute ArticleVendu articleVendu,
-			@RequestParam(name ="proposition",required = false) String proposition, Principal principal) {
+			@RequestParam(name = "proposition", required = false) String proposition, Principal principal) {
 
 		String username = principal.getName();
 		Utilisateur authenticatedUser = utilisateurService.findByUsername(username);
 		int noArticle = articleVendu.getNoArticle();
 		this.articleVenduService.modifierArticle(articleVendu, noArticle);
-		
-		
-if (proposition != null) {
-	int montant = Integer.parseInt(proposition);
-	Enchere nouvelleEnchere = new Enchere(LocalDateTime.now(), montant, authenticatedUser, articleVendu);
 
-	if (articleVendu.getListeEncheres() != null && !articleVendu.getListeEncheres().isEmpty()) {
-		if (nouvelleEnchere.getMontantEnchere() > this.enchereService.getBestEnchere(articleVendu.getNoArticle())
-				.getMontantEnchere()
-				&& this.enchereService.getBestEnchere(articleVendu.getNoArticle()).getCreateur()
-						.getNoUtilisateur() != nouvelleEnchere.getCreateur().getNoUtilisateur()) {
-			this.enchereService.ajouterEnchere(nouvelleEnchere);
+		if (proposition != null) {
+			int montant = Integer.parseInt(proposition);
+			Enchere nouvelleEnchere = new Enchere(LocalDateTime.now(), montant, authenticatedUser, articleVendu);
+
+			if (articleVendu.getListeEncheres() != null && !articleVendu.getListeEncheres().isEmpty()) {
+				if (nouvelleEnchere.getMontantEnchere() > this.enchereService
+						.getBestEnchere(articleVendu.getNoArticle()).getMontantEnchere()
+						&& this.enchereService.getBestEnchere(articleVendu.getNoArticle()).getCreateur()
+								.getNoUtilisateur() != nouvelleEnchere.getCreateur().getNoUtilisateur()) {
+					this.enchereService.ajouterEnchere(nouvelleEnchere);
+				}
+			} else if (nouvelleEnchere.getMontantEnchere() > articleVendu.getMiseAPrix())
+				this.enchereService.ajouterEnchere(nouvelleEnchere);
 		}
-	} else if (nouvelleEnchere.getMontantEnchere() > articleVendu.getMiseAPrix())
-		this.enchereService.ajouterEnchere(nouvelleEnchere);
-}
-
 
 		return "redirect:/accueil";
 

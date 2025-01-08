@@ -1,11 +1,15 @@
 package org.enchere.dal;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.enchere.bo.Categorie;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -16,6 +20,21 @@ public class CategorieDAOImpl implements CategorieDAO {
 	
 	private NamedParameterJdbcTemplate jdbcTemplate;
 
+	class CategorieRowMapper implements RowMapper<Categorie>{
+
+		@Override
+		public Categorie mapRow(ResultSet rs, int rowNum) throws SQLException {
+			
+			Categorie c = new Categorie();
+			
+			c.setNoCategorie(rs.getInt("no_categorie"));
+			c.setLibelle(rs.getString("libelle"));
+
+			return c;
+		}
+		
+	}
+	
 	public CategorieDAOImpl(NamedParameterJdbcTemplate jdbcTemplate) {
 		this.jdbcTemplate = jdbcTemplate;
 	}
@@ -27,7 +46,7 @@ public class CategorieDAOImpl implements CategorieDAO {
 
 		public List<Categorie> findAll(){
 			
-			return jdbcTemplate.query(FIND_ALL, new BeanPropertyRowMapper<>(Categorie.class));
+			return jdbcTemplate.query(FIND_ALL, new CategorieRowMapper());
 		}
 
 		@Override

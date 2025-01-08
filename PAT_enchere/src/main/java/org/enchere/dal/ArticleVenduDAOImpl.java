@@ -26,7 +26,7 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 	private static final String FIND_ALL = "SELECT a.no_article, a.nom_article, a.description, a.date_debut_encheres, a.date_fin_encheres, a.prix_initial, a.prix_vente, a.no_utilisateur, a.no_categorie, a.chemin_image, u.pseudo, c.libelle, e.montant_enchere, e.id_enchere, r.rue,r.code_postal, r.ville  FROM ARTICLES_VENDUS a INNER JOIN ENCHERES e ON a.no_article = e.no_article INNER JOIN CATEGORIES c ON a.no_categorie = c.no_categorie INNER JOIN RETRAITS r ON a.no_article = r.no_article INNER JOIN UTILISATEURS u ON a.no_utilisateur=u.no_utilisateur";
 	private static final String FIND_ALL_EMPTY = "SELECT a.no_article, a.nom_article, a.description, a.date_debut_encheres, a.date_fin_encheres, a.prix_initial, a.prix_vente, a.no_utilisateur, a.no_categorie, a.chemin_image, u.pseudo, c.libelle, r.rue,r.code_postal, r.ville  FROM ARTICLES_VENDUS a INNER JOIN CATEGORIES c ON a.no_categorie = c.no_categorie INNER JOIN RETRAITS r ON a.no_article = r.no_article INNER JOIN UTILISATEURS u ON a.no_utilisateur=u.no_utilisateur";
 	private static final String FIND_BY_ID_EMPTY = "SELECT a.no_article, nom_article, a.description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, a.no_utilisateur, a.no_categorie, chemin_image, u.pseudo, c.libelle, r.rue,r.code_postal, r.ville  FROM ARTICLES_VENDUS a INNER JOIN CATEGORIES c ON a.no_categorie = c.no_categorie LEFT JOIN RETRAITS r ON a.no_article = r.no_article INNER JOIN UTILISATEURS u ON a.no_utilisateur=u.no_utilisateur WHERE a.no_article =:no_article";
-	private static final String MODIF_ARTICLE = "UPDATE ARTICLES_VENDUS SET date_debut_encheres = :date_debut_encheres, date_fin_encheres = :date_fin_encheres, description = :description, no_categorie = :no_categorie, nom_article = :nom_article, prix_initial = :prix_initial, prix_vente = :prix_vente WHERE no_article = :no_article";
+	private static final String MODIF_ARTICLE = "UPDATE ARTICLES_VENDUS SET date_debut_encheres = :date_debut_encheres, date_fin_encheres = :date_fin_encheres, description = :description, no_categorie = :no_categorie, nom_article = :nom_article, prix_initial = :prix_initial, prix_vente = :prix_vente , chemin_image = :chemin_image WHERE no_article = :no_article";
 
 	
 	private NamedParameterJdbcTemplate jdbcTemplate;
@@ -71,6 +71,7 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 			a.setMiseAPrix(rs.getInt("prix_initial"));
 			a.setPrixVente(rs.getInt("prix_vente"));
 			c.setLibelle(rs.getString("libelle"));
+			c.setNoCategorie(rs.getInt("no_categorie"));
 			a.setCategorieArticle(c);
 			e.setMontantEnchere(rs.getInt("montant_enchere"));
 			e.setCreateur(u);
@@ -177,11 +178,11 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 	}
 
 	@Override
-	public void modifierArticle(ArticleVendu article, int noUtilisateur) {
+	public void modifierArticle(ArticleVendu article, int noArticle) {
 		
 		MapSqlParameterSource map = new MapSqlParameterSource();
 
-
+		map.addValue("no_article", noArticle);
 		map.addValue("nom_article", article.getNomArticle());
 		map.addValue("description", article.getDescription());
 		map.addValue("date_debut_encheres", article.getDateDebutEncheres());
@@ -189,7 +190,8 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 		map.addValue("prix_initial", article.getMiseAPrix());
 		map.addValue("prix_vente", article.getMiseAPrix());
 		map.addValue("no_categorie", article.getCategorieArticle().getNoCategorie());
+		map.addValue("chemin_image", article.getCheminImage());
 
-		jdbcTemplate.update(MODIF_ARTICLE, map);
+		this.jdbcTemplate.update(MODIF_ARTICLE, map);
 	}
 }

@@ -14,6 +14,7 @@ import org.enchere.bll.ImageService;
 import org.enchere.bll.RetraitService;
 import org.enchere.bll.UtilisateurService;
 import org.enchere.bo.ArticleVendu;
+import org.enchere.bo.Categorie;
 import org.enchere.bo.Enchere;
 import org.enchere.bo.Retrait;
 import org.enchere.bo.Utilisateur;
@@ -264,7 +265,7 @@ public class VenteController {
 		Utilisateur utilisateur = this.utilisateurService
 				.consulterUtilisateurParId(articleVendu.getCreateur().getNoUtilisateur());
 		List<Enchere> encheres = this.enchereService.getEncheresByIdArticle(noArticle);
-
+	
 		articleVendu.setCreateur(utilisateur);
 		articleVendu.setListeEncheres(this.sort(encheres));
 
@@ -278,7 +279,11 @@ public class VenteController {
 				utilisateurIsAuthentificate = true;
 			}
 		}
+		if (encheres != null && !encheres.isEmpty())
+			articleVendu.setListeEncheres(this.sort(encheres));
 
+		System.err.println(articleVendu.getCategorieArticle().getNoCategorie());
+		model.addAttribute("listCategorie", this.categorieService.getListeCategories());
 		model.addAttribute("utilisateurIsAuthentificate", utilisateurIsAuthentificate);
 
 		model.addAttribute("articleVendu", articleVendu);
@@ -288,23 +293,29 @@ public class VenteController {
 
 	@PostMapping("/encheresDetails")
 	public String proposerPrixEnchere(@ModelAttribute ArticleVendu articleVendu,
-			@RequestParam("proposition") String proposition, Principal principal) {
+			@RequestParam(name ="proposition",required = false) String proposition, Principal principal) {
 
 		String username = principal.getName();
 		Utilisateur authenticatedUser = utilisateurService.findByUsername(username);
+		int noArticle = articleVendu.getNoArticle();
+		this.articleVenduService.modifierArticle(articleVendu, noArticle);
+		
+		
+if (proposition != null) {
+	int montant = Integer.parseInt(proposition);
+	Enchere nouvelleEnchere = new Enchere(LocalDateTime.now(), montant, authenticatedUser, articleVendu);
 
-		int montant = Integer.parseInt(proposition);
-		Enchere nouvelleEnchere = new Enchere(LocalDateTime.now(), montant, authenticatedUser, articleVendu);
-
-		if (articleVendu.getListeEncheres() != null && !articleVendu.getListeEncheres().isEmpty()) {
-			if (nouvelleEnchere.getMontantEnchere() > this.enchereService.getBestEnchere(articleVendu.getNoArticle())
-					.getMontantEnchere()
-					&& this.enchereService.getBestEnchere(articleVendu.getNoArticle()).getCreateur()
-							.getNoUtilisateur() != nouvelleEnchere.getCreateur().getNoUtilisateur()) {
-				this.enchereService.ajouterEnchere(nouvelleEnchere);
-			}
-		} else if (nouvelleEnchere.getMontantEnchere() > articleVendu.getMiseAPrix())
+	if (articleVendu.getListeEncheres() != null && !articleVendu.getListeEncheres().isEmpty()) {
+		if (nouvelleEnchere.getMontantEnchere() > this.enchereService.getBestEnchere(articleVendu.getNoArticle())
+				.getMontantEnchere()
+				&& this.enchereService.getBestEnchere(articleVendu.getNoArticle()).getCreateur()
+						.getNoUtilisateur() != nouvelleEnchere.getCreateur().getNoUtilisateur()) {
 			this.enchereService.ajouterEnchere(nouvelleEnchere);
+		}
+	} else if (nouvelleEnchere.getMontantEnchere() > articleVendu.getMiseAPrix())
+		this.enchereService.ajouterEnchere(nouvelleEnchere);
+}
+
 
 		return "redirect:/accueil";
 
@@ -345,23 +356,6 @@ public class VenteController {
 		});
 
 		return articles;
-	}
-
-	@GetMapping("/encheresDetails")
-	public String afficherEncheresDetails(Model model, @RequestParam("noArticle") int noArticle) {
-
-		ArticleVendu articleVendu = this.articleVenduService.consulterArticleVenduParId(noArticle).get(0);
-		Utilisateur utilisateur = this.utilisateurService
-				.consulterUtilisateurParId(articleVendu.getCreateur().getNoUtilisateur());
-		List<Enchere> encheres = this.enchereService.getEncheresByIdArticle(noArticle);
-		articleVendu.setCreateur(utilisateur);
-
-		if (encheres != null && !encheres.isEmpty())
-			articleVendu.setListeEncheres(this.sort(encheres));
-
-		model.addAttribute("articleVendu", articleVendu);
-
-		return "encheres-details";
 	}
 
 }

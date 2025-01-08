@@ -71,6 +71,7 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 			a.setMiseAPrix(rs.getInt("prix_initial"));
 			a.setPrixVente(rs.getInt("prix_vente"));
 			c.setLibelle(rs.getString("libelle"));
+			c.setNoCategorie(rs.getInt("no_categorie"));
 			a.setCategorieArticle(c);
 			e.setMontantEnchere(rs.getInt("montant_enchere"));
 			e.setCreateur(u);
@@ -112,6 +113,7 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 			a.setMiseAPrix(rs.getInt("prix_initial"));
 			a.setPrixVente(rs.getInt("prix_vente"));
 			c.setLibelle(rs.getString("libelle"));
+			c.setNoCategorie(rs.getInt("no_categorie"));
 			a.setCategorieArticle(c);
 			r.setRue(rs.getString("rue"));
 			r.setCodePostal(rs.getString("code_postal"));

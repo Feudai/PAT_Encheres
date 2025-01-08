@@ -125,14 +125,6 @@ public class VenteController {
 
 			this.retraitService.ajouterRetrait(retrait);
 
-			// Instanciation de la première enchère automatique
-//	        List<Enchere> initList = new ArrayList<>();
-//	        
-//	        ArticleVendu retrieve = this.articleVenduService.consulterArticleVenduParId(article.getNoArticle()).get(0);
-//	        Enchere init = new Enchere(retrieve.getDateDebutEncheres(), retrieve.getMiseAPrix(), retrieve.getCreateur(), retrieve);
-//	        
-//	        this.enchereService.ajouterEnchere(init);
-
 		} catch (Exception e) {
 			e.printStackTrace();
 			return "nouvelle-vente";
@@ -171,12 +163,42 @@ public class VenteController {
 	@PostMapping("/accueil")
 	public String filtrerEncheres(@RequestParam(name = "idCategorie", defaultValue = "-1") String idCategorie,
 			@RequestParam(name = "search", defaultValue = "") String nomArticle,
-			@RequestParam(name = "enchOuv") boolean encheresOuvertes,
-			@RequestParam(name = "enchCours") boolean encheresEnCours,
-			@RequestParam(name = "enchRemp") boolean encheresRemportees,
-			@RequestParam(name = "venCours") boolean ventesEnCours,
-			@RequestParam(name = "venPrep") boolean ventesAVenir,
-			@RequestParam(name = "venTerm") boolean ventesTerminees, Model model, Principal principal) {
+			
+			@RequestParam(name = "enchOuv", required=false) String radioChecked1,
+			@RequestParam(name = "enchCours", required=false) String radioChecked2,
+			@RequestParam(name = "enchRemp", required=false) String radioChecked3,
+			@RequestParam(name = "venCours", required=false) String radioUnchecked1,
+			@RequestParam(name = "venPrep", required=false) String radioUnchecked2,
+			@RequestParam(name = "venTerm", required=false) String radioUnchecked3,
+			
+			@RequestParam(name = "enchOuv", required=false) boolean encheresOuvertes,
+			@RequestParam(name = "enchCours", required=false) boolean encheresEnCours,
+			@RequestParam(name = "enchRemp", required=false) boolean encheresRemportees,
+			@RequestParam(name = "venCours", required=false) boolean ventesEnCours,
+			@RequestParam(name = "venPrep", required=false) boolean ventesAVenir,
+			@RequestParam(name = "venTerm", required=false) boolean ventesTerminees, Model model, Principal principal) {
+				
+		boolean radioChecked=true;
+		boolean radioUnchecked=false;
+		
+		if(radioChecked1!=null||radioChecked2!=null||radioChecked2!=null) {radioChecked=true;radioUnchecked=false;}
+		if(radioUnchecked1!=null||radioUnchecked2!=null||radioUnchecked3!=null) {radioChecked=false;radioUnchecked=true;}
+		
+		
+		model.addAttribute("radioChecked",radioChecked);
+		model.addAttribute("radioUnchecked",radioUnchecked);
+		
+		model.addAttribute("achatsChecked",encheresOuvertes||encheresEnCours||encheresRemportees);
+		model.addAttribute("ventesChecked",ventesEnCours||ventesAVenir||ventesTerminees);
+
+		model.addAttribute("enchouv",encheresOuvertes);
+		model.addAttribute("enchCours",encheresEnCours);
+		model.addAttribute("enchRemp",encheresRemportees);
+		model.addAttribute("venCours",ventesEnCours);
+		model.addAttribute("venPrep",ventesAVenir);
+		model.addAttribute("venTerm",ventesTerminees);
+		
+		
 		List<ArticleVendu> EncheresArticlesTriees = this.sortEncheresArticles();
 		List<ArticleVendu> listeArticles = new ArrayList<>();
 		List<ArticleVendu> tempList = null;
@@ -192,12 +214,16 @@ public class VenteController {
 			tempList = EncheresArticlesTriees.stream()
 					.filter(a -> a.getCategorieArticle().getNoCategorie() == noCategorie).toList();
 			tempList.forEach(e -> listeArticles.add(e));
+		}
+			if(!nomArticle.equals("")&&nomArticle!=null) {
 
+			
 			tempList = EncheresArticlesTriees.stream()
 					.filter(a -> a.getNomArticle().toLowerCase().contains(nomArticle.toLowerCase())).toList();
 			tempList.forEach(e -> listeArticles.add(e));
 		}
 
+		
 		if (tempList == null) {
 			tempList = EncheresArticlesTriees;
 			tempList.forEach(a -> listeArticles.add(a));
@@ -205,6 +231,7 @@ public class VenteController {
 
 		// checkboxes
 		if (encheresOuvertes) {
+			System.err.println("tropbien");
 			tempList = EncheresArticlesTriees.stream()
 					.filter(a -> LocalDateTime.now().compareTo(a.getDateDebutEncheres()) >= 0).toList();
 		}
@@ -268,6 +295,7 @@ public class VenteController {
 		articleVendu.setCreateur(utilisateur);
 		articleVendu.setListeEncheres(this.sort(encheres));
 
+		
 		boolean utilisateurIsAuthentificate = false;
 
 		if (principal != null) {

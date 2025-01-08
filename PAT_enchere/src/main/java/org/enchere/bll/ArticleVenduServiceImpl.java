@@ -30,8 +30,8 @@ public class ArticleVenduServiceImpl implements ArticleVenduService {
 	}
 	
 	@Override
-	public void modifierArticle(ArticleVendu article, int noUtilisateur) {
-		this.articleVenduDAO.modifierArticle(article, noUtilisateur);
+	public void modifierArticle(ArticleVendu article, int noArticle) {
+		this.articleVenduDAO.modifierArticle(article, noArticle);
 		
 	}
 

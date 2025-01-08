@@ -23,6 +23,6 @@ public interface ArticleVenduDAO {
 
 
 
-	void modifierArticle(ArticleVendu article, int noUtilisateur);
+	void modifierArticle(ArticleVendu article, int noArticle);
 
 }

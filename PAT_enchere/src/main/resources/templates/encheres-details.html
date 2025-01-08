@@ -62,9 +62,9 @@
 				</div>
 			</div>
 		</div>
-		<div class="card-image">
-			<img th:src="@{${articleVendu.cheminImage}}" alt="Image de l'article">
-		</div>
+<div class="card-image">
+    <img th:src="@{'/uploads/' + ${articleVendu.cheminImage}}" alt="Image de l'article">
+</div>
 
 		<input type="hidden" th:field="*{noArticle}" />
 		<fieldset class="form-group">

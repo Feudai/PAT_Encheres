@@ -20,7 +20,7 @@
 
 					<input type="radio" id="achats" name="choix" th:checked="${enchOuv == true || enchCours == true || enchRemp == true}" onchange="toggleCheckboxes(true)" />
 					<label for="achats">Mes achats</label>
-					<input type="checkbox" class="ouv" th:disabled="${venCours == true || venPrep == true || venTerm == true}" id="enchOuv" name="enchOuv" th:checked="${enchouv}" />
+					<input type="checkbox" class="ouv" th:disabled="${venCours == true || venPrep == true || venTerm == true}" id="enchOuv" name="enchOuv" th:checked="${enchOuv}" />
 					<label for="enchOuv">Enchères ouvertes</label>
 					<input type="checkbox" class="ouv" th:disabled="${venCours == true || venPrep == true || venTerm == true}" id="enchCours" name="enchCours" th:checked="${enchCours}" />
 					<label for="enchCours">Mes Enchères en Cours</label>

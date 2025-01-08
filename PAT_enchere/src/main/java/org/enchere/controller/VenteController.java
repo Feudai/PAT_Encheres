@@ -165,34 +165,19 @@ public class VenteController {
 	public String filtrerEncheres(@RequestParam(name = "idCategorie", defaultValue = "-1") String idCategorie,
 			@RequestParam(name = "search", defaultValue = "") String nomArticle,
 			
-			@RequestParam(name = "enchOuv", required=false) String radioChecked1,
-			@RequestParam(name = "enchCours", required=false) String radioChecked2,
-			@RequestParam(name = "enchRemp", required=false) String radioChecked3,
-			@RequestParam(name = "venCours", required=false) String radioUnchecked1,
-			@RequestParam(name = "venPrep", required=false) String radioUnchecked2,
-			@RequestParam(name = "venTerm", required=false) String radioUnchecked3,
-			
 			@RequestParam(name = "enchOuv", required=false) boolean encheresOuvertes,
 			@RequestParam(name = "enchCours", required=false) boolean encheresEnCours,
 			@RequestParam(name = "enchRemp", required=false) boolean encheresRemportees,
 			@RequestParam(name = "venCours", required=false) boolean ventesEnCours,
 			@RequestParam(name = "venPrep", required=false) boolean ventesAVenir,
 			@RequestParam(name = "venTerm", required=false) boolean ventesTerminees, Model model, Principal principal) {
-				
-		boolean radioChecked=true;
-		boolean radioUnchecked=false;
-		
-		if(radioChecked1!=null||radioChecked2!=null||radioChecked2!=null) {radioChecked=true;radioUnchecked=false;}
-		if(radioUnchecked1!=null||radioUnchecked2!=null||radioUnchecked3!=null) {radioChecked=false;radioUnchecked=true;}
-		
-		
-		model.addAttribute("radioChecked",radioChecked);
-		model.addAttribute("radioUnchecked",radioUnchecked);
-		
+
+		System.out.println("Enchères ouvertes: " + encheresOuvertes);
+	
 		model.addAttribute("achatsChecked",encheresOuvertes||encheresEnCours||encheresRemportees);
 		model.addAttribute("ventesChecked",ventesEnCours||ventesAVenir||ventesTerminees);
 
-		model.addAttribute("enchouv",encheresOuvertes);
+		model.addAttribute("enchOuv",encheresOuvertes);
 		model.addAttribute("enchCours",encheresEnCours);
 		model.addAttribute("enchRemp",encheresRemportees);
 		model.addAttribute("venCours",ventesEnCours);

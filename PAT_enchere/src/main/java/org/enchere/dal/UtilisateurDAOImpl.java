@@ -24,7 +24,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 	private static final String CREATE_UTILISATEUR = "INSERT INTO UTILISATEURS (pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe,administrateur,credit)VALUES (:pseudo,:nom,:prenom, :email, :telephone, :rue, :code_postal, :ville, :mot_de_passe,0,0)";
 	private static final String COUNT_EMAIL = "SELECT COUNT(*) FROM UTILISATEURS WHERE email = :email";
 	private static final String COUNT_PSEUDO = "SELECT COUNT(*) FROM UTILISATEURS WHERE pseudo = :pseudo";
-	private static final String DELETE_UTILISATEUR = "DELETE FROM ENCHERES WHERE no_utilisateur = no_utilisateur; DELETE FROM RETRAITS WHERE no_article IN (SELECT no_article FROM ARTICLES_VENDUS WHERE no_utilisateur = no_utilisateur);DELETE FROM ARTICLES_VENDUS WHERE no_utilisateur = :no_utilisateur; DELETE FROM UTILISATEURS WHERE no_utilisateur = :no_utilisateur";
+	private static final String DELETE_UTILISATEUR = "DELETE FROM ENCHERES WHERE no_utilisateur = :no_utilisateur; DELETE FROM RETRAITS WHERE no_article IN (SELECT no_article FROM ARTICLES_VENDUS WHERE no_utilisateur = :no_utilisateur);DELETE FROM ARTICLES_VENDUS WHERE no_utilisateur = :no_utilisateur; DELETE FROM UTILISATEURS WHERE no_utilisateur = :no_utilisateur";
 
 	private static final String RECUP_MDP = "SELECT mot_de_passe FROM UTILISATEURS WHERE no_utilisateur = :no_utilisateur";
 	

@@ -14,7 +14,7 @@ public class ArticleVendu {
 	private LocalDateTime dateFinEncheres;
 	private int miseAPrix;
 	private int prixVente;
-	private boolean etatVente;
+	private int etatVente=-1; //-1 : non débutée ; 0 : en cours ; 1 : terminée
 	private Utilisateur createur;
 	private String cheminImage;
 	
@@ -24,7 +24,7 @@ public class ArticleVendu {
 	
 	
 	public ArticleVendu(int noArticle, String nomArticle, String description, LocalDateTime dateDebutEncheres,
-			LocalDateTime dateFinEncheres, int miseAPrix, int prixVente, boolean etatVente,
+			LocalDateTime dateFinEncheres, int miseAPrix, int prixVente, int etatVente,
 			List<Enchere> listeEncheres, Retrait lieuRetrait, Categorie categorieArticle, Utilisateur createur) {
 		this.noArticle = noArticle;
 		this.nomArticle = nomArticle;
@@ -43,7 +43,7 @@ public class ArticleVendu {
 	
 	
 	public ArticleVendu(int noArticle, String nomArticle, String description, LocalDateTime dateDebutEncheres,
-			LocalDateTime dateFinEncheres, int miseAPrix, int prixVente, boolean etatVente, Utilisateur createur,
+			LocalDateTime dateFinEncheres, int miseAPrix, int prixVente, int etatVente, Utilisateur createur,
 			String cheminImage, List<Enchere> listeEncheres, Retrait lieuRetrait, Categorie categorieArticle) {
 		this.noArticle = noArticle;
 		this.nomArticle = nomArticle;
@@ -134,11 +134,11 @@ public class ArticleVendu {
 		this.prixVente = prixVente;
 	}
 
-	public boolean isEtatVente() {
+	public int isEtatVente() {
 		return etatVente;
 	}
 
-	public void setEtatVente(boolean etatVente) {
+	public void setEtatVente(int etatVente) {
 		this.etatVente = etatVente;
 	}
 

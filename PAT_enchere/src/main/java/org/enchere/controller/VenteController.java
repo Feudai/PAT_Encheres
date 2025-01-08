@@ -146,7 +146,16 @@ public class VenteController {
 	public String afficherEncheres(Model model) {
 		List<Utilisateur> utilisateurs = this.utilisateurService.consulterUtilisateurs();
 		List<ArticleVendu> EncheresArticlesTriees = this.sortEncheresArticles();
-		//System.err.println(EncheresArticlesTriees.size());
+
+		//Updating all articles state
+		LocalDateTime now = LocalDateTime.now();
+		EncheresArticlesTriees.forEach(a->{
+			
+			if(a.getDateFinEncheres().compareTo(now)<=0)a.setEtatVente(1);
+			else if(a.getDateDebutEncheres().compareTo(now)<=0) a.setEtatVente(0);
+			else a.setEtatVente(-1);
+			
+		});
 
 		model.addAttribute("utilisateurs", utilisateurs);
 		model.addAttribute("listeArticles", EncheresArticlesTriees);
@@ -255,10 +264,9 @@ public class VenteController {
 		System.err.println(tempEmpty.size());
 
 		tempEmpty.forEach(a -> {
-			if (articles.stream().noneMatch(b->b.getNoArticle()==a.getNoArticle()))
+			if (articles.stream().noneMatch(b -> b.getNoArticle() == a.getNoArticle()))
 				articles.add(a);
 		});
-
 
 		articles.forEach(a -> {
 			if (a.getListeEncheres() != null && !a.getListeEncheres().isEmpty()) {
@@ -295,8 +303,9 @@ public class VenteController {
 		List<Enchere> encheres = this.enchereService.getEncheresByIdArticle(noArticle);
 		articleVendu.setCreateur(utilisateur);
 
+		if(encheres!=null&&!encheres.isEmpty())
 		articleVendu.setListeEncheres(this.sort(encheres));
-
+			
 		model.addAttribute("articleVendu", articleVendu);
 
 		return "encheres-details";
@@ -312,13 +321,15 @@ public class VenteController {
 		int montant = Integer.parseInt(proposition);
 		Enchere nouvelleEnchere = new Enchere(LocalDateTime.now(), montant, authenticatedUser, articleVendu);
 
-		if (nouvelleEnchere.getMontantEnchere() > this.enchereService.getBestEnchere(articleVendu.getNoArticle())
-				.getMontantEnchere()
-				&& this.enchereService.getBestEnchere(articleVendu.getNoArticle()).getCreateur()
-						.getNoUtilisateur() != nouvelleEnchere.getCreateur().getNoUtilisateur()) {
+		if (articleVendu.getListeEncheres() != null && !articleVendu.getListeEncheres().isEmpty()) {
+			if (nouvelleEnchere.getMontantEnchere() > this.enchereService.getBestEnchere(articleVendu.getNoArticle())
+					.getMontantEnchere()
+					&& this.enchereService.getBestEnchere(articleVendu.getNoArticle()).getCreateur()
+							.getNoUtilisateur() != nouvelleEnchere.getCreateur().getNoUtilisateur()) {
+				this.enchereService.ajouterEnchere(nouvelleEnchere);
+			}
+		} else if(nouvelleEnchere.getMontantEnchere() >articleVendu.getMiseAPrix())
 			this.enchereService.ajouterEnchere(nouvelleEnchere);
-		} else
-			System.err.println("caca");
 
 		return "redirect:/accueil";
 	}

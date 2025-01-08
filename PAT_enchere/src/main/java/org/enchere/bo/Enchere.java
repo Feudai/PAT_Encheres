@@ -1,6 +1,5 @@
 package org.enchere.bo;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class Enchere {
@@ -73,6 +72,9 @@ public class Enchere {
 		public void setIdEnchere(int idEnchere) {
 			this.idEnchere = idEnchere;
 		}
+
+		
+
 
 
 		@Override

@@ -42,9 +42,6 @@ public class Utilisateur {
 	private int credit;
 	private boolean administrateur;
 
-	private List<ArticleVendu> articlesAVendre;
-	private List<Enchere> articlesAEncherir;
-	private List<ArticleVendu> articleAAcheter;
 
 
 	public Utilisateur(int noUtilisateur,
@@ -64,9 +61,7 @@ public class Utilisateur {
 		this.motDePasse = motDePasse;
 		this.credit = credit;
 		this.administrateur = administrateur;
-		this.articlesAVendre = articlesAVendre;
-		this.articlesAEncherir = articlesAEncherir;
-		this.articleAAcheter = articleAAcheter;
+
 	}
 
 	
@@ -174,29 +169,6 @@ public class Utilisateur {
 		this.administrateur = administrateur;
 	}
 
-	public List<ArticleVendu> getArticlesAVendre() {
-		return articlesAVendre;
-	}
-
-	public void setArticlesAVendre(List<ArticleVendu> articlesAVendre) {
-		this.articlesAVendre = articlesAVendre;
-	}
-
-	public List<Enchere> getArticlesAEncherir() {
-		return articlesAEncherir;
-	}
-
-	public void setArticlesAEncherir(List<Enchere> articlesAEncherir) {
-		this.articlesAEncherir = articlesAEncherir;
-	}
-
-	public List<ArticleVendu> getArticleAAcheter() {
-		return articleAAcheter;
-	}
-
-	public void setArticleAAcheter(List<ArticleVendu> articleAAcheter) {
-		this.articleAAcheter = articleAAcheter;
-	}
 
 
 

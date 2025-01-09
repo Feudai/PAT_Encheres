@@ -18,6 +18,7 @@ import org.enchere.bo.Categorie;
 import org.enchere.bo.Enchere;
 import org.enchere.bo.Retrait;
 import org.enchere.bo.Utilisateur;
+import org.enchere.exceptions.ImageTropGrandException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -97,42 +98,48 @@ public class VenteController {
 
 	@PostMapping("/nouvelleVente")
 	public String vendreUnArticle(@Valid @ModelAttribute ArticleVendu article,
-			@RequestParam("image") MultipartFile imageFile, Principal principal, BindingResult br) {
+	                            @RequestParam("image") MultipartFile imageFile, 
+	                            Principal principal, 
+	                            BindingResult br,
+	                            Model model) {
 
-		if (br.hasErrors()) {
-			return "nouvelle-vente";
-		}
+	    if (br.hasErrors()) {
+	        return "nouvelle-vente";
+	    }
 
-		try {
-			// Récupérer l'utilisateur connecté
-			String username = principal.getName();
-			Utilisateur authenticatedUser = utilisateurService.findByUsername(username);
-			int noUtilisateur = authenticatedUser.getNoUtilisateur();
+	    try {
+	        // Récupérer l'utilisateur connecté
+	        String username = principal.getName();
+	        Utilisateur authenticatedUser = utilisateurService.findByUsername(username);
+	        int noUtilisateur = authenticatedUser.getNoUtilisateur();
 
-			// Sauvegarder l'article
-			this.articleVenduService.ajouterArticle(article, noUtilisateur);
+	        // Sauvegarder l'article
+	        this.articleVenduService.ajouterArticle(article, noUtilisateur);
 
-			// Sauvegarder l'image
-			String cheminImage = imageService.sauvegarderImage(imageFile, article.getNoArticle());
-			System.err.println(cheminImage);
-			article.setCheminImage(cheminImage);
+	        // Sauvegarder l'image
+	        String cheminImage = imageService.sauvegarderImage(imageFile, article.getNoArticle());
+	        System.err.println(cheminImage);
+	        article.setCheminImage(cheminImage);
 
-			// Modifier le nom de l'image
-			articleVenduService.modifierNomImage(cheminImage, article.getNoArticle());
+	        // Modifier le nom de l'image
+	        articleVenduService.modifierNomImage(cheminImage, article.getNoArticle());
 
-			Retrait retrait = article.getLieuRetrait();
+	        Retrait retrait = article.getLieuRetrait();
+	        retrait.setArticle(article);
+	        this.retraitService.ajouterRetrait(retrait);
 
-			retrait.setArticle(article);
-
-			this.retraitService.ajouterRetrait(retrait);
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			return "nouvelle-vente";
-		}
-
-		return "redirect:/accueil";
-
+	        return "redirect:/accueil";
+	        
+	    } catch (ImageTropGrandException e) {
+	        // Ajouter l'erreur au BindingResult pour utiliser le fragment
+	        br.rejectValue("cheminImage", "image.tooLarge", "L'image est trop grande (maximum 5MB)");
+	        return "nouvelle-vente";
+	        
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        br.rejectValue("cheminImage", "image.error", "Une erreur est survenue lors de l'enregistrement de l'image");
+	        return "nouvelle-vente";
+	    }
 	}
 
 	@GetMapping("/accueil")

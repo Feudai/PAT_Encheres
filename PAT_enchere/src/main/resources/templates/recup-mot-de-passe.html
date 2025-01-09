@@ -1,23 +1,32 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Récupération du mot de passe</title>
-<link rel="stylesheet" href="./css/style.css" />
+    <meta charset="UTF-8">
+    <title>Récupération du mot de passe</title>
+    <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
-	<header>
-		<div th:replace="~{fragments/fragment-entete::entete}"></div>
-	</header>
-<h1>Récupération de mot de passe</h1>
-<form th:action="@{/recuperationMotDePasse/recupMotDePasse}" method="post">
-    <label for="email">Email</label>
-    <input id="email" name="email" type="email" required />
-    <button type="submit">Récupération</button>
-    <div th:if="${globalError != null}" class="error">
-        <p th:text="${globalError}"></p>
+    <div class="page-container">
+        <div th:replace="~{fragments/fragment-entete::entete}"></div>
+        
+        <main class="main-content">
+            <h1>Récupération de mot de passe</h1>
+            
+            <form th:action="@{/recuperationMotDePasse/recupMotDePasse}" method="post" class="filter-form">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input id="email" name="email" type="email" required class="form-control" />
+                </div>
+                
+                <div th:if="${globalError != null}" class="error-message">
+                    <p th:text="${globalError}"></p>
+                </div>
+                
+                <div class="buttons">
+                    <button type="submit" class="search-button">Récupération</button>
+                </div>
+            </form>
+        </main>
     </div>
-</form>
-
 </body>
 </html>

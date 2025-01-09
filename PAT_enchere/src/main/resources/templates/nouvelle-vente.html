@@ -1,79 +1,81 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Formulaire de Vente</title>
-	<link rel="stylesheet" href="./css/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nouvelle Vente</title>
+    <link rel="stylesheet" href="./css/style.css">
 </head>
-
 <body>
-	<div th:replace="~{fragments/fragment-entete::entete}"></div>
-	<h1>Formulaire de mise en vente</h1>
-	<form th:action="@{/nouvelleVente}" th:object="${article}" method="post" enctype="multipart/form-data">
+    <div class="page-container">
+        <div th:replace="~{fragments/fragment-entete::entete}"></div>
+        
+        <main class="main-content">
+            <h1>Nouvelle vente</h1>
+            
+            <form th:action="@{/nouvelleVente}" th:object="${article}" method="post" enctype="multipart/form-data" class="filter-form">
+                <div class="form-group">
+                    <label for="idArticle">Article :</label>
+                    <input type="text" id="idArticle" th:field="*{nomArticle}" placeholder="Nom de l'article" required class="form-control">
+                    <input type="hidden" th:field="*{noArticle}" />
+                </div>
 
-		<div class="form-group">
-			<label for="idArticle">Article :</label>
-			<input type="text" id="idArticle" th:field="*{nomArticle}" placeholder="Nom de l'article" required>
-			<input type="hidden" th:field="*{noArticle}" />
-		</div>
+                <div class="form-group">
+                    <label for="description">Description :</label>
+                    <textarea id="description" th:field="*{description}" placeholder="Décrivez votre article" class="form-control"></textarea>
+                </div>
 
-		<div class="form-group">
-			<label for="description">Description :</label>
-			<textarea id="description" th:field="*{description}" placeholder="Décrivez votre article"></textarea>
-		</div>
+                <div class="form-group">
+                    <label for="categorieArticle">Catégorie :</label>
+                    <select id="categorieArticle" th:field="*{categorieArticle}" class="form-control">
+                        <option th:each="c : ${listeCategories}" th:value="${c.noCategorie}" th:text="${c.libelle}">
+                            -- Choisissez une catégorie --
+                        </option>
+                    </select>
+                </div>
 
-		<div class="form-group">
-			<label for="categorieArticle">Catégorie :</label>
-			<select id="categorieArticle" th:field="*{categorieArticle}">
-				<option th:each="c : ${listeCategories}" th:value="${c.noCategorie}" th:text="${c.libelle}">--
-					Choisissez une catégorie --</option>
-			</select>
-		</div>
+                <div class="form-group photo-upload">
+                    <label for="photo">Photo de l'article :</label>
+                    <input id="imgUpload" type="file" name="image" accept="image/*" class="form-control">
+                </div>
 
-		<div class="form-group photo-upload">
-			<label for="photo">Photo de l'article :</label>
-			<input id="imgUpload" type="file" name="image" accept="image/*">
-		</div>
+                <div class="form-group-half">
+                    <label for="miseAPrix">Mise à prix :</label>
+                    <input id="miseAPrix" type="number" th:field="*{miseAPrix}" placeholder="150" min="0" required class="form-control">
+                </div>
 
-		<div class="form-group-half">
-			<label for="miseAPrix">Mise à prix :</label>
-			<input id="miseAPrix" type="number" th:field="*{miseAPrix}" placeholder="150" min="0" required>
-		</div>
+                <div class="form-group-half">
+                    <label for="debutEncheres">Début de l'enchère :</label>
+                    <input id="debutEncheres" type="datetime-local" th:field="*{dateDebutEncheres}" required class="form-control">
+                </div>
 
-		<div class="form-group-half calendar-icon">
-			<label for="debutEncheres">Début de l'enchère :</label>
-			<input id="debutEncheres" type="datetime-local" th:field="*{dateDebutEncheres}" required>
-		</div>
+                <div class="form-group-half">
+                    <label for="finEncheres">Fin de l'enchère :</label>
+                    <input id="finEncheres" type="datetime-local" th:field="*{dateFinEncheres}" required class="form-control">
+                </div>
 
-		<div class="form-group-half calendar-icon">
-			<label for="finEncheres">Fin de l'enchère :</label>
-			<input id="finEncheres" type="datetime-local" th:field="*{dateFinEncheres}" required>
-		</div>
+                <fieldset class="filter-section">
+                    <legend>Retrait</legend>
+                    <div class="form-group-half">
+                        <label for="rue">Rue :</label>
+                        <input id="rue" type="text" th:field="*{lieuRetrait.rue}" th:placeholder="${utilisateur.rue}" class="form-control">
+                    </div>
+                    <div class="form-group-half">
+                        <label for="codePostal">Code postal :</label>
+                        <input id="codePostal" type="text" th:field="*{lieuRetrait.codePostal}" th:placeholder="${utilisateur.codePostal}" class="form-control">
+                    </div>
+                    <div class="form-group-half">
+                        <label for="ville">Ville :</label>
+                        <input id="ville" type="text" th:field="*{lieuRetrait.ville}" th:placeholder="${utilisateur.ville}" class="form-control">
+                    </div>
+                </fieldset>
 
-		<fieldset class="form-group">
-			<legend>Retrait</legend>
-			<div class="form-group-half">
-				<label for="rue">Rue :</label>
-				<input id="rue" type="text" th:field="*{lieuRetrait.rue}" th:placeholder="${utilisateur.rue}" >
-			</div>
-			<div class="form-group-half">
-				<label for="codePostal">Code postal :</label>
-				<input id="codePostal" type="text" th:field="*{lieuRetrait.codePostal}"
-					th:placeholder="${utilisateur.codePostal}" >
-			</div>
-			<div class="form-group-half">
-				<label for="ville">Ville :</label>
-				<input id="ville" type="text" th:field="*{lieuRetrait.ville}" th:placeholder="${utilisateur.ville}">
-			</div>
-		</fieldset>
-
-		<div class="buttons">
-			<button type="submit">Enregistrer</button>
-			<button type="reset">Annuler</button>
-		</div>
-	</form>
+                <div class="buttons">
+                    <button type="submit" class="search-button">Enregistrer</button>
+                    <button type="reset" class="search-button">Annuler</button>
+                </div>
+            </form>
+        </main>
+    </div>
 </body>
-
 </html>

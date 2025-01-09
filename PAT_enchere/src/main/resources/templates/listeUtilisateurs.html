@@ -1,46 +1,51 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<link rel="stylesheet" href="./css/style.css" />
-<title>Insert title here</title>
+    <meta charset="UTF-8">
+    <title>Liste des utilisateurs</title>
+    <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
-	<header>
-		<div th:replace="~{fragments/fragment-entete::entete}"></div>
-	</header>
+    <div class="page-container">
+        <div th:replace="~{fragments/fragment-entete::entete}"></div>
+        
+        <main class="main-content">
+            <h1>Liste des utilisateurs</h1>
+            
+            <div class="filter-form">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Pseudo</th>
+                            <th>Email</th>
+                            <th>Crédit</th>
+                            <th>Nom Prénom</th>
+                            <th>Supprimer</th>
+                            <th>Détails</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="u : ${utilisateurs}">
+                            <td th:text="${u.pseudo}"></td>
+                            <td th:text="${u.email}"></td>
+                            <td th:text="${u.credit}"></td>
+                            <td th:text="${u.nom} + ' ' + ${u.prenom}"></td>
+                            <td>
+                                <a sec:authorize="isAuthenticated()" 
+                                   th:href="@{/listeUtilisateurs/deleteUser(noUtilisateur=${u.noUtilisateur})}"
+                                   class="search-button">Supprimer</a>
+                            </td>
+                            <td>
+                                <a th:href="@{/profil-detail(noUtilisateur=${u.noUtilisateur})}"
+                                   class="search-button">Détails</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
 
-	<table>
-		<!-- entête -->
-		<thead>
-			<tr>
-				<th>Pseudo</th>
-				<th>Email</th>
-				<th>Crédit</th>
-				<th>Nom Prénom</th>
-				<th>Supprimer</th>
- 				<th>Détails</th>
-			</tr>
-		</thead>
-		<!-- données -->
-		<tr th:each="u : ${utilisateurs}">
-			<td th:text="${u.pseudo}"></td>
-			<td th:text="${u.email}"></td>
-			<td th:text="${u.credit}"></td>
-			<td th:text="${u.nom} + ' ' + ${u.prenom}"></td>
-			<td><a sec:authorize="isAuthenticated()" th:href="@{/listeUtilisateurs/deleteUser(noUtilisateur=${u.noUtilisateur})}">Supprimer</a></td>
-			<td><a th:href="@{/profil-detail(noUtilisateur=${u.noUtilisateur})}">Détails</a></td>
-
-
-		</tr>
-
-
-	</table>
-
-
-
-
-
-	<div th:replace="~{fragments/fragment-piedpage::piedpage}"></div>
+        <div th:replace="~{fragments/fragment-piedpage::piedpage}"></div>
+    </div>
 </body>
 </html>

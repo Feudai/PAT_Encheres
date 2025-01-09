@@ -1,19 +1,17 @@
-
 <nav id="naventete" th:fragment="entete">
-	<a th:href="@{accueil}"><img th:src="@{/static/images/pat-encheres-logo.svg}" alt="Logo"></a>
-	<h1>PAT_Enchère</h1>
-	<div>
-
-		<a th:href="@{/accueil}">Accueil</a>
-		<a th:href="@{/login}" sec:authorize="!isAuthenticated()">Connexion</a>
-		<a th:href="@{/nouvelleVente}" sec:authorize="isAuthenticated()">Vendre un objet</a>
-		<a th:href="@{/profil}" sec:authorize="isAuthenticated()">Profil</a>
-		<a th:href="@{/inscription}" sec:authorize="!isAuthenticated()">Inscription</a>
-		<a th:href="@{/logout}" sec:authorize="isAuthenticated()">Se déconnecter</a>
-		<div class="admin"><a th:href="@{/listeUtilisateurs}" sec:authorize="hasRole('ROLE_ADMIN')">Liste des utilisateurs</a></div>
-		
-		
-	</div>
+    <a th:href="@{accueil}">
+        <img th:src="@{/static/images/pat-encheres-logo.svg}" alt="Logo">
+    </a>
+    <h1>PAT_Enchère</h1>
+    <div>
+        <a th:href="@{/accueil}">Accueil</a>
+        <a th:href="@{/login}" sec:authorize="!isAuthenticated()">Connexion</a>
+        <a th:href="@{/nouvelleVente}" sec:authorize="isAuthenticated()">Vendre un objet</a>
+        <a th:href="@{/profil}" sec:authorize="isAuthenticated()">Profil</a>
+        <a th:href="@{/inscription}" sec:authorize="!isAuthenticated()">Inscription</a>
+        <a th:href="@{/logout}" sec:authorize="isAuthenticated()">Se déconnecter</a>
+        <div class="admin">
+            <a th:href="@{/listeUtilisateurs}" sec:authorize="hasRole('ROLE_ADMIN')">Liste des utilisateurs</a>
+        </div>
+    </div>
 </nav>
-
-

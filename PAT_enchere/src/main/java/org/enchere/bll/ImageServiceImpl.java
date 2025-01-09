@@ -15,7 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Service
 public class ImageServiceImpl implements ImageService {
     private final String uploadDir = System.getProperty("user.home") + "\\Documents/";
-    private final long MAX_FILE_SIZE = 1 * 1024 * 1024; // 5MB en bytes
+    private final long MAX_FILE_SIZE = 1 * 1024 * 1024; // 1MB en bytes
 
     public String sauvegarderImage(MultipartFile imageFile, int noArticle) {
         try {

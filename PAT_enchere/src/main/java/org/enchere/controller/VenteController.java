@@ -97,10 +97,10 @@ public class VenteController {
 	}
 
 	@PostMapping("/nouvelleVente")
-	public String vendreUnArticle(@Valid @ModelAttribute ArticleVendu article,
+	public String vendreUnArticle(@Valid @ModelAttribute ArticleVendu article, BindingResult br, 
 	                            @RequestParam("image") MultipartFile imageFile, 
 	                            Principal principal, 
-	                            BindingResult br,
+	                            
 	                            Model model) {
 
 	    if (br.hasErrors()) {
@@ -133,7 +133,7 @@ public class VenteController {
 	    } catch (ImageTropGrandException e) {
 	        // Ajouter l'erreur au BindingResult pour utiliser le fragment
 	        br.rejectValue("cheminImage", "image.tooLarge", "L'image est trop grande (maximum 5MB)");
-	        return "nouvelle-vente";
+	        return "redirect:/nouvelle-vente";
 	        
 	    } catch (Exception e) {
 	        e.printStackTrace();

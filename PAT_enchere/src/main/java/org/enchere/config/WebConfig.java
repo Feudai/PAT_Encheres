@@ -8,12 +8,12 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        // Pour les images uploadées
-        registry.addResourceHandler("/images/**")
-               .addResourceLocations(System.getProperty("user.home") + "\\Documents/");
+        // Pour les images uploadées des articles
+        registry.addResourceHandler("/uploads/**")
+               .addResourceLocations("file:" + System.getProperty("user.home") + "/Documents/");
         
-        // Pour les ressources statiques (comme le logo)
+        // Pour le logo statique
         registry.addResourceHandler("/static/**")
-               .addResourceLocations("/PAT_enchere/src/main/resources/static/images/");
+               .addResourceLocations("classpath:/static/");
     }
 }

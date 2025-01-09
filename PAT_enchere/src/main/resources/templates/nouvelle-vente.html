@@ -16,6 +16,12 @@
             </div>
             
             <form th:action="@{/nouvelleVente}" th:object="${article}" method="post" enctype="multipart/form-data" class="filter-form sale-container">
+                            <div th:if="${#fields.hasErrors('*')}" class="error-message">
+                    <h2>Veuillez vérifier vos données</h2>
+                    <ul th:if="${#fields.hasGlobalErrors()}">
+                        <li th:each="e : ${#fields.globalErrors()}" th:text="${e}"></li>
+                    </ul>
+                </div>
                 <div class="filter-section">
                     <div class="main-info-section">
                         <div class="form-group input-wrapper">
@@ -41,6 +47,8 @@
                         <div class="form-group input-wrapper photo-upload">
                             <label for="photo">Photo de l'article :</label>
                             <input id="imgUpload" type="file" name="image" accept="image/*" class="form-control sale-input file-input">
+                               <div th:replace="~{fragments/fragment-error :: frag-error('cheminImage')}"></div>
+</div>
                         </div>
                     </div>
 

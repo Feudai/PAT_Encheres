@@ -24,6 +24,12 @@ public class RetraitServiceImpl implements RetraitService {
 		
 	}
 
+	@Override
+	public void modifierRetrait(Retrait retrait, int noArticle) {
+		this.retraitDao.modifer(retrait, noArticle);
+		
+	}
+
 
 	
 }

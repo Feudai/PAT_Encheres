@@ -792,3 +792,250 @@ footer p {
     margin-bottom: 0.5rem;
     display: block;
 }
+/* Auction Details Form Styles */
+.auction-details-form {
+    background: white;
+    border-radius: var(--border-radius);
+    padding: 2rem;
+    box-shadow: var(--card-shadow);
+    margin-bottom: 2rem;
+    width: 100%;
+}
+
+.auction-details-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+}
+
+.details-section {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.details-input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    transition: var(--transition);
+    background-color: white;
+}
+
+.details-input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px rgba(0, 128, 192, 0.2);
+}
+
+.details-select {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    background-color: white;
+    transition: var(--transition);
+}
+
+.description-area {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.details-box {
+    background-color: var(--background);
+    padding: 1rem;
+    border-radius: var(--border-radius);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.info-label {
+    font-weight: 500;
+    color: var(--text-dark);
+}
+
+.best-offer {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.offer-amount {
+    color: var(--primary-dark);
+    font-weight: 500;
+}
+
+.no-offer {
+    color: var(--text-dark);
+    font-style: italic;
+}
+
+.price-value, .date-value, .location-value, .seller-value {
+    color: var(--primary-dark);
+    font-weight: 500;
+}
+
+.pickup-details {
+    background-color: var(--background);
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+    border: 1px solid #ddd;
+}
+
+.pickup-details legend {
+    color: var(--primary-dark);
+    font-weight: 500;
+    padding: 0 0.5rem;
+}
+
+.pickup-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.auction-image {
+    grid-column: span 2;
+    width: 100%;
+    max-height: 400px;
+    overflow: hidden;
+    border-radius: var(--border-radius);
+    box-shadow: var(--card-shadow);
+}
+
+.detail-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: var(--transition);
+}
+
+.auction-image:hover .detail-image {
+    transform: scale(1.05);
+}
+
+.bid-section {
+    margin-top: 2rem;
+    text-align: center;
+}
+
+.bid-title {
+    color: var(--primary-dark);
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.bid-input-section {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.bid-input {
+    width: 100%;
+    padding: 1rem;
+    border: 2px solid var(--primary);
+    border-radius: var(--border-radius);
+    font-size: 1.1rem;
+    text-align: center;
+    transition: var(--transition);
+}
+
+.bid-input:focus {
+    outline: none;
+    border-color: var(--primary-dark);
+    box-shadow: 0 0 0 3px rgba(0, 128, 192, 0.2);
+}
+
+.action-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.delete-button {
+    background-color: var(--error);
+}
+
+.delete-button:hover {
+    background-color: #b71c1c;
+}
+
+.modify-button {
+    background-color: var(--primary);
+}
+
+.modify-button:hover {
+    background-color: var(--primary-dark);
+}
+
+.bid-button {
+    background-color: var(--success);
+    min-width: 200px;
+}
+
+.bid-button:hover {
+    background-color: #2e7d32;
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+    .auction-details-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .auction-image {
+        grid-column: span 1;
+    }
+
+    .pickup-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .action-buttons {
+        flex-direction: column;
+    }
+
+    .action-buttons button {
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .auction-details-form {
+        padding: 1rem;
+    }
+
+    .details-box {
+        flex-direction: column;
+        text-align: center;
+        gap: 0.5rem;
+    }
+
+    .bid-input-section {
+        padding: 0 1rem;
+    }
+}
+
+.price-info {
+  /* Set fixed width and height */
+  width: 33.5vw;  /* or whatever size you need */
+  height: auto;
+  
+  /* Handle overflow */
+  overflow: auto;  /* adds scrollbars if content is too long */
+  /* OR */
+  overflow-y: auto;  /* only vertical scrollbar */
+}
+
+.value, .form-control {
+  /* Prevent text from breaking layout */
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  max-width: 75%;
+}

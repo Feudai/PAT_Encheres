@@ -25,4 +25,6 @@ public interface ArticleVenduDAO {
 
 	void modifierArticle(ArticleVendu article, int noArticle);
 
+	void supprimerArticle(ArticleVendu article, int noArticle);
+
 }

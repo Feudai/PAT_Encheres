@@ -19,6 +19,7 @@ public class RetraitDAOImpl implements RetraitDAO {
 	private static final String FIND_ALL="SELECT rue, code_postal, ville FROM RETRAITS";
 	private static final String CREATE = "INSERT INTO RETRAITS (no_article, rue, code_postal, ville) VALUES (:no_article, :rue, :code_postal, :ville)";
 	private static final String MODIFY = "UPDATE RETRAITS SET rue = :rue, code_postal = :code_postal, ville = :ville WHERE no_article =:no_article";
+	private static final String SUPPRESSION = "DELETE FROM RETRAITS WHERE no_article = :no_article ";
 	
 	private NamedParameterJdbcTemplate jdbcTemplate;
 	
@@ -56,6 +57,15 @@ public class RetraitDAOImpl implements RetraitDAO {
 		map.addValue("ville", retrait.getVille());
 		
 		jdbcTemplate.update(MODIFY, map);
+	}
+
+	@Override
+	public void supprimer(Retrait retrait, int noArticle) {
+		
+		MapSqlParameterSource map = new MapSqlParameterSource();
+		map.addValue("no_article", noArticle);
+		
+		jdbcTemplate.update(SUPPRESSION, map);
 	}
 
 }

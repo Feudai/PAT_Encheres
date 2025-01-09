@@ -27,6 +27,7 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 	private static final String FIND_ALL_EMPTY = "SELECT a.no_article, a.nom_article, a.description, a.date_debut_encheres, a.date_fin_encheres, a.prix_initial, a.prix_vente, a.no_utilisateur, a.no_categorie, a.chemin_image, u.pseudo, c.libelle, r.rue,r.code_postal, r.ville  FROM ARTICLES_VENDUS a INNER JOIN CATEGORIES c ON a.no_categorie = c.no_categorie INNER JOIN RETRAITS r ON a.no_article = r.no_article INNER JOIN UTILISATEURS u ON a.no_utilisateur=u.no_utilisateur";
 	private static final String FIND_BY_ID_EMPTY = "SELECT a.no_article, nom_article, a.description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, a.no_utilisateur, a.no_categorie, chemin_image, u.pseudo, c.libelle, r.rue,r.code_postal, r.ville  FROM ARTICLES_VENDUS a INNER JOIN CATEGORIES c ON a.no_categorie = c.no_categorie LEFT JOIN RETRAITS r ON a.no_article = r.no_article INNER JOIN UTILISATEURS u ON a.no_utilisateur=u.no_utilisateur WHERE a.no_article =:no_article";
 	private static final String MODIF_ARTICLE = "UPDATE ARTICLES_VENDUS SET date_debut_encheres = :date_debut_encheres, date_fin_encheres = :date_fin_encheres, description = :description, no_categorie = :no_categorie, nom_article = :nom_article, prix_initial = :prix_initial, prix_vente = :prix_vente , chemin_image = :chemin_image WHERE no_article = :no_article";
+	private static final String SUPPRESSION = "DELETE FROM ARTICLES_VENDUS WHERE no_article = :no_article ";
 
 	
 	private NamedParameterJdbcTemplate jdbcTemplate;
@@ -195,5 +196,14 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 		System.err.println("chemin image "+article.getCheminImage());
 
 		this.jdbcTemplate.update(MODIF_ARTICLE, map);
+	}
+
+	@Override
+	public void supprimerArticle(ArticleVendu article, int noArticle) {
+		MapSqlParameterSource map = new MapSqlParameterSource();
+		map.addValue("no_article", noArticle);
+		
+		jdbcTemplate.update(SUPPRESSION, map);
+		
 	}
 }

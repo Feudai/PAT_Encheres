@@ -30,6 +30,12 @@ public class RetraitServiceImpl implements RetraitService {
 		
 	}
 
+	@Override
+	public void supprimerRetrait(Retrait retrait, int noArticle) {
+		this.retraitDao.supprimer(retrait, noArticle);
+		
+	}
+
 
 	
 }

@@ -13,4 +13,6 @@ public interface RetraitDAO {
 
 	void modifer(Retrait retrait, int noArticle);
 
+	void supprimer(Retrait retrait, int noArticle);
+
 }

@@ -22,4 +22,8 @@ public interface ArticleVenduService {
 
 	void modifierArticle(ArticleVendu article, int noArticle);
 
+	void supprimerArtice(ArticleVendu article, int noArticle);
+
+	
+
 }

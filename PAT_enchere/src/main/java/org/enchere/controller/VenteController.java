@@ -350,7 +350,7 @@ public class VenteController {
 
 	@PostMapping("/encheresDetails")
 	public String proposerPrixEnchere(@ModelAttribute ArticleVendu articleVendu,
-			@RequestParam(name = "proposition", required = false) String proposition, Principal principal) {
+			@RequestParam(name = "proposition", required = false) String proposition,@RequestParam(name = "suppresion", required = false, defaultValue = "false") boolean suppresion, Principal principal) {
 
 		String username = principal.getName();
 		Utilisateur authenticatedUser = utilisateurService.findByUsername(username);
@@ -362,6 +362,11 @@ public class VenteController {
 		retrait.setArticle(articleVendu);
 		this.retraitService.modifierRetrait(retrait, noArticle);
 
+		if (suppresion ==true) {
+			this.retraitService.supprimerRetrait(retrait, noArticle);
+			this.articleVenduService.supprimerArtice(articleVendu, noArticle);
+		}
+		
 		if (proposition != null) {
 			int montant = Integer.parseInt(proposition);
 			Enchere nouvelleEnchere = new Enchere(LocalDateTime.now(), montant, authenticatedUser, articleVendu);

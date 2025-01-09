@@ -54,6 +54,12 @@ public class ArticleVenduServiceImpl implements ArticleVenduService {
 		
 	}
 
+	@Override
+	public void supprimerArtice(ArticleVendu article, int noArticle) {
+		this.articleVenduDAO.supprimerArticle(article, noArticle);
+		
+	}
+
 
 
 

@@ -9,4 +9,6 @@ public interface RetraitService {
 
 	public void modifierRetrait(Retrait retrait, int noArticle);
 
+	public void supprimerRetrait(Retrait retrait, int noArticle);
+
 }

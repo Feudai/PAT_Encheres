@@ -175,7 +175,12 @@
 						</div>
 					</div>
 
-
+					<div class="card-actions">
+						<button
+							th:if="${utilisateurIsAuthentificate} AND ${!dateEnchereDebutDepasse}"
+							sec:authorize="isAuthenticated()" type="submit"
+							class="view-details" name="suppresion" value="true">Annuler la vente</button>
+					</div>
 					<div class="card-actions">
 						<button
 							th:if="${utilisateurIsAuthentificate} AND ${!dateEnchereDebutDepasse}"

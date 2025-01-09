@@ -291,7 +291,6 @@ public class VenteController {
 		articleVendu.setCreateur(utilisateur);
 		articleVendu.setListeEncheres(this.sort(encheres));
 		
-
 		boolean utilisateurIsAuthentificate = false;
 		boolean dateEnchereDebutDepasse = false;
 		if (principal != null) {
@@ -325,6 +324,7 @@ public class VenteController {
 		Utilisateur authenticatedUser = utilisateurService.findByUsername(username);
 		int noArticle = articleVendu.getNoArticle();
 		this.articleVenduService.modifierArticle(articleVendu, noArticle);
+		
 
 		Retrait retrait = articleVendu.getLieuRetrait();
 		retrait.setArticle(articleVendu);

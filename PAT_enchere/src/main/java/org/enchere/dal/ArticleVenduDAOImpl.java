@@ -85,7 +85,7 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 			
 			listeEncheres.add(e);
 			a.setListeEncheres(listeEncheres);
-			
+						
 			return a;
 		}
 
@@ -192,6 +192,7 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 		map.addValue("prix_vente", article.getMiseAPrix());
 		map.addValue("no_categorie", article.getCategorieArticle().getNoCategorie());
 		map.addValue("chemin_image", article.getCheminImage());
+		System.err.println("chemin image "+article.getCheminImage());
 
 		this.jdbcTemplate.update(MODIF_ARTICLE, map);
 	}

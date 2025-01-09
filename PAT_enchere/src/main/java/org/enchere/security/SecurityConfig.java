@@ -70,6 +70,10 @@ public class SecurityConfig {
                 .sessionManagement(session -> session
                         .invalidSessionUrl("/login?session=expired")
                         .maximumSessions(1) // Limite d'une session par utilisateur
+                        .and()
+                        .sessionFixation(sessionFixation -> sessionFixation
+                            .migrateSession()
+                        )
                 );
 
         return http.build();
@@ -86,7 +90,7 @@ public class SecurityConfig {
 
         // Requête pour récupérer les rôles de l'utilisateur
         jdbcUserDetailsManager.setAuthoritiesByUsernameQuery(
-        		"SELECT pseudo, CASE WHEN administrateur = 1 THEN 'ROLE_ADMIN' ELSE 'ROLE_USER' END AS authority FROM UTILISATEURS WHERE pseudo = ?");
+                "SELECT pseudo, CASE WHEN administrateur = 1 THEN 'ROLE_ADMIN' ELSE 'ROLE_USER' END AS authority FROM UTILISATEURS WHERE pseudo = ?");
 
         return jdbcUserDetailsManager;
     }

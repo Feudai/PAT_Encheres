@@ -15,36 +15,36 @@
 		method="post">
 		<div class="rows">
 			<div class="form-group">
-				<div th:if="${!utilisateurIsAuthentificate}" class="form-group">
+				<div th:if="${!utilisateurIsAuthentificate} OR (${utilisateurIsAuthentificate} AND ${dateEnchereDebutDepasse})" class="form-group">
 					<label for="idArticle">Article :</label>
 					<textarea id="idArticle" th:text="${articleVendu.nomArticle}"
 						readonly="readonly">></textarea>
 				</div>
-				<div th:if="${utilisateurIsAuthentificate}" class="form-group">
+				<div th:if="${utilisateurIsAuthentificate} AND ${!dateEnchereDebutDepasse}" class="form-group">
 					<label for="idArticle" >Article :</label>
 					<textarea id="idArticle" th:field="*{nomArticle}">></textarea>
 				</div>
 
-				<div th:if="${!utilisateurIsAuthentificate}" class="form-group">
+				<div th:if="${!utilisateurIsAuthentificate} OR (${utilisateurIsAuthentificate} AND ${dateEnchereDebutDepasse})" class="form-group">
 					<label for="description">Description :</label>
 					<textarea id="description" th:text="${articleVendu.description}"
 						readonly="readonly"></textarea>
 				</div>
-				<div th:if="${utilisateurIsAuthentificate}" class="form-group">
+				<div th:if="${utilisateurIsAuthentificate} AND ${!dateEnchereDebutDepasse}" class="form-group">
 					<label for="description">Description :</label>
 					<textarea th:field="*{description}" id="description"
 						th:text="${articleVendu.description}"></textarea>
 				</div>
 			</div>
 			<div class="form-group">
-				<div th:if="${!utilisateurIsAuthentificate}" class="form-group">
+				<div th:if="${!utilisateurIsAuthentificate} OR (${utilisateurIsAuthentificate} AND ${dateEnchereDebutDepasse})" class="form-group">
 					<label for="categorieArticle">Catégorie :</label>
 					<textarea id="categorieArticle"
 						th:text="${articleVendu.categorieArticle.libelle}"
 						readonly="readonly"></textarea>
 				</div>
 
-				<div th:if="${utilisateurIsAuthentificate}" class="form-group">
+				<div th:if="${utilisateurIsAuthentificate} AND ${!dateEnchereDebutDepasse}" class="form-group">
 					<label for="categorieArticle">Catégorie :</label> <select
 						th:field="*{categorieArticle.noCategorie}">
 						<option th:each="c : ${listCategorie}" th:value="${c.noCategorie}"
@@ -66,41 +66,41 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<div th:if="${!utilisateurIsAuthentificate}" class="form-group">
+				<div th:if="${!utilisateurIsAuthentificate} OR (${utilisateurIsAuthentificate} AND ${dateEnchereDebutDepasse})" class="form-group">
 					<label for="miseAPrix">Mise à prix :</label>
 					<textarea id="miseAPrix" th:text="${articleVendu.miseAPrix}"
 						readonly="readonly"></textarea>
 				</div>
 
-				<div th:if="${utilisateurIsAuthentificate}" class="form-group">
+				<div th:if="${utilisateurIsAuthentificate} AND ${!dateEnchereDebutDepasse}" class="form-group">
 					<label for="miseAPrix">Mise à prix :</label>
 					<textarea id="miseAPrix" th:field="*{miseAPrix}"></textarea>
 				</div>
 
-				<div th:if="${!utilisateurIsAuthentificate}" class="form-group">
+				<div th:if="${!utilisateurIsAuthentificate} OR (${utilisateurIsAuthentificate} AND ${dateEnchereDebutDepasse})" class="form-group">
 					<label for="dateFinEncheres">Fin de l'enchère :</label>
 					<textarea id="dateFinEncheres"
 						th:text="${articleVendu.dateFinEncheres}" readonly="readonly"></textarea>
 				</div>
-				<div th:if="${utilisateurIsAuthentificate}" class="form-group">
+				<div th:if="${utilisateurIsAuthentificate} AND ${!dateEnchereDebutDepasse}" class="form-group">
 					<label for="dateFinEncheres">Fin de l'enchère :</label>
 					<textarea id="dateFinEncheres" th:field="*{dateFinEncheres}"></textarea>
 				</div>
 
-				<div th:if="${!utilisateurIsAuthentificate}" class="form-group">
+				<div th:if="${!utilisateurIsAuthentificate} OR (${utilisateurIsAuthentificate} AND ${dateEnchereDebutDepasse})" class="form-group">
 					<label for="dateDebutEncheres">Début de l'enchère :</label>
 					<textarea id="dateDebutEncheres"
 						th:text="${articleVendu.dateDebutEncheres}" readonly="readonly"></textarea>
 				</div>
 
-				<div th:if="${utilisateurIsAuthentificate}" class="form-group">
+				<div th:if="${utilisateurIsAuthentificate} AND ${!dateEnchereDebutDepasse}" class="form-group">
 					<label for="dateDebutEncheres">Début de l'enchère :</label>
 					<textarea id="dateDebutEncheres" th:field="*{dateDebutEncheres}"></textarea>
 				</div>
 
 
 			</div>
-			<div th:if="${!utilisateurIsAuthentificate}" class="form-group">
+			<div th:if="${!utilisateurIsAuthentificate} OR (${utilisateurIsAuthentificate} AND ${dateEnchereDebutDepasse})" class="form-group">
 				<label for="lieuRetrait">Retrait :</label>
 				<textarea id="lieuRetrait"
 					th:text="${articleVendu.lieuRetrait.rue} +' '+ ${articleVendu.lieuRetrait.codePostal} +' ' +${articleVendu.lieuRetrait.ville}"
@@ -108,7 +108,7 @@
 			</div>
 			<div class="form-group">
 
-				<fieldset th:if="${utilisateurIsAuthentificate}" class="form-group">
+				<fieldset th:if="${utilisateurIsAuthentificate} AND ${!dateEnchereDebutDepasse}" class="form-group">
 					<legend>Retrait</legend>
 					<div class="form-group-half">
 						<label for="rue">Rue :</label> <input id="rue" type="text"
@@ -132,7 +132,7 @@
 				</div>
 
 
-				<button th:if="${utilisateurIsAuthentificate}"
+				<button th:if="${utilisateurIsAuthentificate} AND ${!dateEnchereDebutDepasse}"
 					sec:authorize="isAuthenticated()" type="submit">Modifier
 					les informations</button>
 			</div>

@@ -173,17 +173,6 @@ public class VenteController {
 			@RequestParam(name = "venTerm", required = false) boolean ventesTerminees, Model model,
 			Principal principal) {
 
-		System.out.println("Enchères ouvertes: " + encheresOuvertes);
-
-		model.addAttribute("achatsChecked", encheresOuvertes || encheresEnCours || encheresRemportees);
-		model.addAttribute("ventesChecked", ventesEnCours || ventesAVenir || ventesTerminees);
-
-		model.addAttribute("enchOuv", encheresOuvertes);
-		model.addAttribute("enchCours", encheresEnCours);
-		model.addAttribute("enchRemp", encheresRemportees);
-		model.addAttribute("venCours", ventesEnCours);
-		model.addAttribute("venPrep", ventesAVenir);
-		model.addAttribute("venTerm", ventesTerminees);
 
 		int nbFiltres = 8;
 		List<ArticleVendu> EncheresArticlesTriees = this.sortEncheresArticles();
@@ -271,9 +260,9 @@ public class VenteController {
 
 			if (choix)
 
-				result = result && a.getCreateur().getNoUtilisateur() != noUtilisateur;
+				result = result && (a.getListeEncheres()!=null&&(a.getCreateur().getNoUtilisateur() != noUtilisateur&&a.getListeEncheres().stream().anyMatch(e->e.getCreateur().getNoUtilisateur()==noUtilisateur)));
 			else
-				result = result && a.getCreateur().getNoUtilisateur() == noUtilisateur;
+				result = result &&a.getCreateur().getNoUtilisateur() == noUtilisateur;
 
 			return result;
 		}).toList();
@@ -287,6 +276,16 @@ public class VenteController {
 		}
 		tempList.forEach(e -> listeArticles.add(e));
 		
+		
+		model.addAttribute("achatsChecked", encheresOuvertes || encheresEnCours || encheresRemportees);
+		model.addAttribute("ventesChecked", ventesEnCours || ventesAVenir || ventesTerminees);
+
+		model.addAttribute("enchOuv", encheresOuvertes);
+		model.addAttribute("enchCours", encheresEnCours);
+		model.addAttribute("enchRemp", encheresRemportees);
+		model.addAttribute("venCours", ventesEnCours);
+		model.addAttribute("venPrep", ventesAVenir);
+		model.addAttribute("venTerm", ventesTerminees);
 		model.addAttribute("choix",choix);
 
 		model.addAttribute("error", error);

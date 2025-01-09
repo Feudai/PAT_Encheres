@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Profile</title>
+    <title>Inscription</title>
     <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
@@ -16,7 +16,7 @@
                 <h1>PAT_Enchères</h1>
             </div>
 
-            <form th:action="@{/createUser}" th:object="${utilisateur}" method="post" class="filter-form">
+            <form th:action="@{/createUser}" th:object="${utilisateur}" method="post" class="filter-form registration-container">
                 <div th:if="${#fields.hasErrors('*')}" class="error-message">
                     <h2>Veuillez vérifier vos données</h2>
                     <ul th:if="${#fields.hasGlobalErrors()}">
@@ -24,78 +24,82 @@
                     </ul>
                 </div>
 
-                <h2>Mon profil</h2>
-
-                <div class="filter-options">
-                    <div class="filter-group">
-                        <label for="pseudo">Pseudo</label>
-                        <input id="pseudo" th:field="*{pseudo}" type="text" required />
-                        <div th:replace="~{fragments/fragment-error :: frag-error('pseudo')}"></div>
-                    </div>
-
-                    <div class="filter-group">
-                        <label for="prenom">Prénom</label>
-                        <input id="prenom" type="text" th:field="*{prenom}" />
-                        <div th:replace="~{fragments/fragment-error :: frag-error('prenom')}"></div>
-                    </div>
-
-                    <div class="filter-group">
-                        <label for="telephone">Téléphone</label>
-                        <input id="telephone" type="text" th:field="*{telephone}" />
-                        <div th:replace="~{fragments/fragment-error :: frag-error('telephone')}"></div>
-                    </div>
-
-                    <div class="filter-group">
-                        <label for="codePostal">Code Postal</label>
-                        <input id="codePostal" type="text" th:field="*{codePostal}" />
-                        <div th:replace="~{fragments/fragment-error :: frag-error('codePostal')}"></div>
-                    </div>
-
-                    <div class="filter-group">
-                        <label for="motDePasse">Mot de passe</label>
-                        <input id="motDePasse" type="password" th:field="*{motDePasse}" />
-                        <div th:replace="~{fragments/fragment-error :: frag-error('motDePasse')}"></div>
-                    </div>
-
-                    <div class="filter-group">
-                        <label for="nom">Nom</label>
-                        <input id="nom" type="text" th:field="*{nom}" />
-                        <div th:replace="~{fragments/fragment-error :: frag-error('nom')}"></div>
-                    </div>
-
-                    <div class="filter-group">
-                        <label for="email">Email</label>
-                        <input id="email" type="email" th:field="*{email}" />
-                        <div th:replace="~{fragments/fragment-error :: frag-error('email')}"></div>
-                    </div>
-
-                    <div class="filter-group">
-                        <label for="rue">Rue</label>
-                        <input id="rue" type="text" th:field="*{rue}" />
-                        <div th:replace="~{fragments/fragment-error :: frag-error('rue')}"></div>
-                    </div>
-
-                    <div class="filter-group">
-                        <label for="ville">Ville</label>
-                        <input id="ville" type="text" th:field="*{ville}" />
-                        <div th:replace="~{fragments/fragment-error :: frag-error('ville')}"></div>
-                    </div>
-
-                    <div class="filter-group">
-                        <label for="confirmationMotDePasse">Confirmation</label>
-                        <input id="confirmationMotDePasse" type="password" th:field="*{confirmationMotDePasse}" />
-                        <div th:replace="~{fragments/fragment-error :: frag-error('confirmationMotDePasse')}"></div>
-                    </div>
+                <div class="form-header">
+                    <h2>Mon profil</h2>
                 </div>
 
-                <div class="card-actions">
-                    <button type="submit" class="view-details">Créer</button>
-                    <button type="button" class="seller-info">Annuler</button>
+                <div class="filter-section">
+                    <div class="form-grid">
+                        <div class="filter-group input-wrapper">
+                            <label for="pseudo">Pseudo</label>
+                            <input id="pseudo" th:field="*{pseudo}" type="text" required class="form-control registration-input"/>
+                            <div th:replace="~{fragments/fragment-error :: frag-error('pseudo')}" class="field-error"></div>
+                        </div>
+
+                        <div class="filter-group input-wrapper">
+                            <label for="prenom">Prénom</label>
+                            <input id="prenom" type="text" th:field="*{prenom}" class="form-control registration-input"/>
+                            <div th:replace="~{fragments/fragment-error :: frag-error('prenom')}" class="field-error"></div>
+                        </div>
+
+                        <div class="filter-group input-wrapper">
+                            <label for="telephone">Téléphone</label>
+                            <input id="telephone" type="text" th:field="*{telephone}" class="form-control registration-input"/>
+                            <div th:replace="~{fragments/fragment-error :: frag-error('telephone')}" class="field-error"></div>
+                        </div>
+
+                        <div class="filter-group input-wrapper">
+                            <label for="codePostal">Code Postal</label>
+                            <input id="codePostal" type="text" th:field="*{codePostal}" class="form-control registration-input"/>
+                            <div th:replace="~{fragments/fragment-error :: frag-error('codePostal')}" class="field-error"></div>
+                        </div>
+
+                        <div class="filter-group input-wrapper">
+                            <label for="motDePasse">Mot de passe</label>
+                            <input id="motDePasse" type="password" th:field="*{motDePasse}" class="form-control registration-input"/>
+                            <div th:replace="~{fragments/fragment-error :: frag-error('motDePasse')}" class="field-error"></div>
+                        </div>
+
+                        <div class="filter-group input-wrapper">
+                            <label for="nom">Nom</label>
+                            <input id="nom" type="text" th:field="*{nom}" class="form-control registration-input"/>
+                            <div th:replace="~{fragments/fragment-error :: frag-error('nom')}" class="field-error"></div>
+                        </div>
+
+                        <div class="filter-group input-wrapper">
+                            <label for="email">Email</label>
+                            <input id="email" type="email" th:field="*{email}" class="form-control registration-input"/>
+                            <div th:replace="~{fragments/fragment-error :: frag-error('email')}" class="field-error"></div>
+                        </div>
+
+                        <div class="filter-group input-wrapper">
+                            <label for="rue">Rue</label>
+                            <input id="rue" type="text" th:field="*{rue}" class="form-control registration-input"/>
+                            <div th:replace="~{fragments/fragment-error :: frag-error('rue')}" class="field-error"></div>
+                        </div>
+
+                        <div class="filter-group input-wrapper">
+                            <label for="ville">Ville</label>
+                            <input id="ville" type="text" th:field="*{ville}" class="form-control registration-input"/>
+                            <div th:replace="~{fragments/fragment-error :: frag-error('ville')}" class="field-error"></div>
+                        </div>
+
+                        <div class="filter-group input-wrapper">
+                            <label for="confirmationMotDePasse">Confirmation</label>
+                            <input id="confirmationMotDePasse" type="password" th:field="*{confirmationMotDePasse}" class="form-control registration-input"/>
+                            <div th:replace="~{fragments/fragment-error :: frag-error('confirmationMotDePasse')}" class="field-error"></div>
+                        </div>
+                    </div>
+
+                    <div class="registration-actions">
+                        <button type="submit" class="search-button create-button">Créer</button>
+                        <button type="button" class="search-button cancel-button">Annuler</button>
+                    </div>
                 </div>
             </form>
         </main>
 
-        <div th:replace="~{fragments/fragment-piedpage::piedpage}"></div>
+        <footer th:replace="~{fragments/fragment-piedpage::piedpage}"></footer>
     </div>
 </body>
 </html>

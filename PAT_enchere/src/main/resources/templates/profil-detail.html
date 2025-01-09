@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -9,54 +10,58 @@
         <div th:replace="~{fragments/fragment-entete::entete}"></div>
         
         <main class="main-content">
-            <h1>Détails du profil</h1>
+            <div class="header-section">
+                <h1>Détails du profil</h1>
+            </div>
             
-            <form th:action="@{/profil-detail}" method="post" th:object="${utilisateur}" class="filter-form">
-                <div class="form-section">
-                    <div class="form-group-half">
-                        <label for="idPseudo">Pseudo :</label>
-                        <input type="text" th:field="${utilisateur.pseudo}" readonly="readonly" class="form-control"/>
-                    </div>
-                    
-                    <div class="form-group-half">
-                        <label for="idNom">Nom :</label>
-                        <input type="text" th:field="${utilisateur.nom}" readonly="readonly" class="form-control"/>
-                    </div>
-                    
-                    <div class="form-group-half">
-                        <label for="idPrenom">Prénom :</label>
-                        <input type="text" th:field="${utilisateur.prenom}" readonly="readonly" class="form-control"/>
-                    </div>
-                    
-                    <div class="form-group-half">
-                        <label for="idEmail">Email :</label>
-                        <input type="text" th:field="${utilisateur.email}" readonly="readonly" class="form-control"/>
-                    </div>
-                    
-                    <div class="form-group-half">
-                        <label for="idTelephone">Téléphone :</label>
-                        <input type="text" th:field="${utilisateur.telephone}" readonly="readonly" class="form-control"/>
-                    </div>
-                    
-                    <div class="form-group-half">
-                        <label for="idRue">Rue :</label>
-                        <input type="text" th:field="${utilisateur.rue}" readonly="readonly" class="form-control"/>
-                    </div>
-                    
-                    <div class="form-group-half">
-                        <label for="idCodePostal">Code Postal :</label>
-                        <input type="text" th:field="${utilisateur.codePostal}" readonly="readonly" class="form-control"/>
-                    </div>
-                    
-                    <div class="form-group-half">
-                        <label for="idVille">Ville :</label>
-                        <input type="text" th:field="${utilisateur.ville}" readonly="readonly" class="form-control"/>
+            <form th:action="@{/profil-detail}" method="post" th:object="${utilisateur}" class="filter-form profile-container">
+                <div class="filter-section">
+                    <div class="form-grid">
+                        <div class="form-group-half input-wrapper">
+                            <label for="idPseudo">Pseudo :</label>
+                            <input type="text" th:field="${utilisateur.pseudo}" readonly="readonly" class="form-control profile-input readonly"/>
+                        </div>
+                        
+                        <div class="form-group-half input-wrapper">
+                            <label for="idNom">Nom :</label>
+                            <input type="text" th:field="${utilisateur.nom}" readonly="readonly" class="form-control profile-input readonly"/>
+                        </div>
+                        
+                        <div class="form-group-half input-wrapper">
+                            <label for="idPrenom">Prénom :</label>
+                            <input type="text" th:field="${utilisateur.prenom}" readonly="readonly" class="form-control profile-input readonly"/>
+                        </div>
+                        
+                        <div class="form-group-half input-wrapper">
+                            <label for="idEmail">Email :</label>
+                            <input type="text" th:field="${utilisateur.email}" readonly="readonly" class="form-control profile-input readonly"/>
+                        </div>
+                        
+                        <div class="form-group-half input-wrapper">
+                            <label for="idTelephone">Téléphone :</label>
+                            <input type="text" th:field="${utilisateur.telephone}" readonly="readonly" class="form-control profile-input readonly"/>
+                        </div>
+                        
+                        <div class="form-group-half input-wrapper">
+                            <label for="idRue">Rue :</label>
+                            <input type="text" th:field="${utilisateur.rue}" readonly="readonly" class="form-control profile-input readonly"/>
+                        </div>
+                        
+                        <div class="form-group-half input-wrapper">
+                            <label for="idCodePostal">Code Postal :</label>
+                            <input type="text" th:field="${utilisateur.codePostal}" readonly="readonly" class="form-control profile-input readonly"/>
+                        </div>
+                        
+                        <div class="form-group-half input-wrapper">
+                            <label for="idVille">Ville :</label>
+                            <input type="text" th:field="${utilisateur.ville}" readonly="readonly" class="form-control profile-input readonly"/>
+                        </div>
                     </div>
                 </div>
             </form>
         </main>
 
-        <div th:replace="~{fragments/fragment-piedpage::piedpage}"></div>
+        <footer th:replace="~{fragments/fragment-piedpage::piedpage}"></footer>
     </div>
 </body>
 </html>

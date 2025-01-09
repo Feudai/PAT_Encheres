@@ -11,71 +11,83 @@
         <div th:replace="~{fragments/fragment-entete::entete}"></div>
         
         <main class="main-content">
-            <h1>Nouvelle vente</h1>
+            <div class="header-section">
+                <h1>Nouvelle vente</h1>
+            </div>
             
-            <form th:action="@{/nouvelleVente}" th:object="${article}" method="post" enctype="multipart/form-data" class="filter-form">
-                <div class="form-group">
-                    <label for="idArticle">Article :</label>
-                    <input type="text" id="idArticle" th:field="*{nomArticle}" placeholder="Nom de l'article" required class="form-control">
-                    <input type="hidden" th:field="*{noArticle}" />
-                </div>
+            <form th:action="@{/nouvelleVente}" th:object="${article}" method="post" enctype="multipart/form-data" class="filter-form sale-container">
+                <div class="filter-section">
+                    <div class="main-info-section">
+                        <div class="form-group input-wrapper">
+                            <label for="idArticle">Article :</label>
+                            <input type="text" id="idArticle" th:field="*{nomArticle}" placeholder="Nom de l'article" required class="form-control sale-input">
+                            <input type="hidden" th:field="*{noArticle}" />
+                        </div>
 
-                <div class="form-group">
-                    <label for="description">Description :</label>
-                    <textarea id="description" th:field="*{description}" placeholder="Décrivez votre article" class="form-control"></textarea>
-                </div>
+                        <div class="form-group input-wrapper">
+                            <label for="description">Description :</label>
+                            <textarea id="description" th:field="*{description}" placeholder="Décrivez votre article" class="form-control sale-input description-input"></textarea>
+                        </div>
 
-                <div class="form-group">
-                    <label for="categorieArticle">Catégorie :</label>
-                    <select id="categorieArticle" th:field="*{categorieArticle}" class="form-control">
-                        <option th:each="c : ${listeCategories}" th:value="${c.noCategorie}" th:text="${c.libelle}">
-                            -- Choisissez une catégorie --
-                        </option>
-                    </select>
-                </div>
+                        <div class="form-group input-wrapper">
+                            <label for="categorieArticle">Catégorie :</label>
+                            <select id="categorieArticle" th:field="*{categorieArticle}" class="form-control sale-input">
+                                <option th:each="c : ${listeCategories}" th:value="${c.noCategorie}" th:text="${c.libelle}">
+                                    -- Choisissez une catégorie --
+                                </option>
+                            </select>
+                        </div>
 
-                <div class="form-group photo-upload">
-                    <label for="photo">Photo de l'article :</label>
-                    <input id="imgUpload" type="file" name="image" accept="image/*" class="form-control">
-                </div>
-
-                <div class="form-group-half">
-                    <label for="miseAPrix">Mise à prix :</label>
-                    <input id="miseAPrix" type="number" th:field="*{miseAPrix}" placeholder="150" min="0" required class="form-control">
-                </div>
-
-                <div class="form-group-half">
-                    <label for="debutEncheres">Début de l'enchère :</label>
-                    <input id="debutEncheres" type="datetime-local" th:field="*{dateDebutEncheres}" required class="form-control">
-                </div>
-
-                <div class="form-group-half">
-                    <label for="finEncheres">Fin de l'enchère :</label>
-                    <input id="finEncheres" type="datetime-local" th:field="*{dateFinEncheres}" required class="form-control">
-                </div>
-
-                <fieldset class="filter-section">
-                    <legend>Retrait</legend>
-                    <div class="form-group-half">
-                        <label for="rue">Rue :</label>
-                        <input id="rue" type="text" th:field="*{lieuRetrait.rue}" th:placeholder="${utilisateur.rue}" class="form-control">
+                        <div class="form-group input-wrapper photo-upload">
+                            <label for="photo">Photo de l'article :</label>
+                            <input id="imgUpload" type="file" name="image" accept="image/*" class="form-control sale-input file-input">
+                        </div>
                     </div>
-                    <div class="form-group-half">
-                        <label for="codePostal">Code postal :</label>
-                        <input id="codePostal" type="text" th:field="*{lieuRetrait.codePostal}" th:placeholder="${utilisateur.codePostal}" class="form-control">
-                    </div>
-                    <div class="form-group-half">
-                        <label for="ville">Ville :</label>
-                        <input id="ville" type="text" th:field="*{lieuRetrait.ville}" th:placeholder="${utilisateur.ville}" class="form-control">
-                    </div>
-                </fieldset>
 
-                <div class="buttons">
-                    <button type="submit" class="search-button">Enregistrer</button>
-                    <button type="reset" class="search-button">Annuler</button>
+                    <div class="price-date-section form-grid">
+                        <div class="form-group-half input-wrapper">
+                            <label for="miseAPrix">Mise à prix :</label>
+                            <input id="miseAPrix" type="number" th:field="*{miseAPrix}" placeholder="150" min="0" required class="form-control sale-input">
+                        </div>
+
+                        <div class="form-group-half input-wrapper">
+                            <label for="debutEncheres">Début de l'enchère :</label>
+                            <input id="debutEncheres" type="datetime-local" th:field="*{dateDebutEncheres}" required class="form-control sale-input">
+                        </div>
+
+                        <div class="form-group-half input-wrapper">
+                            <label for="finEncheres">Fin de l'enchère :</label>
+                            <input id="finEncheres" type="datetime-local" th:field="*{dateFinEncheres}" required class="form-control sale-input">
+                        </div>
+                    </div>
+
+                    <fieldset class="filter-section pickup-section">
+                        <legend>Retrait</legend>
+                        <div class="form-grid">
+                            <div class="form-group-half input-wrapper">
+                                <label for="rue">Rue :</label>
+                                <input id="rue" type="text" th:field="*{lieuRetrait.rue}" th:placeholder="${utilisateur.rue}" class="form-control sale-input">
+                            </div>
+                            <div class="form-group-half input-wrapper">
+                                <label for="codePostal">Code postal :</label>
+                                <input id="codePostal" type="text" th:field="*{lieuRetrait.codePostal}" th:placeholder="${utilisateur.codePostal}" class="form-control sale-input">
+                            </div>
+                            <div class="form-group-half input-wrapper">
+                                <label for="ville">Ville :</label>
+                                <input id="ville" type="text" th:field="*{lieuRetrait.ville}" th:placeholder="${utilisateur.ville}" class="form-control sale-input">
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <div class="sale-actions">
+                        <button type="submit" class="search-button save-button">Enregistrer</button>
+                        <button type="reset" class="search-button cancel-button">Annuler</button>
+                    </div>
                 </div>
             </form>
         </main>
+
+        <footer th:replace="~{fragments/fragment-piedpage::piedpage}"></footer>
     </div>
 </body>
 </html>

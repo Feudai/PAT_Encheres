@@ -1,455 +1,420 @@
-@charset "UTF-8";
+:root {
+    --primary: #2E7D32;
+    --primary-light: #4CAF50;
+    --primary-dark: #1B5E20;
+    --secondary: #81C784;
+    --accent: #FFC107;
+    --text-dark: #263238;
+    --text-light: #FFFFFF;
+    --background: #F5F5F5;
+    --error: #D32F2F;
+    --success: #388E3C;
+    --border-radius: 8px;
+    --card-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
 
-
-
-/* Style global du corps */
-body {
-    font-family: Arial, sans-serif;
+/* Base Styles */
+* {
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
+    box-sizing: border-box;
 }
 
-/* En-tête (Nav) */
-#naventete {
-    background-color: #0056b3;
-    color: white;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-left: 20px;
-    padding-right: 20px;
+body {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    line-height: 1.6;
+    color: var(--text-dark);
+    background-color: var(--background);
+    min-height: 100vh;
 }
 
-.hidden{
-	display: none;
-}
-
-.rows{
-	max-width: 100%;
-	display: flex;
-	flex-direction: row;
-	width:100%;
-}
-
-#naventete .logo {
-    width: 150px;
-    height: 100px;
-    object-fit: contain;
-}
-
-#naventete h1 {
-    margin: 0;
-    font-size: 2em;
-    color: white;
-}
-
-#naventete div {
-    display: flex;
-    gap: 15px;
-}
-
-#naventete a {
-    color: white;
-    text-decoration: none;
-    font-size: 1.2em;
-}
-
-#naventete a:hover {
-    text-decoration: underline;
-}
-
-/* Style général du formulaire */
-form {
-    display: flex;
-    flex-wrap: wrap;
-    max-width: 800px;
-    gap: 10px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    justify-content: center;
-}
-
-/* Style des groupes de champs */
-.form-group, .form-group-half {
+.page-container {
     display: flex;
     flex-direction: column;
-    margin-bottom: 10px;
+    min-height: 100vh;
+}
+
+.main-content {
+    flex: 1;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 2rem;
     width: 100%;
 }
 
-.form-group-half {
-    width: 70%;
+/* Header Section */
+.header-section {
+    margin-bottom: 2rem;
 }
 
-.aform-group, .aform-group-half {
+h1 {
+    font-size: 2.5rem;
+    color: var(--primary-dark);
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+/* Filter Form */
+.filter-form {
+    background: white;
+    border-radius: var(--border-radius);
+    padding: 2rem;
+    box-shadow: var(--card-shadow);
+    margin-bottom: 2rem;
+}
+
+.filter-section {
     display: flex;
-    flex-direction: row;
-    	justify-content: space-around;
-    margin-bottom: 10px;
-    width: 0 auto;
+    flex-direction: column;
+    gap: 1.5rem;
 }
 
-.aform-group-half {
-	padding-right: 60px;
-	flex-direction: row;
-	display: flex;
-	justify-content: space-around;
-	align-items: center;
-    width: 100%;
+.filter-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
 }
 
-
-
-/* Conteneur global pour les deux colonnes */
-.form-container {
-  display: flex;
-  justify-content: space-between;
-  gap: 20px; /* Espacement entre les colonnes */
- 
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 }
 
-/* Première colonne (gauche) */
-.left-column {
-  flex: 1;
+.radio-group {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
 }
 
-
-
-/* Deuxième colonne (droite) */
-.right-column {
-  flex: 1;
+.checkbox-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-left: 1.5rem;
 }
 
-/* Label et champs de formulaire */
-label {
-  display: block;
-  margin-bottom: 5px;
+.checkbox-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
-input {
-  width: 100%;
-  padding: 8px;
-  margin-bottom: 15px;
-  box-sizing: border-box;
+/* Search Section */
+.search-section {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-end;
 }
 
-/* Optionnel : ajout d'un peu de style pour les boutons */
-button {
-  padding: 10px 20px;
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  cursor: pointer;
+.search-group {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 1rem;
 }
 
-button:hover {
-  background-color: #45a049;
+input[type="search"], select {
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    transition: var(--transition);
 }
 
-label {
-    font-weight: bold;
-    margin-bottom: 5px;
-    color: #333;
+input[type="search"]:focus, select:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px rgba(46, 125, 50, 0.2);
 }
 
-input, textarea, select, button {
-    padding: 8px;
-    font-size: 1em;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    margin-top: 5px;
-    width: 100%;
-}
-
-/* Style des champs de texte */
-input[type="text"], input[type="email"], input[type="password"] {
-    height: 40px;
-}
-
-textarea {
-	    font-size: 1.1em;
-	    width: 75%;
-	text-align: center;
-    resize: none;
-    height: 80px;
-}
-
-/* Style des boutons */
-button {
-    background-color: #0056b3;
+.search-button {
+    padding: 0.75rem 1.5rem;
+    background-color: var(--primary);
     color: white;
     border: none;
+    border-radius: var(--border-radius);
     cursor: pointer;
-    padding: 10px 15px;
-    font-size: 1em;
-    border-radius: 4px;
-    width: 48%; /* Pour que les boutons prennent 48% de la largeur */
+    transition: var(--transition);
 }
 
-button:hover {
-    background-color: #004085;
+.search-button:hover {
+    background-color: var(--primary-dark);
+    transform: translateY(-2px);
 }
 
-/* Conteneur des boutons (Créer, Annuler) */
-.buttons {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 10px;
-    width: 100%;
-}
-
-/* Gestion des erreurs */
-.error-message {
-    color: red;
-    font-size: 0.9em;
-    margin-top: 5px;
-}
-
-/* Photo Upload (si nécessaire) */
-.photo-upload {
-    display: flex;
-    flex-direction: column;
-}
-
-.photo-upload input {
-    margin-top: 5px;
-}
-
-/* Alignement pour les icônes de calendrier (si nécessaire) */
-.calendar-icon {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-/* Couleur du titre */
-h1 {
-    text-align: center;
-    color: #0056b3;
-    margin-bottom: 20px;
-}
-
-h2 {
-	text-align :center;
-    color: #333;
-    margin-top: 20px;
-    font-size: 1.2em;
-}
-
-/* Amélioration du style des liens de navigation */
-#naventete a {
-    font-size: 1.1em;
-    padding: 10px;
-    text-decoration: none;
-    color: white;
-}
-
-#naventete a:hover {
-    background-color: #004085;
-    border-radius: 5px;
-}
-
-
-/* Style global du tableau */
-table {
-    width: 100%;
-    margin: 20px auto;
-    border-collapse: collapse;
-    background-color: #ffffff;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-
-/* Style des cellules d'en-tête */
-table th {
-    background-color: #0056b3;
-    color: white;
-    padding: 10px;
-    text-align: left;
-    font-size: 1.1em;
-}
-
-/* Style des cellules de données */
-table td {
-    padding: 10px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-    background-color: #f9f9f9;
-}
-
-/* Style des lignes paires pour une alternance de couleurs */
-table tr:nth-child(even) td {
-    background-color: #f2f2f2;
-}
-
-/* Style des liens dans le tableau */
-table a {
-    color: #0056b3;
-    text-decoration: none;
-    font-weight: bold;
-}
-
-a{
-	color: black;
-	text-decoration: none;
-}
-
-footer{
-	    background-color: #0056b3;
-    color: white;
-    padding: 10px;
-    text-align:center;
-    font-size: 1.1em;
-}
-
-table a:hover {
-    color: #004085;
-    text-decoration: underline;
-}
-
-/* Style des boutons de suppression et détails */
-table td a {
-    padding: 5px 10px;
-    border-radius: 4px;
-    background-color: #0056b3;
-    color: white;
-    text-align: center;
-    display: inline-block;
-    font-size: 1em;
-    margin-right: 10px;
-}
-
-table td a:hover {
-    background-color: #004085;
-}
-
+/* Auction Grid */
 .auctions-grid {
-	display: grid;
+    display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 2rem;
-    padding: 5rem;
+    padding: 1rem 0;
 }
 
 .auction-card {
-    border: 1px solid #e2e8f0;
-    border-radius: 8px;
-    overflow: hidden;
     background: white;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s ease-in-out;
-}
-
-.hidden{
-	opacity:0%;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--card-shadow);
+    transition: var(--transition);
 }
 
 .auction-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-.card-link {
-    text-decoration: none;
-    color: inherit;
-    display: block;
+.card-content {
+    padding: 1.5rem;
+}
+
+.auction-header {
+    margin-bottom: 1rem;
+}
+
+.auction-header h3 {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    color: var(--primary-dark);
 }
 
 .card-image {
     width: 100%;
     height: 200px;
     overflow: hidden;
+    border-radius: var(--border-radius);
 }
 
 .card-image img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    transition: var(--transition);
 }
 
-.card-content {
-    padding: 1rem;
-    padding-left:1.5rem ;
-        padding-right:1.5rem ;
-
-}
-
-.auction-title {
-    font-size: 1.25rem;
-    font-weight: bold;
-    margin-bottom: 1rem;
-    color: #1a202c;
-    	text-align: center;
-
+.auction-card:hover .card-image img {
+    transform: scale(1.05);
 }
 
 .auction-details {
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
-    padding:0.25rem;
+    gap: 1rem;
+    margin: 1rem 0;
 }
 
-.seller-info {
-	    border-width: 0.15rem;
-	    padding: 0.25rem;
-	    padding-left: 0.25rem;
-	    padding-right: 0.25rem;
-	        display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 1rem;
-	color: white ;
-}
-
-.vendeur{
-	width: 100%;
-}
-	
-
-.bid-amount, .bid-date{
+.price-info, .date-info {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 0.5rem;
+    background-color: var(--background);
+    border-radius: var(--border-radius);
+}
+
+.card-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.view-details, .seller-info {
+    padding: 0.75rem;
+    text-align: center;
+    border-radius: var(--border-radius);
+    transition: var(--transition);
+    text-decoration: none;
+}
+
+.view-details {
+    background-color: var(--primary);
+    color: white;
+}
+
+.seller-info {
+    background-color: var(--background);
+    color: var(--text-dark);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem;
+    border-radius: var(--border-radius);
+    transition: var(--transition);
+    border: 1px solid #ddd;
+}
+
+.seller-info:hover {
+    background-color: var(--primary-light);
+    color: var(--text-light);
+}
+
+/* Navigation Styles */
+#naventete {
+    background-color: var(--primary);
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: var(--card-shadow);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+#naventete img {
+    height: 40px;
+    transition: var(--transition);
+}
+
+#naventete img:hover {
+    transform: scale(1.05);
+}
+
+#naventete h1 {
+    color: var(--text-light);
+    font-size: 1.75rem;
+    margin: 0;
+    text-align: left;
+}
+
+#naventete div {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+#naventete a {
+    color: var(--text-light);
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: var(--border-radius);
+    transition: var(--transition);
+    font-weight: 500;
+}
+
+#naventete a:hover {
+    background-color: var(--primary-dark);
+    transform: translateY(-2px);
+}
+
+/* Admin section */
+.admin a {
+    background-color: var(--accent);
+    color: var(--text-dark) !important;
+}
+
+.admin a:hover {
+    background-color: #e6ac00;
+}
+
+/* Error Fragment Styles */
+ul:has(li) {
+    list-style: none;
+    padding: 0.75rem;
+    margin-top: 0.5rem;
+    border-radius: var(--border-radius);
+    background-color: rgba(211, 47, 47, 0.1);
+}
+
+ul li {
+    color: var(--error);
+    padding: 0.25rem 0;
+}
+
+/* Footer Styles */
+footer {
+    background-color: var(--primary);
+    color: var(--text-light);
+    padding: 1.5rem;
+    text-align: center;
+    margin-top: auto;
+}
+
+footer p {
+    margin: 0;
     font-size: 0.875rem;
 }
 
-.label {
-    color: #64748b;
-    font-weight: 500;
-}
-.label-s {
-    color: white;
-    font-weight: 500;
+/* Responsive Design */
+@media (max-width: 768px) {
+    .page-container {
+        padding: 0 1rem;
+    }
+
+    .main-content {
+        padding: 1rem;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    #naventete {
+        padding: 1rem;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    #naventete div {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    #naventete a {
+        width: 100%;
+        text-align: center;
+        padding: 0.75rem;
+    }
+
+    .filter-options {
+        grid-template-columns: 1fr;
+    }
+
+    .search-group {
+        grid-template-columns: 1fr;
+    }
+
+    .auctions-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
 }
 
-
-.li-form{
-	display: flex;
-	justify-content: space-between;
-	flex-direction: row;
-	 padding: 10px 15px;
-	
-	
+/* Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
-.left{
-	display: flex;
-	justify-content: center;
-	width:90%;
-	font-size: 25px;
+.auction-card {
+    animation: fadeIn 0.5s ease-out;
 }
 
-.cases{
-	    max-width: 50%;
-	 display: flex;
-    flex-direction: column;
-    	justify-content: flex-start;
-    margin-bottom: 10px;
-    width:0 auto;
-	align-items: center;
+/* Utility Classes */
+.hidden {
+    display: none;
 }
 
+.error-message {
+    color: var(--error);
+    padding: 0.75rem;
+    border-radius: var(--border-radius);
+    background-color: rgba(211, 47, 47, 0.1);
+    margin-top: 0.5rem;
+}
+
+.success-message {
+    color: var(--success);
+    padding: 0.75rem;
+    border-radius: var(--border-radius);
+    background-color: rgba(56, 142, 60, 0.1);
+    margin-top: 0.5rem;
+}

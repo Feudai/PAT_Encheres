@@ -139,6 +139,7 @@ public class VenteController {
 	public String afficherEncheres(Model model) {
 		List<Utilisateur> utilisateurs = this.utilisateurService.consulterUtilisateurs();
 		List<ArticleVendu> EncheresArticlesTriees = this.sortEncheresArticles();
+		
 
 		// Updating all articles state
 		LocalDateTime now = LocalDateTime.now();

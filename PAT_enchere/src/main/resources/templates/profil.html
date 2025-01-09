@@ -1,56 +1,77 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Profile</title>
-<link rel="stylesheet" href="./css/style.css">
+    <meta charset="UTF-8">
+    <title>Profil</title>
+    <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
-	<header>
-		<div th:replace="~{fragments/fragment-entete::entete}"></div>
-	</header>
-	<h1>PATé_enchères</h1>
-	<h2>Mon profil</h2>
-	<form th:action="@{/profil}" method="post" th:object="${utilisateur}">
-		<div class="form-container">
-		
-			<div class="left-colums">
+    <div class="page-container">
+        <div th:replace="~{fragments/fragment-entete::entete}"></div>
+        
+        <main class="main-content">
+            <h1>Mon profil</h1>
+            
+            <form th:action="@{/profil}" method="post" th:object="${utilisateur}" class="filter-form">
+                <div class="form-section">
+                    <div class="form-group-half">
+                        <label for="idPseudo">Pseudo</label>
+                        <input id="idPseudo" type="text" th:field="${utilisateur.pseudo}" class="form-control" />
+                    </div>
 
-				<label for="idPseudo">Pseudo</label> <input id="idPseudo"
-					type="text" name="" th:field="${utilisateur.pseudo}" /> <label
-					for="idPrenom">Prénom</label> <input id="idPrenom" type="text"
-					name="" th:field="${utilisateur.prenom}" /> <label
-					for="idTelephone">Téléphone</label> <input id="idTelephone"
-					type="text" name="" th:field="${utilisateur.telephone}" /> <label
-					for="idCodePostal">Code Postal</label> <input id="idCodePostal"
-					type="text" name="" th:field="${utilisateur.codePostal}" /> <label
-					for="idMotDePasse">Mot de passe</label> <input id="idMotDePasse"
-					type="password" th:field="${utilisateur.motDePasse}" />
-			</div>
-			<div class="right-colums">
-				<label for="" class="hidden">raerg</label><input class="hidden" type="text" disabled="disabled"/>
-				<label for="idNom">Nom</label> <input id="idNom" type="text" name=""
-					th:field="${utilisateur.nom}" /> <label for="idEmail">Email</label>
-				<input id="idEmail" type="text" name=""
-					th:field="${utilisateur.email}" /> <label for="idRue">Rue</label>
-				<input id="idRue" type="text" name="" th:field="${utilisateur.rue}" />
-				<label for="idVille">Ville</label> <input id="idVille" type="text"
-					name="" th:field="${utilisateur.ville}" />
+                    <div class="form-group-half">
+                        <label for="idPrenom">Prénom</label>
+                        <input id="idPrenom" type="text" th:field="${utilisateur.prenom}" class="form-control" />
+                    </div>
 
-		</div>
-		</div>
-		<button type="submit">Enregistrer</button>
-	</form>
+                    <div class="form-group-half">
+                        <label for="idTelephone">Téléphone</label>
+                        <input id="idTelephone" type="text" th:field="${utilisateur.telephone}" class="form-control" />
+                    </div>
 
-	<form action="/profil/deleteUser" method="get">
-		<input type="hidden" name="noUtilisateur"
-			th:value="${utilisateur.noUtilisateur}" />
-		<button type="submit">Supprimer mon compte</button>
-	</form>
+                    <div class="form-group-half">
+                        <label for="idCodePostal">Code Postal</label>
+                        <input id="idCodePostal" type="text" th:field="${utilisateur.codePostal}" class="form-control" />
+                    </div>
 
+                    <div class="form-group-half">
+                        <label for="idMotDePasse">Mot de passe</label>
+                        <input id="idMotDePasse" type="password" th:field="${utilisateur.motDePasse}" class="form-control" />
+                    </div>
+
+                    <div class="form-group-half">
+                        <label for="idNom">Nom</label>
+                        <input id="idNom" type="text" th:field="${utilisateur.nom}" class="form-control" />
+                    </div>
+
+                    <div class="form-group-half">
+                        <label for="idEmail">Email</label>
+                        <input id="idEmail" type="text" th:field="${utilisateur.email}" class="form-control" />
+                    </div>
+
+                    <div class="form-group-half">
+                        <label for="idRue">Rue</label>
+                        <input id="idRue" type="text" th:field="${utilisateur.rue}" class="form-control" />
+                    </div>
+
+                    <div class="form-group-half">
+                        <label for="idVille">Ville</label>
+                        <input id="idVille" type="text" th:field="${utilisateur.ville}" class="form-control" />
+                    </div>
+                </div>
+
+                <div class="buttons">
+                    <button type="submit" class="search-button">Enregistrer</button>
+                </div>
+            </form>
+
+            <form action="/profil/deleteUser" method="get" class="filter-form">
+                <input type="hidden" name="noUtilisateur" th:value="${utilisateur.noUtilisateur}" />
+                <button type="submit" class="search-button">Supprimer mon compte</button>
+            </form>
+        </main>
+
+        <div th:replace="~{fragments/fragment-piedpage::piedpage}"></div>
+    </div>
 </body>
-<footer>
-	<div th:replace="~{fragments/fragment-piedpage::piedpage}"></div>
-</footer>
-
 </html>

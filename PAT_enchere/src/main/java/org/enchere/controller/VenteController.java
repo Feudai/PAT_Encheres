@@ -300,6 +300,9 @@ public class VenteController {
 		Utilisateur authenticatedUser = utilisateurService.findByUsername(username);
 		int noArticle = articleVendu.getNoArticle();
 		this.articleVenduService.modifierArticle(articleVendu, noArticle);
+		Retrait retrait = articleVendu.getLieuRetrait();
+		retrait.setArticle(articleVendu);
+		this.retraitService.modifierRetrait(retrait, noArticle);
 		
 		
 if (proposition != null) {

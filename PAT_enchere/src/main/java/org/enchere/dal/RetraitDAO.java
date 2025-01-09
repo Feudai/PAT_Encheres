@@ -11,4 +11,6 @@ public interface RetraitDAO {
 
 	List<Retrait> findAll();
 
+	void modifer(Retrait retrait, int noArticle);
+
 }

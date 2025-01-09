@@ -142,6 +142,7 @@
 					</div>
 
 					<input type="hidden" th:field="*{noArticle}" />
+					<input type="hidden" th:field="*{categorieArticle.noCategorie}" />
 					<div th:if="${!utilisateurIsAuthentificate}" sec:authorize="isAuthenticated()"
 						class="filter-section bid-section">
 						<h2 class="bid-title">Montez les Enchères !</h2>

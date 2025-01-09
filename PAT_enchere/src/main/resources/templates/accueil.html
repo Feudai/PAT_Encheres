@@ -18,12 +18,13 @@
 				<form th:action="@{/accueil}" method="post" class="filter-form">
 					<div class="filter-section">
 						<h3>Filtrer les enchères</h3>
-						<p th:if="${error}" th:text="${message}"></pth>
+						<p th:if="${error}" th:text="${message}">
+							</pth>
 
 						<div class="filter-options" th:data-ventes-checked="${ventesChecked}"
 							th:data-achats-checked="${achatsChecked}">
 							<div class="filter-group" sec:authorize="${isAuthenticated()}">
-								<div class="radio-group" >
+								<div class="radio-group">
 									<input type="radio" id="achats" name="choix" value="true"
 										th:checked="${(enchOuv == true || enchCours == true || enchRemp == true)||!(venCours == true || venPrep == true || venTerm == true)||choix==true}"
 										onchange="toggleCheckboxes(true)" />
@@ -53,7 +54,7 @@
 							</div>
 
 							<div class="filter-group" sec:authorize="${isAuthenticated()}">
-								<div class="radio-group" >
+								<div class="radio-group">
 									<input type="radio" id="ventes" name="choix" value="false"
 										th:checked="${(venCours == true || venPrep == true || venTerm == true)||choix==false}"
 										onchange="toggleCheckboxes(false)" />
@@ -118,55 +119,64 @@
 					</div>
 				</form>
 			</div>
-	</form>
+			</form>
 
-	<div class="auctions-grid">
-		<div th:each="a : ${listeArticles}" class="auction-card">
-			<div class="card-content">
-				<div class="auction-header">
-					<h3 th:text="${a.nomArticle}"></h3>
-					<a th:href="@{/encheresDetails(noArticle=${a.noArticle})}" class="card-image">
-						<div class="card-image">
-							<img th:src="@{'/images/' + ${a.cheminImage}}" alt="Image de l'article">
+			<div class="auctions-grid">
+				<div th:each="a : ${listeArticles}" class="auction-card">
+					<div class="card-content">
+						<div class="auction-header">
+							<h3 th:text="${a.nomArticle}"></h3>
+							<a th:href="@{/encheresDetails(noArticle=${a.noArticle})}" class="card-image">
+								<div class="card-image">
+									<img th:src="@{'/images/' + ${a.cheminImage}}" alt="Image de l'article">
+								</div>
+							</a>
 						</div>
-					</a>
-				</div>
 
-				<div class="auction-details">
-					<div class="price-info">
-						<span class="label">
-							<span th:if="${a.listeEncheres!=null and not #lists.isEmpty(a.listeEncheres)}">
-								Meilleure offre:
-							</span>
-							<span th:unless="${a.listeEncheres!=null and not #lists.isEmpty(a.listeEncheres)}">
-								Prix initial:
-							</span>
-						</span>
-						<span class="value" th:if="${a.listeEncheres!=null and not #lists.isEmpty(a.listeEncheres)}"
-							th:text="${a.listeEncheres[0].montantEnchere}+ ' pts'"></span>
-						<span class="value" th:unless="${a.listeEncheres!=null and not #lists.isEmpty(a.listeEncheres)}"
-							th:text="${a.miseAPrix}+ ' pts'"></span>
-					</div>
+						<div class="auction-details">
+							<div class="price-info">
+								<span class="label">
+									<span th:if="${a.listeEncheres!=null and not #lists.isEmpty(a.listeEncheres)}">
+										Meilleure offre:
+									</span>
+									<span th:unless="${a.listeEncheres!=null and not #lists.isEmpty(a.listeEncheres)}">
+										Prix initial:
+									</span>
+								</span>
+								<span class="value"
+									th:if="${a.listeEncheres!=null and not #lists.isEmpty(a.listeEncheres)}"
+									th:text="${a.listeEncheres[0].montantEnchere}+ ' pts'"></span>
+								<span class="value"
+									th:unless="${a.listeEncheres!=null and not #lists.isEmpty(a.listeEncheres)}"
+									th:text="${a.miseAPrix}+ ' pts'"></span>
+							</div>
 
-					<div class="date-info">
-						<span class="label">Fin de l'enchère:</span>
-						<span class="value" th:text="${a.dateFinEncheres}"></span>
-					</div>
-				</div>
+							<div class="date-info" th:if="${a.etatVente==-1}">
+								<span class="label">Début de l'enchère:</span>
+								<span class="value" th:text="${a.dateDebutEncheres}"></span>
+							</div>
+							<div class="date-info" th:if="${a.etatVente==0}">
+								<span class="label">Fin de l'enchère:</span>
+								<span class="value" th:text="${a.dateFinEncheres}"></span>
+							</div>
+							<div class="date-info" th:if="${a.etatVente==1 and a.listeEncheres!=null and not #lists.isEmpty(a.listeEncheres)}">
+								<span class="label">Remportée par:</span>
+								<span class="value" th:text="${a.listeEncheres[0].createur.pseudo}"></span>
+							</div>
 
-				<div class="card-actions">
-					<div class="view-details">
-						Voir les détails
+						</div>
+
+						<div class="card-actions">
+							<a th:href="@{/profil-detail(noUtilisateur=${a.createur.noUtilisateur})}"
+								class="seller-info">
+								<span class="label">Vendeur:</span>
+								<span class="value" th:text="${a.createur.pseudo}"></span>
+							</a>
+						</div>
 					</div>
-					<a th:href="@{/profil-detail(noUtilisateur=${a.createur.noUtilisateur})}" class="seller-info">
-						<span class="label">Vendeur:</span>
-						<span class="value" th:text="${a.createur.pseudo}"></span>
-					</a>
 				</div>
 			</div>
-		</div>
-	</div>
-	</main>
+		</main>
 	</div>
 
 	<footer th:replace="~{fragments/fragment-piedpage::piedpage}"></footer>

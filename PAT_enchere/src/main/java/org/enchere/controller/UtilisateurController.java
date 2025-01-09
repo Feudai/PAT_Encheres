@@ -51,19 +51,27 @@ public class UtilisateurController {
 		}
 
 		Utilisateur utilisateur = this.utilisateurService.consulterUtilisateurParId(noUtilisateur);
+		
+		
 		model.addAttribute("utilisateur", utilisateur);
 
 		return "profil";
 	}
 
 	@PostMapping("/profil")
-	public String mettreAJourUtilisateur(@ModelAttribute Utilisateur utilisateur, Principal principal) {
+	public String mettreAJourUtilisateur(@ModelAttribute Utilisateur utilisateur, Principal principal, @RequestParam(name="addCredit", required=false)String addCredit) {
 
+		int credit=0;
+		
+		if(addCredit!=null)
+		credit = Integer.parseInt(addCredit);
+		
 		String username = principal.getName();
 		Utilisateur authenticatedUser = utilisateurService.findByUsername(username);
 
 		utilisateur.setNoUtilisateur(authenticatedUser.getNoUtilisateur());
-
+		utilisateur.setCredit(authenticatedUser.getCredit()+credit);
+		
 		this.utilisateurService.update(utilisateur);
 
 		return "redirect:/logout";

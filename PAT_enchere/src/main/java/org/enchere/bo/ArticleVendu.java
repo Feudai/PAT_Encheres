@@ -134,7 +134,7 @@ public class ArticleVendu {
 		this.prixVente = prixVente;
 	}
 
-	public int isEtatVente() {
+	public int getEtatVente() {
 		return etatVente;
 	}
 

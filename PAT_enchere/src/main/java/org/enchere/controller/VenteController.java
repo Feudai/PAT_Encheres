@@ -146,20 +146,7 @@ public class VenteController {
 	public String afficherEncheres(Model model) {
 		List<Utilisateur> utilisateurs = this.utilisateurService.consulterUtilisateurs();
 		List<ArticleVendu> EncheresArticlesTriees = this.sortEncheresArticles();
-
-		// Updating all articles state
-		LocalDateTime now = LocalDateTime.now();
-		EncheresArticlesTriees.forEach(a -> {
-
-			if (a.getDateFinEncheres().compareTo(now) <= 0)
-				a.setEtatVente(1);
-			else if (a.getDateDebutEncheres().compareTo(now) <= 0)
-				a.setEtatVente(0);
-			else
-				a.setEtatVente(-1);
-
-		});
-
+		
 		model.addAttribute("utilisateurs", utilisateurs);
 		model.addAttribute("listeArticles", EncheresArticlesTriees);
 		model.addAttribute("listeCategories", this.categorieService.getListeCategories());
@@ -265,10 +252,9 @@ public class VenteController {
 						&& a.getCreateur().getNoUtilisateur() == noUtilisateur;
 			}
 
-			if (choix)
-
-				result = result && (a.getListeEncheres()!=null&&(a.getCreateur().getNoUtilisateur() != noUtilisateur&&a.getListeEncheres().stream().anyMatch(e->e.getCreateur().getNoUtilisateur()==noUtilisateur)));
-			else
+			if (choix&&a.getListeEncheres()!=null&&!a.getListeEncheres().isEmpty())
+				result = result && ((a.getCreateur().getNoUtilisateur() != noUtilisateur&&a.getListeEncheres().stream().anyMatch(e->e.getCreateur().getNoUtilisateur()==noUtilisateur)));
+			else if(!choix)
 				result = result &&a.getCreateur().getNoUtilisateur() == noUtilisateur;
 
 			return result;
@@ -360,32 +346,40 @@ public class VenteController {
 
 		String username = principal.getName();
 		Utilisateur authenticatedUser = utilisateurService.findByUsername(username);
+		
+		if(proposition==""||proposition==null) {		
 		int noArticle = articleVendu.getNoArticle();
 		this.articleVenduService.modifierArticle(articleVendu, noArticle);
 		
-
+		
 		Retrait retrait = articleVendu.getLieuRetrait();
 		retrait.setArticle(articleVendu);
 		this.retraitService.modifierRetrait(retrait, noArticle);
-
+		
 		if (suppresion ==true) {
 			this.retraitService.supprimerRetrait(retrait, noArticle);
 			this.articleVenduService.supprimerArtice(articleVendu, noArticle);
 		}
-		
+		}
 		if (proposition != null) {
 			int montant = Integer.parseInt(proposition);
 			Enchere nouvelleEnchere = new Enchere(LocalDateTime.now(), montant, authenticatedUser, articleVendu);
 
 			if (articleVendu.getListeEncheres() != null && !articleVendu.getListeEncheres().isEmpty()) {
+				
+
 				if (nouvelleEnchere.getMontantEnchere() > this.enchereService
 						.getBestEnchere(articleVendu.getNoArticle()).getMontantEnchere()
 						&& this.enchereService.getBestEnchere(articleVendu.getNoArticle()).getCreateur()
-								.getNoUtilisateur() != nouvelleEnchere.getCreateur().getNoUtilisateur()) {
+								.getNoUtilisateur() != nouvelleEnchere.getCreateur().getNoUtilisateur()
+								&&authenticatedUser.getCredit()>=articleVendu.getListeEncheres().get(0).getMontantEnchere()) {
 					this.enchereService.ajouterEnchere(nouvelleEnchere);
+					authenticatedUser.setCredit(authenticatedUser.getCredit()-articleVendu.getListeEncheres().get(0).getMontantEnchere());
 				}
-			} else if (nouvelleEnchere.getMontantEnchere() > articleVendu.getMiseAPrix())
+			} else if (nouvelleEnchere.getMontantEnchere() > articleVendu.getMiseAPrix()&&authenticatedUser.getCredit()>=articleVendu.getMiseAPrix()) {
 				this.enchereService.ajouterEnchere(nouvelleEnchere);
+			authenticatedUser.setCredit(authenticatedUser.getCredit()-articleVendu.getMiseAPrix());}
+			else System.err.println("Tu n'as pas assez d'argent mon gâté");
 		}
 
 		return "redirect:/accueil";
@@ -424,6 +418,24 @@ public class VenteController {
 			}
 			// Nouvelle fonction pour trier les encheres au sein de chaque article
 
+		});
+
+		// Updating all articles state
+		LocalDateTime now = LocalDateTime.now();
+		articles.forEach(a -> {
+
+			if (a.getDateFinEncheres().compareTo(now) >= 0&&a.getDateDebutEncheres().compareTo(now) <= 0) {
+				a.setEtatVente(0);
+			}
+			else {if (a.getDateDebutEncheres().compareTo(now) > 0) 
+				a.setEtatVente(-1);
+				if(a.getDateFinEncheres().compareTo(now)<0) { a.setEtatVente(1);
+				if(a.getListeEncheres() != null && !a.getListeEncheres().isEmpty()) {
+				a.getCreateur().setCredit(a.getCreateur().getCredit()+a.getListeEncheres().get(0).getMontantEnchere());
+				System.err.println(a.getCreateur().getPseudo() + " a été crédité de "+a.getListeEncheres().get(0).getMontantEnchere()+" pts.");
+				}
+				}
+			}
 		});
 
 		return articles;

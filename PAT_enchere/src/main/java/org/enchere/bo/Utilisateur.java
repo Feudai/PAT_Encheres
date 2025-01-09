@@ -153,7 +153,7 @@ public class Utilisateur {
 		this.motDePasse = motDePasse;
 	}
 
-	public float getCredit() {
+	public int getCredit() {
 		return credit;
 	}
 

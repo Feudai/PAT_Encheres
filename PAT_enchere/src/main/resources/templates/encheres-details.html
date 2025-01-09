@@ -38,9 +38,9 @@
 								<div id="description" th:text="${articleVendu.description}" class="value price-value"
 									th:if="${!utilisateurIsAuthentificate} OR (${utilisateurIsAuthentificate} AND ${dateEnchereDebutDepasse})">
 								</div>
-								<input th:field="*{description}" id="description"
+								<textarea th:field="*{description}" id="description"
 									class="form-control details-input description-area"
-									th:if="${utilisateurIsAuthentificate} AND ${!dateEnchereDebutDepasse}"></input>
+									th:if="${utilisateurIsAuthentificate} AND ${!dateEnchereDebutDepasse}"></textarea>
 							</div>
 
 							<div class="price-info details-box">

@@ -10,22 +10,32 @@
         <div th:replace="~{fragments/fragment-entete::entete}"></div>
         
         <main class="main-content">
-            <h1>Récupération de mot de passe</h1>
+            <div class="header-section">
+                <h1>Récupération de mot de passe</h1>
+            </div>
             
-            <form th:action="@{/recuperationMotDePasse/recupMotDePasse}" method="post" class="filter-form">
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input id="email" name="email" type="email" required class="form-control" />
-                </div>
-                
-                <div th:if="${globalError != null}" class="error-message">
-                    <p th:text="${globalError}"></p>
-                </div>
-                
-                <div class="buttons">
-                    <button type="submit" class="search-button">Récupération</button>
-                </div>
-            </form>
+            <div class="recovery-container">
+                <form th:action="@{/recuperationMotDePasse/recupMotDePasse}" method="post" class="filter-form recovery-form">
+                    <div class="form-group">
+                        <label for="email" class="form-label">Email</label>
+                        <input id="email" 
+                               name="email" 
+                               type="email" 
+                               required 
+                               class="form-control recovery-input" 
+                               placeholder="Entrez votre adresse email" />
+                    </div>
+                    
+                    <div th:if="${globalError != null}" class="error-message">
+                        <p th:text="${globalError}"></p>
+                    </div>
+                    
+                    <div class="recovery-actions">
+                        <button type="submit" class="search-button recovery-button">Récupérer mon mot de passe</button>
+                        <a href="/login" class="search-button return-button">Retour à la connexion</a>
+                    </div>
+                </form>
+            </div>
         </main>
     </div>
 </body>

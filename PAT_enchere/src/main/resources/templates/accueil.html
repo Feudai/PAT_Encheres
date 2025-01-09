@@ -22,11 +22,11 @@
 
 						<div class="filter-options" th:data-ventes-checked="${ventesChecked}"
 							th:data-achats-checked="${achatsChecked}">
-							<div class="filter-group">
-								<div class="radio-group">
+							<div class="filter-group" sec:authorize="${isAuthenticated()}">
+								<div class="radio-group" >
 									<input type="radio" id="achats" name="choix" value="true"
 										th:checked="${(enchOuv == true || enchCours == true || enchRemp == true)||!(venCours == true || venPrep == true || venTerm == true)||choix==true}"
-										onchange="toggleCheckboxes(true)"/>
+										onchange="toggleCheckboxes(true)" />
 									<label for="achats">Mes achats</label>
 								</div>
 
@@ -52,8 +52,8 @@
 								</div>
 							</div>
 
-							<div class="filter-group">
-								<div class="radio-group">
+							<div class="filter-group" sec:authorize="${isAuthenticated()}">
+								<div class="radio-group" >
 									<input type="radio" id="ventes" name="choix" value="false"
 										th:checked="${(venCours == true || venPrep == true || venTerm == true)||choix==false}"
 										onchange="toggleCheckboxes(false)" />

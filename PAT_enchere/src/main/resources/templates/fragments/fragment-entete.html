@@ -1,8 +1,10 @@
 <nav id="naventete" th:fragment="entete">
+	<div>
     <a th:href="@{accueil}">
-        <img th:src="@{/static/images/pat-encheres-logo.svg}" alt="Logo">
+        <img th:src="@{/static/images/pat-encheres-logo.svg}" alt="Logo" style="width: 150px; height: auto;">
     </a>
-    <h1>PAT_Enchère</h1>
+    <h1>PAT_Enchères</h1>
+	</div>
     <div>
         <a th:href="@{/accueil}">Accueil</a>
         <a th:href="@{/login}" sec:authorize="!isAuthenticated()">Connexion</a>

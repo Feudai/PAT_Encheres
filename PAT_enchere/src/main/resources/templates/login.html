@@ -10,40 +10,48 @@
         <div th:replace="~{fragments/fragment-entete::entete}"></div>
         
         <main class="main-content">
-            <h1>Connexion</h1>
+            <div class="header-section">
+                <h1>Connexion</h1>
+            </div>
             
-            <form th:action="@{/login}" method="post" class="filter-form">
+            <form th:action="@{/login}" method="post" class="filter-form login-container">
                 <ul th:if="${param.error}" class="error-message">
                     <li>Veuillez renseignez un login / mot de passe correct</li>
                 </ul>
 
-                <div class="form-group">
-                    <label for="identifiant">Identifiant</label>
-                    <input type="text" name="username" placeholder="Pseudo" required class="form-control" />
-                </div>
+                <div class="filter-section">
+                    <div class="form-group input-wrapper">
+                        <label for="identifiant">Identifiant</label>
+                        <input type="text" name="username" placeholder="Pseudo" required class="form-control login-input" />
+                    </div>
 
-                <div class="form-group">
-                    <label for="password">Mot de passe</label>
-                    <input type="password" name="password" placeholder="Mot de passe" required class="form-control" />
-                </div>
+                    <div class="form-group input-wrapper">
+                        <label for="password">Mot de passe</label>
+                        <input type="password" name="password" placeholder="Mot de passe" required class="form-control login-input" />
+                    </div>
 
-                <div class="form-group">
-                    <label>
-                        <input type="checkbox" name="remember-me" />
-                        Se souvenir de moi
-                    </label>
-                </div>
+                    <div class="form-group remember-me-wrapper">
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="remember-me" />
+                            <span class="checkbox-label">Se souvenir de moi</span>
+                        </label>
+                    </div>
 
-                <div class="buttons">
-                    <button type="submit" class="search-button">Connexion</button>
-                    <a th:href="recuperationMotDePasse" class="btn-link">Mot de passe oublié</a>
+                    <div class="buttons login-actions">
+                        <button type="submit" class="search-button login-button">Connexion</button>
+                        <a th:href="recuperationMotDePasse" class="btn-link forgot-password">Mot de passe oublié</a>
+                    </div>
                 </div>
             </form>
 
-            <button th:onclick="|window.location.href='@{/inscription}'|" type="button" class="search-button">
-                Créer un compte
-            </button>
+            <div class="create-account-section">
+                <button th:onclick="|window.location.href='@{/inscription}'|" type="button" class="search-button create-account-button">
+                    Créer un compte
+                </button>
+            </div>
         </main>
+
+        <footer th:replace="~{fragments/fragment-piedpage::piedpage}"></footer>
     </div>
 </body>
 </html>

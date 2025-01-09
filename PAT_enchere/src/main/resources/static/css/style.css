@@ -1,8 +1,8 @@
 :root {
-    --primary: #2E7D32;
-    --primary-light: #4CAF50;
-    --primary-dark: #1B5E20;
-    --secondary: #81C784;
+    --primary: rgb(0, 128, 192);
+    --primary-light: rgb(113, 208, 255);
+    --primary-dark: rgb(0, 102, 151);
+    --secondary: rgb(138, 235, 255);
     --accent: #FFC107;
     --text-dark: #263238;
     --text-light: #FFFFFF;
@@ -258,7 +258,6 @@ input[type="search"]:focus, select:focus {
 /* Navigation Styles */
 #naventete {
     background-color: var(--primary);
-    padding: 1rem 2rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -280,23 +279,25 @@ input[type="search"]:focus, select:focus {
 #naventete h1 {
     color: var(--text-light);
     font-size: 1.75rem;
-    margin: 0;
+    margin-left: 10px;
+    margin-bottom: 0;
     text-align: left;
 }
 
 #naventete div {
     display: flex;
-    gap: 1.5rem;
     align-items: center;
+    padding-right: 10px;
 }
 
 #naventete a {
     color: var(--text-light);
     text-decoration: none;
-    padding: 0.5rem 1rem;
+    padding: 0.5rem 1.5rem;
     border-radius: var(--border-radius);
     transition: var(--transition);
     font-weight: 500;
+    font-size: 1rem;;
 }
 
 #naventete a:hover {
@@ -339,7 +340,7 @@ footer {
 
 footer p {
     margin: 0;
-    font-size: 0.875rem;
+    font-size: 1rem;
 }
 
 /* Responsive Design */
@@ -422,4 +423,372 @@ footer p {
     border-radius: var(--border-radius);
     background-color: rgba(56, 142, 60, 0.1);
     margin-top: 0.5rem;
+}
+
+/* Add these new styles to your existing style.css file */
+
+.login-container {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.input-wrapper {
+    margin-bottom: 1.5rem;
+}
+
+.login-input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    transition: var(--transition);
+}
+
+.login-input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px rgba(0, 128, 192, 0.2);
+}
+
+.remember-me-wrapper {
+    margin: 1.5rem 0;
+}
+
+.checkbox-label {
+    margin-left: 0.5rem;
+    color: var(--text-dark);
+}
+
+.login-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.login-button {
+    min-width: 120px;
+}
+
+.forgot-password {
+    color: var(--primary);
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.forgot-password:hover {
+    color: var(--primary-dark);
+    text-decoration: underline;
+}
+
+.create-account-section {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.create-account-button {
+    min-width: 200px;
+    background-color: var(--primary-light);
+}
+
+.create-account-button:hover {
+    background-color: var(--primary);
+}
+
+/* Add these new styles to your existing style.css file */
+
+.profile-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+}
+
+.input-wrapper {
+    margin-bottom: 1.5rem;
+}
+
+.profile-input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    transition: var(--transition);
+}
+
+.profile-input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px rgba(0, 128, 192, 0.2);
+}
+
+.profile-input.readonly {
+    background-color: var(--background);
+    cursor: not-allowed;
+}
+
+.profile-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.save-button {
+    min-width: 150px;
+}
+
+.delete-account-section {
+    max-width: 800px;
+    margin: 1rem auto;
+    text-align: center;
+}
+
+.delete-button {
+    background-color: var(--error);
+    min-width: 200px;
+}
+
+.delete-button:hover {
+    background-color: #b71c1c;
+}
+
+@media (max-width: 768px) {
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .form-group-half {
+        margin-bottom: 1rem;
+    }
+}
+
+/* Add these new styles to your existing style.css file */
+
+/* Registration Page Styles */
+.registration-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.form-header {
+    margin-bottom: 2rem;
+}
+
+.form-header h2 {
+    color: var(--primary-dark);
+    font-size: 1.5rem;
+}
+
+.field-error {
+    color: var(--error);
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+}
+
+.registration-input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    transition: var(--transition);
+}
+
+.registration-input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px rgba(0, 128, 192, 0.2);
+}
+
+.registration-actions {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+/* New Sale Page Styles */
+.sale-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.main-info-section {
+    margin-bottom: 2rem;
+}
+
+.sale-input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    transition: var(--transition);
+}
+
+.sale-input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px rgba(0, 128, 192, 0.2);
+}
+
+.description-input {
+    min-height: 100px;
+    resize: vertical;
+}
+
+.photo-upload {
+    margin: 1.5rem 0;
+}
+
+.file-input {
+    padding: 0.5rem;
+    background-color: var(--background);
+}
+
+.price-date-section {
+    margin-bottom: 2rem;
+}
+
+.pickup-section {
+    background-color: var(--background);
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+    margin-bottom: 2rem;
+}
+
+.pickup-section legend {
+    color: var(--primary-dark);
+    font-weight: 500;
+    padding: 0 0.5rem;
+}
+
+.sale-actions {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.create-button, .save-button {
+    min-width: 150px;
+    background-color: var(--primary);
+}
+
+.cancel-button {
+    min-width: 150px;
+    background-color: var(--error);
+}
+
+.cancel-button:hover {
+    background-color: #b71c1c;
+}
+
+@media (max-width: 768px) {
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .registration-actions, .sale-actions {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .create-button, .save-button, .cancel-button {
+        width: 100%;
+    }
+}
+
+.users-table-container {
+    overflow-x: auto;
+}
+
+.users-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+
+.table-header {
+    background-color: var(--primary);
+    color: var(--text-light);
+    padding: 1rem;
+    text-align: left;
+}
+
+.table-row {
+    transition: var(--transition);
+}
+
+.table-row:hover {
+    background-color: rgba(0, 128, 192, 0.1);
+}
+
+.table-cell {
+    padding: 1rem;
+    border-bottom: 1px solid #ddd;
+}
+
+.delete-button {
+    background-color: var(--error);
+}
+
+.details-button {
+    background-color: var(--primary);
+}
+
+.recovery-container {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.recovery-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.recovery-input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    transition: var(--transition);
+}
+
+.recovery-input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px rgba(0, 128, 192, 0.2);
+}
+
+.recovery-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+.recovery-button {
+    min-width: 200px;
+}
+
+.return-button {
+    background-color: var(--primary-light);
+}
+
+.form-label {
+    font-weight: 500;
+    color: var(--text-dark);
+    margin-bottom: 0.5rem;
+    display: block;
 }

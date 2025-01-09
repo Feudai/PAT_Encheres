@@ -139,7 +139,6 @@ public class VenteController {
 	public String afficherEncheres(Model model) {
 		List<Utilisateur> utilisateurs = this.utilisateurService.consulterUtilisateurs();
 		List<ArticleVendu> EncheresArticlesTriees = this.sortEncheresArticles();
-		
 
 		// Updating all articles state
 		LocalDateTime now = LocalDateTime.now();
@@ -165,7 +164,7 @@ public class VenteController {
 	@PostMapping("/accueil")
 	public String filtrerEncheres(@RequestParam(name = "idCategorie", defaultValue = "-1") String idCategorie,
 			@RequestParam(name = "search", defaultValue = "") String nomArticle,
-
+			@RequestParam(name = "choix", defaultValue = "false") boolean choix,
 			@RequestParam(name = "enchOuv", required = false) boolean encheresOuvertes,
 			@RequestParam(name = "enchCours", required = false) boolean encheresEnCours,
 			@RequestParam(name = "enchRemp", required = false) boolean encheresRemportees,
@@ -191,6 +190,7 @@ public class VenteController {
 		List<ArticleVendu> listeArticles = new ArrayList<>();
 		List<ArticleVendu> tempList = new ArrayList<>();
 		String message = "Aucun élément ne correspond à votre recherche";
+		boolean error = false;
 		List<Utilisateur> utilisateurs = this.utilisateurService.consulterUtilisateurs();
 		List<Boolean> filtres = new ArrayList<>();
 		for (int a = 0; a < nbFiltres; a++)
@@ -201,64 +201,96 @@ public class VenteController {
 		int noUtilisateur = authenticatedUser.getNoUtilisateur();
 
 		int noCategorie = Integer.parseInt(idCategorie);
-		
-		if (!nomArticle.equals("") && nomArticle != null)
+
+		if (!nomArticle.equals("") && nomArticle != null) {
 			filtres.set(0, true);
-		else filtres.set(0, false);
-		
-		
-		if (noCategorie != -1)
+		} else
+			filtres.set(0, false);
+
+		if (noCategorie != -1) {
 			filtres.set(1, true);
-		else filtres.set(1, false);
+		} else
+			filtres.set(1, false);
 
-			filtres.set(2, encheresOuvertes);
+		filtres.set(2, encheresOuvertes);
 
-			filtres.set(3, encheresEnCours);
+		filtres.set(3, encheresEnCours);
 
-			filtres.set(4, encheresRemportees);
+		filtres.set(4, encheresRemportees);
 
-			filtres.set(5, ventesEnCours);
+		filtres.set(5, ventesEnCours);
 
-			filtres.set(6, ventesAVenir);
+		filtres.set(6, ventesAVenir);
 
-			filtres.set(7, ventesTerminees);
+		filtres.set(7, ventesTerminees);
 
-		
-			tempList = EncheresArticlesTriees.stream().filter(a -> 
-			
-			
-			filtres.get(0)?(a.getNomArticle().toLowerCase().contains(nomArticle.toLowerCase())):true
-					
-			&&filtres.get(1)?(a.getCategorieArticle().getNoCategorie() == noCategorie): true
-				  
-				&&filtres.get(2)?(LocalDateTime.now().compareTo(a.getDateDebutEncheres()) >= 0):true
-				
-				&&filtres.get(3)?(LocalDateTime.now().compareTo(a.getDateDebutEncheres()) >= 0
+		System.err.println(choix);
+		;
+
+		tempList = EncheresArticlesTriees.stream().filter(a -> {
+			boolean result = true;
+
+			if (filtres.get(0)) {
+				result = result && a.getNomArticle().toLowerCase().contains(nomArticle.toLowerCase());
+			}
+
+			if (filtres.get(1)) {
+				result = result && a.getCategorieArticle().getNoCategorie() == noCategorie;
+			}
+
+			if (filtres.get(2)) {
+				result = result && LocalDateTime.now().compareTo(a.getDateDebutEncheres()) >= 0;
+			}
+
+			if (filtres.get(3)) {
+				result = result && LocalDateTime.now().compareTo(a.getDateDebutEncheres()) >= 0
+						&& LocalDateTime.now().compareTo(a.getDateFinEncheres()) < 0 && a.getListeEncheres() != null
+						&& !a.getListeEncheres().isEmpty()
+						&& a.getListeEncheres().get(0).getCreateur().getNoUtilisateur() == noUtilisateur;
+			}
+
+			if (filtres.get(4)) {
+				result = result && LocalDateTime.now().compareTo(a.getDateFinEncheres()) >= 0;
+			}
+
+			if (filtres.get(5)) {
+				result = result && LocalDateTime.now().compareTo(a.getDateDebutEncheres()) >= 0
 						&& LocalDateTime.now().compareTo(a.getDateFinEncheres()) < 0
-						&& (a.getListeEncheres()!=null)?a.getListeEncheres().get(0).getCreateur().getNoUtilisateur() == noUtilisateur:false):true
-				
-				&&filtres.get(4)?(LocalDateTime.now().compareTo(a.getDateFinEncheres()) >= 0):true
-				
-				&&filtres.get(5)?(LocalDateTime.now().compareTo(a.getDateDebutEncheres()) >= 0
-						&& LocalDateTime.now().compareTo(a.getDateFinEncheres()) < 0
-						&& a.getCreateur().getNoUtilisateur() == noUtilisateur):true
-				
-				&&filtres.get(6)?(LocalDateTime.now().compareTo(a.getDateDebutEncheres()) < 0
-						&& a.getCreateur().getNoUtilisateur() == noUtilisateur):true
-				
-				&&filtres.get(7)?(LocalDateTime.now().compareTo(a.getDateFinEncheres()) >= 0
-						&& a.getCreateur().getNoUtilisateur() == noUtilisateur):true
-				
+						&& a.getCreateur().getNoUtilisateur() == noUtilisateur;
+			}
 
-					).toList();
-			
-			EncheresArticlesTriees.forEach(a->System.err.println(a.getCategorieArticle().getNoCategorie()==noCategorie&&a.getNomArticle().toLowerCase().contains(nomArticle.toLowerCase())));
-			
+			if (filtres.get(6)) {
+				result = result && LocalDateTime.now().compareTo(a.getDateDebutEncheres()) < 0
+						&& a.getCreateur().getNoUtilisateur() == noUtilisateur;
+			}
+
+			if (filtres.get(7)) {
+				result = result && LocalDateTime.now().compareTo(a.getDateFinEncheres()) >= 0
+						&& a.getCreateur().getNoUtilisateur() == noUtilisateur;
+			}
+
+			if (choix)
+
+				result = result && a.getCreateur().getNoUtilisateur() != noUtilisateur;
+			else
+				result = result && a.getCreateur().getNoUtilisateur() == noUtilisateur;
+
+			return result;
+		}).toList();
+
+		tempList.forEach(a -> System.err.println("oui"));
+
 		if (tempList.isEmpty()) {
 			tempList = EncheresArticlesTriees;
-			System.err.println(message);
+			error = true;
+			System.err.println("error");
 		}
 		tempList.forEach(e -> listeArticles.add(e));
+		
+		model.addAttribute("choix",choix);
+
+		model.addAttribute("error", error);
+		model.addAttribute("message", message);
 
 		model.addAttribute("utilisateurs", utilisateurs);
 		model.addAttribute("listeArticles", listeArticles);

@@ -115,9 +115,8 @@ h1 {
 }
 
 .search-group {
-    flex: 1;
-    display: grid;
-    grid-template-columns: 2fr 1fr;
+    display: flex;
+    justify-content: center;
     gap: 1rem;
 }
 

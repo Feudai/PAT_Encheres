@@ -19,32 +19,32 @@
                 <div class="filter-section">
                     <div class="filter-options">
                         <div class="filter-group">
-                            <div th:if="${!utilisateurIsAuthentificate}" class="form-group">
+                            <div th:if="${!utilisateurIsAuthentificate} OR (${utilisateurIsAuthentificate} AND ${dateEnchereDebutDepasse})" class="form-group">
                                 <label for="idArticle">Article :</label>
                                 <textarea id="idArticle" th:text="${articleVendu.nomArticle}" readonly="readonly" class="form-control"></textarea>
                             </div>
-                            <div th:if="${utilisateurIsAuthentificate}" class="form-group">
+                            <div th:if="${utilisateurIsAuthentificate} AND ${!dateEnchereDebutDepasse}" class="form-group">
                                 <label for="idArticle">Article :</label>
                                 <textarea id="idArticle" th:field="*{nomArticle}" class="form-control"></textarea>
                             </div>
 
-                            <div th:if="${!utilisateurIsAuthentificate}" class="form-group">
+                            <div th:if="${!utilisateurIsAuthentificate} OR (${utilisateurIsAuthentificate} AND ${dateEnchereDebutDepasse})" class="form-group">
                                 <label for="description">Description :</label>
                                 <textarea id="description" th:text="${articleVendu.description}" readonly="readonly" class="form-control"></textarea>
                             </div>
-                            <div th:if="${utilisateurIsAuthentificate}" class="form-group">
+                            <div th:if="${utilisateurIsAuthentificate} AND ${!dateEnchereDebutDepasse}" class="form-group">
                                 <label for="description">Description :</label>
                                 <textarea th:field="*{description}" id="description" class="form-control"></textarea>
                             </div>
                         </div>
 
                         <div class="filter-group">
-                            <div th:if="${!utilisateurIsAuthentificate}" class="form-group">
+                            <div th:if="${!utilisateurIsAuthentificate} OR (${utilisateurIsAuthentificate} AND ${dateEnchereDebutDepasse})" class="form-group">
                                 <label for="categorieArticle">Catégorie :</label>
                                 <textarea id="categorieArticle" th:text="${articleVendu.categorieArticle.libelle}" readonly="readonly" class="form-control"></textarea>
                             </div>
-
-                            <div th:if="${utilisateurIsAuthentificate}" class="form-group">
+                            
+                            <div th:if="${utilisateurIsAuthentificate} AND ${!dateEnchereDebutDepasse}" class="form-group">
                                 <label for="categorieArticle">Catégorie :</label>
                                 <select th:field="*{categorieArticle.noCategorie}" class="form-control">
                                     <option th:each="c : ${listCategorie}" th:value="${c.noCategorie}" th:text="${c.libelle}"></option>
@@ -64,33 +64,34 @@
                             </div>
                         </div>
 
+
                         <div class="filter-group">
                             <div class="price-info">
                                 <label for="miseAPrix">Mise à prix :</label>
-                                <div th:if="${!utilisateurIsAuthentificate}" class="value" th:text="${articleVendu.miseAPrix}"></div>
-                                <textarea th:if="${utilisateurIsAuthentificate}" id="miseAPrix" th:field="*{miseAPrix}" class="form-control"></textarea>
+                                <div th:if="${!utilisateurIsAuthentificate} OR (${utilisateurIsAuthentificate} AND ${dateEnchereDebutDepasse})" class="value" th:text="${articleVendu.miseAPrix}"></div>
+                                <textarea th:if="${utilisateurIsAuthentificate} AND ${!dateEnchereDebutDepasse}" id="miseAPrix" th:field="*{miseAPrix}" class="form-control"></textarea>
                             </div>
 
                             <div class="date-info">
                                 <label for="dateFinEncheres">Fin de l'enchère :</label>
-                                <div th:if="${!utilisateurIsAuthentificate}" class="value" th:text="${articleVendu.dateFinEncheres}"></div>
-                                <textarea th:if="${utilisateurIsAuthentificate}" id="dateFinEncheres" th:field="*{dateFinEncheres}" class="form-control"></textarea>
+                                <div th:if="${!utilisateurIsAuthentificate} OR (${utilisateurIsAuthentificate} AND ${dateEnchereDebutDepasse})" class="value" th:text="${articleVendu.dateFinEncheres}"></div>
+                                <textarea th:if="${utilisateurIsAuthentificate} AND ${!dateEnchereDebutDepasse}" id="dateFinEncheres" th:field="*{dateFinEncheres}" class="form-control"></textarea>
                             </div>
 
                             <div class="date-info">
                                 <label for="dateDebutEncheres">Début de l'enchère :</label>
-                                <div th:if="${!utilisateurIsAuthentificate}" class="value" th:text="${articleVendu.dateDebutEncheres}"></div>
-                                <textarea th:if="${utilisateurIsAuthentificate}" id="dateDebutEncheres" th:field="*{dateDebutEncheres}" class="form-control"></textarea>
+                                <div th:if="${!utilisateurIsAuthentificate} OR (${utilisateurIsAuthentificate} AND ${dateEnchereDebutDepasse})" class="value" th:text="${articleVendu.dateDebutEncheres}"></div>
+                                <textarea th:if="${utilisateurIsAuthentificate} AND ${!dateEnchereDebutDepasse}" id="dateDebutEncheres" th:field="*{dateDebutEncheres}" class="form-control"></textarea>
                             </div>
                         </div>
 
                         <div class="filter-group">
-                            <div th:if="${!utilisateurIsAuthentificate}" class="seller-info">
+                            <div th:if="${!utilisateurIsAuthentificate} OR (${utilisateurIsAuthentificate} AND ${dateEnchereDebutDepasse})" class="seller-info">
                                 <label for="lieuRetrait">Retrait :</label>
                                 <span class="value" th:text="${articleVendu.lieuRetrait.rue} +' '+ ${articleVendu.lieuRetrait.codePostal} +' ' +${articleVendu.lieuRetrait.ville}"></span>
                             </div>
 
-                            <fieldset th:if="${utilisateurIsAuthentificate}" class="filter-section">
+                            <fieldset th:if="${utilisateurIsAuthentificate} AND ${!dateEnchereDebutDepasse}" class="filter-section">
                                 <legend>Retrait</legend>
                                 <div class="filter-options">
                                     <div class="filter-group">
@@ -107,7 +108,7 @@
                                     </div>
                                 </div>
                             </fieldset>
-
+                            
                             <div class="seller-info">
                                 <label for="Createur">Créateur :</label>
                                 <span class="value" th:text="${articleVendu.createur.pseudo}"></span>
@@ -118,9 +119,7 @@
                     <div class="card-image">
                         <img th:src="@{'/images/' + ${articleVendu.cheminImage}}" alt="Image de l'article">
                     </div>
-
                     <input type="hidden" th:field="*{noArticle}" />
-
                     <div th:if="${!utilisateurIsAuthentificate}" sec:authorize="isAuthenticated()" class="filter-section">
                         <h2>Montez les Enchères !</h2>
                         <div class="search-section">
@@ -130,8 +129,9 @@
                         </div>
                     </div>
 
+
                     <div class="card-actions">
-                        <button th:if="${utilisateurIsAuthentificate}" sec:authorize="isAuthenticated()" type="submit" class="view-details">
+                        <button th:if="${utilisateurIsAuthentificate} AND ${!dateEnchereDebutDepasse}"sec:authorize="isAuthenticated()" type="submit" class="view-details">
                             Modifier les informations
                         </button>
                         <button th:if="${!utilisateurIsAuthentificate}" sec:authorize="isAuthenticated()" type="submit" class="view-details">

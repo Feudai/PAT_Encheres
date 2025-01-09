@@ -290,15 +290,20 @@ public class VenteController {
 
 		articleVendu.setCreateur(utilisateur);
 		articleVendu.setListeEncheres(this.sort(encheres));
+		
 
 		boolean utilisateurIsAuthentificate = false;
-
+		boolean dateEnchereDebutDepasse = false;
 		if (principal != null) {
 			String username = principal.getName();
 			Utilisateur authenticatedUser = utilisateurService.findByUsername(username);
 			if (authenticatedUser != null
 					&& authenticatedUser.getNoUtilisateur() == articleVendu.getCreateur().getNoUtilisateur()) {
 				utilisateurIsAuthentificate = true;
+
+			}
+			if (LocalDateTime.now().isAfter(articleVendu.getDateDebutEncheres())) {
+				dateEnchereDebutDepasse = true;
 			}
 		}
 		if (encheres != null && !encheres.isEmpty())
@@ -306,7 +311,7 @@ public class VenteController {
 
 		model.addAttribute("listCategorie", this.categorieService.getListeCategories());
 		model.addAttribute("utilisateurIsAuthentificate", utilisateurIsAuthentificate);
-
+		model.addAttribute("dateEnchereDebutDepasse", dateEnchereDebutDepasse);
 		model.addAttribute("articleVendu", articleVendu);
 
 		return "encheres-details";
@@ -324,7 +329,7 @@ public class VenteController {
 		Retrait retrait = articleVendu.getLieuRetrait();
 		retrait.setArticle(articleVendu);
 		this.retraitService.modifierRetrait(retrait, noArticle);
-		
+
 		if (proposition != null) {
 			int montant = Integer.parseInt(proposition);
 			Enchere nouvelleEnchere = new Enchere(LocalDateTime.now(), montant, authenticatedUser, articleVendu);

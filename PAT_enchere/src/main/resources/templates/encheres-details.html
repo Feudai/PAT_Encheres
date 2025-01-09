@@ -152,19 +152,19 @@
 							</div>
 						</div>
 					</div>
-
+					<div class="card-actions action-buttons">
+											<button th:if="${utilisateurIsAuthentificate} AND ${!dateEnchereDebutDepasse}"
+												sec:authorize="isAuthenticated()" type="submit" class="view-details modify-button">Modifier
+												les informations</button>
+											<button th:if="${!utilisateurIsAuthentificate}" sec:authorize="isAuthenticated()" type="submit"
+												class="view-details bid-button">Surenchérir</button>
+										</div>
 					<div class="card-actions action-buttons">
 						<button th:if="${utilisateurIsAuthentificate} AND ${!dateEnchereDebutDepasse}"
 							sec:authorize="isAuthenticated()" type="submit" class="view-details delete-button"
 							name="suppresion" value="true">Annuler la vente</button>
 					</div>
-					<div class="card-actions action-buttons">
-						<button th:if="${utilisateurIsAuthentificate} AND ${!dateEnchereDebutDepasse}"
-							sec:authorize="isAuthenticated()" type="submit" class="view-details modify-button">Modifier
-							les informations</button>
-						<button th:if="${!utilisateurIsAuthentificate}" sec:authorize="isAuthenticated()" type="submit"
-							class="view-details bid-button">Surenchérir</button>
-					</div>
+					
 				</div>
 			</form>
 		</main>

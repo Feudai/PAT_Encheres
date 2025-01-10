@@ -149,6 +149,12 @@ public class VenteController {
 		List<Utilisateur> utilisateurs = this.utilisateurService.consulterUtilisateurs();
 		List<ArticleVendu> EncheresArticlesTriees = this.sortEncheresArticles();
 		
+		EncheresArticlesTriees.forEach(a->{if(a.getListeEncheres() != null && !a.getListeEncheres().isEmpty()&&a.getEtatVente()==1&&a.isRemporte()==false) {
+			a.getCreateur().setCredit(a.getCreateur().getCredit()+a.getListeEncheres().get(0).getMontantEnchere());
+			System.err.println(a.getCreateur().getPseudo() + " a été crédité de "+a.getListeEncheres().get(0).getMontantEnchere()+" pts.");
+			}});
+		
+		
 		model.addAttribute("utilisateurs", utilisateurs);
 		model.addAttribute("listeArticles", EncheresArticlesTriees);
 		model.addAttribute("listeCategories", this.categorieService.getListeCategories());
@@ -361,6 +367,7 @@ public class VenteController {
 			this.retraitService.supprimerRetrait(retrait, noArticle);
 			this.articleVenduService.supprimerArtice(articleVendu, noArticle);
 		}
+		System.err.println("ici");
 		}
 		if (proposition != null&&articleVendu.getEtatVente()==0) {
 			int montant = Integer.parseInt(proposition);
@@ -387,6 +394,7 @@ public class VenteController {
 				System.err.println("réuissite");
 			}
 			else System.err.println("Tu n'as pas assez d'argent mon gâté");
+			System.err.println("Mais rien ne se passe !");
 		}
 
 		return "redirect:/accueil";
@@ -410,7 +418,6 @@ public class VenteController {
 			else if (a.getListeEncheres().get(0) != null)
 				stream.get(0).getListeEncheres().add(a.getListeEncheres().get(0));
 		});
-		System.err.println(tempEmpty.size());
 
 		tempEmpty.forEach(a -> {
 			if (articles.stream().noneMatch(b -> b.getNoArticle() == a.getNoArticle()))
@@ -436,12 +443,7 @@ public class VenteController {
 			}
 			else {if (a.getDateDebutEncheres().compareTo(now) > 0) 
 				a.setEtatVente(-1);
-				if(a.getDateFinEncheres().compareTo(now)<0) { a.setEtatVente(1);
-				if(a.getListeEncheres() != null && !a.getListeEncheres().isEmpty()) {
-				a.getCreateur().setCredit(a.getCreateur().getCredit()+a.getListeEncheres().get(0).getMontantEnchere());
-				System.err.println(a.getCreateur().getPseudo() + " a été crédité de "+a.getListeEncheres().get(0).getMontantEnchere()+" pts.");
-				}
-				}
+				if(a.getDateFinEncheres().compareTo(now)<0)  a.setEtatVente(1);
 			}
 		});
 

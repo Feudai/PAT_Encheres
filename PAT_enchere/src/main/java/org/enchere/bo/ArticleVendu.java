@@ -21,6 +21,7 @@ public class ArticleVendu {
 	private List<Enchere> listeEncheres;
 	private Retrait lieuRetrait;
 	private Categorie categorieArticle;
+	private boolean remporte = false;
 	
 	
 	public ArticleVendu(int noArticle, String nomArticle, String description, LocalDateTime dateDebutEncheres,
@@ -172,6 +173,18 @@ public class ArticleVendu {
 
 	public void setCreateur(Utilisateur createur) {
 		this.createur = createur;
+	}
+
+
+
+	public boolean isRemporte() {
+		return remporte;
+	}
+
+
+
+	public void setRemporte(boolean remporte) {
+		this.remporte = remporte;
 	}
 
 

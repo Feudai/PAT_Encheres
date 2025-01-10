@@ -15,10 +15,17 @@ import org.springframework.web.multipart.MultipartFile;
 @Service
 public class ImageServiceImpl implements ImageService {
     private final String uploadDir = System.getProperty("user.home") + "\\Documents/";
-    private final long MAX_FILE_SIZE = 1 * 1024 * 1024; // 1MB en bytes
+    private final long MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB en bytes
 
     public String sauvegarderImage(MultipartFile imageFile, int noArticle) {
         try {
+        	
+            // Vérification du dossier de destination
+            Path directoryPath = Paths.get(uploadDir);
+            if (!Files.exists(directoryPath)) {
+                Files.createDirectories(directoryPath);
+            }
+        	
             // Vérification de la taille
             if (imageFile.getSize() > MAX_FILE_SIZE) {
                 throw new ImageTropGrandException("La taille du fichier dépasse la limite de 5MB");
@@ -30,10 +37,12 @@ public class ImageServiceImpl implements ImageService {
                 throw new RuntimeException("Le fichier doit être une image");
             }
 
+            // Génération du nom et sauvegarde
             String fileName = noArticle + "_" + UUID.randomUUID().toString() + ".jpg";
             Path path = Paths.get(uploadDir + fileName);
             Files.copy(imageFile.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
             return fileName;
+            
         } catch (IOException e) {
             throw new RuntimeException("Erreur lors de la sauvegarde de l'image", e);
         }

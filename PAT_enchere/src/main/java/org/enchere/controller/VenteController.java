@@ -108,6 +108,8 @@ public class VenteController {
 	    }
 
 	    try {
+	    	System.err.println(article.getDateDebutEncheres());
+	    	
 	        // Récupérer l'utilisateur connecté
 	        String username = principal.getName();
 	        Utilisateur authenticatedUser = utilisateurService.findByUsername(username);
@@ -361,7 +363,7 @@ public class VenteController {
 			this.articleVenduService.supprimerArtice(articleVendu, noArticle);
 		}
 		}
-		if (proposition != null) {
+		if (proposition != null&&articleVendu.getEtatVente()==0) {
 			int montant = Integer.parseInt(proposition);
 			Enchere nouvelleEnchere = new Enchere(LocalDateTime.now(), montant, authenticatedUser, articleVendu);
 
@@ -373,12 +375,18 @@ public class VenteController {
 						&& this.enchereService.getBestEnchere(articleVendu.getNoArticle()).getCreateur()
 								.getNoUtilisateur() != nouvelleEnchere.getCreateur().getNoUtilisateur()
 								&&authenticatedUser.getCredit()>=articleVendu.getListeEncheres().get(0).getMontantEnchere()) {
-					this.enchereService.ajouterEnchere(nouvelleEnchere);
 					authenticatedUser.setCredit(authenticatedUser.getCredit()-articleVendu.getListeEncheres().get(0).getMontantEnchere());
+					this.enchereService.ajouterEnchere(nouvelleEnchere);
+					this.utilisateurService.update(authenticatedUser);
+					System.err.println("réuissite!");
 				}
+				System.err.println("réuissite?");
 			} else if (nouvelleEnchere.getMontantEnchere() > articleVendu.getMiseAPrix()&&authenticatedUser.getCredit()>=articleVendu.getMiseAPrix()) {
+				authenticatedUser.setCredit(authenticatedUser.getCredit()-articleVendu.getMiseAPrix());
 				this.enchereService.ajouterEnchere(nouvelleEnchere);
-			authenticatedUser.setCredit(authenticatedUser.getCredit()-articleVendu.getMiseAPrix());}
+				this.utilisateurService.update(authenticatedUser);
+				System.err.println("réuissite");
+			}
 			else System.err.println("Tu n'as pas assez d'argent mon gâté");
 		}
 

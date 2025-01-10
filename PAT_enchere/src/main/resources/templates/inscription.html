@@ -32,7 +32,7 @@
                     <div class="form-grid">
                         <div class="filter-group input-wrapper">
                             <label for="pseudo">Pseudo</label>
-                            <input id="pseudo" th:field="*{pseudo}" type="text" required class="form-control registration-input"/>
+                            <input id="pseudo" th:field="*{pseudo}" type="text" class="form-control registration-input"/>
                             <div th:replace="~{fragments/fragment-error :: frag-error('pseudo')}" class="field-error"></div>
                         </div>
 
@@ -92,8 +92,8 @@
                     </div>
 
                     <div class="registration-actions">
-                        <button type="submit" class="search-button create-button">Créer</button>
-                        <button type="button" class="search-button cancel-button">Annuler</button>
+                        <button type="submit" class="search-button create-button" value="true" name="button">Créer</button>
+                        <button type="submit" class="search-button cancel-button" value="false" name="button">Annuler</button>
                     </div>
                 </div>
             </form>

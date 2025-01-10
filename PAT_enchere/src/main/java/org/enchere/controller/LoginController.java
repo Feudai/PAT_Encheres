@@ -13,6 +13,7 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -51,7 +52,10 @@ public class LoginController {
 	}
 
 	@PostMapping("/createUser")
-	public String createUser(@Valid @ModelAttribute Utilisateur utilisateur, BindingResult bindingResult) {
+	public String createUser(@Valid @ModelAttribute Utilisateur utilisateur, BindingResult bindingResult,@RequestParam(name="button", defaultValue="false")boolean create) {
+		if(create==false)
+			return"accueil";
+		System.err.println(create);
 
 		// Vérification de la correspondance des mots de passe
 		if (!utilisateur.getMotDePasse().equals(utilisateur.getConfirmationMotDePasse())) {

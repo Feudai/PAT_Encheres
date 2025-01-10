@@ -337,7 +337,6 @@ public class VenteController {
 			if (authenticatedUser != null
 					&& authenticatedUser.getNoUtilisateur() == articleVendu.getCreateur().getNoUtilisateur()) {
 				utilisateurIsAuthentificate = true;
-
 			}
 			if (LocalDateTime.now().isAfter(articleVendu.getDateDebutEncheres())) {
 				dateEnchereDebutDepasse = true;
